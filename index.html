@@ -1,0 +1,1312 @@
+<!doctype html>
+<html class="theme-next ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="//font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="//main.css?v=" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="poberWong">
+<meta property="og:url" content="http://lovinghuan.com/index.html">
+<meta property="og:site_name" content="poberWong">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="poberWong">
+<meta name="twitter:description">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: '',
+    motion: 
+  };
+</script>
+
+  <title> poberWong -  </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">poberWong</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">～～～Running on the way～～～</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <section id="posts" class="posts-expand">
+
+    
+
+    
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/04/廖雪峰Js－学习/" itemprop="url">
+                  廖雪峰Js基础学习——简记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-04T22:09:25+08:00" content="2016-01-04">
+              2016-01-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><ul>
+<li>一门脚本语言，电脑，平板，手机上浏览的所有网页，以及无数的基于HTML5的app基于JS驱动。</li>
+<li>跨平台，跨浏览器驱动网页</li>
+</ul>
+<h2 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h2><ul>
+<li>创始人：Brendan Dich，两周的设计时间（1995年，网景公司）</li>
+<li>ECMA（European Computer Manufacturers Association）为JavaScript定制了ECMAScript标准，前者是后者的实现。可以简单的理解为同一种东西。</li>
+<li>2015年6月，发布了ES6，可以简单的理解为js6版本，将ES6的版本看作是Java的版本，就会觉得很容易理解了。</li>
+</ul>
+<h2 id="快速入门："><a href="#快速入门：" class="headerlink" title="快速入门："></a>快速入门：</h2><ul>
+<li><p>Js代码可以在嵌入到网页的任何地方，一般放到<head>标签中，如：</head></p>
+<head> <script> alert(‘Hello, world’) </script></head>
+</li>
+<li><p>也可以通过<script src="the path of .js file"></script>使用src属性来引入需要被执行的js文件 (维护方便，引用方便，可以参考android的<include>标签)<br>可以使用type属性来指明script标签的类型，默认是“text/javascript”  </include></p>
+</li>
+<li><p>使用chrome调试Js代码：  </p>
+<ul>
+<li>command+alt+i,打开或关闭开发者模式（上下分屏看源码）</li>
+<li>command+alt+j,打开或关闭开发者模式下的js控制台 </li>
+</ul>
+</li>
+</ul>
+<h3 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h3><p>浏览器中负责执行的Js引擎会在每个语句末尾补上；，因此Js不强制要求句尾加；</p>
+<ul>
+<li>允许层级嵌套，过深需要抽取函数。</li>
+<li>不建议一行写多个语句。  </li>
+<li>单行／多行注释等同于Java</li>
+<li>严格区分大小写</li>
+</ul>
+<h3 id="数据类型、变量"><a href="#数据类型、变量" class="headerlink" title="数据类型、变量"></a>数据类型、变量</h3><ul>
+<li><code>Number</code>, Js不区分整数浮点数，如：123   0.456   1.23e4    －99<br>NaN（无法计算结果时表示）    Infinity 表示无限大，超过了Number的最大值。（可以做加减乘除取余。注意：2/0 ＝ Infinity， 0/0 ＝ NaN）  </li>
+<li><code>字符串</code>是实用单引号或者双引号括起来的任意文本  </li>
+<li><code>布尔值</code> 要么true， 要么false，也可以使用代数表达式来计算表示  </li>
+<li><code>&amp;&amp;</code>,<code>||</code>,<code>!</code>,<code>比较运算</code></li>
+<li>＝＝ 转换数据类型之后，再比较(存在诡异的bug)； ＝＝＝不自动转换数据类型，数据类型不一致，返回false， 否则进一步比较数值。<strong>推荐使用＝＝＝</strong> </li>
+<li>NaN和谁都不等，包括自己，只有通过isNaN(NaN)来判断</li>
+<li>浮点数比较，1 / 3 === (1 - 2 / 3); // false 计算机计算浮点数时会有误差，因此只能通过计算两个数的差值是否小于某阀值来判断是否相等。</li>
+<li>null表示一个空值，undefined表示值未定义。多数情况下使用null </li>
+<li><code>数组</code> Js的数组可以包含任意类型的数据 [1,2,3,7,’Hello’,null, true,false];<ul>
+<li>使用 new Array(1,3,4,’ddd’); =========  [1,2,3, ‘fdsf’];</li>
+</ul>
+</li>
+<li>var arr = [1,3,true, ‘Bob’]; var用来声明变量，其中arr[4]是 undefined，这下知道undefined怎么用了吧</li>
+<li><code>对象</code>，Js对象由一组无序的键值对来表示，如： var person ＝ ｛name: ‘Pober’, gender: ‘male’, age: 20 ｝;其中键均为字符串类型，值为任意类型。其中字符串如果是标准的标识符，则可以不加双引号，譬如存在－连字符的就不是标识符。<ul>
+<li>通过<code>.</code>来获取对象中的内容，如 person.name</li>
+</ul>
+</li>
+<li><code>变量</code> 使用var声明，注意关键字的避规<ul>
+<li>Js中使用＝进行赋值，可以把任意数据类型赋值给变量，可以反复赋值重复利用。变量本身类型不固定，称之为动态语言。Java、Cplus，C为静态语言。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Strict模式</strong><br>    在Js中，如果不使用var声明变量，就直接使用一个变量，那么默认它为全局变量。使用var声明的变量的作用域则是对应的函数体内。可以使用 <code>use strict</code>放到js代码的第一行，如果浏览器支持strict模式，那将认为该没有var声明的变量存在ReferenceError错误。否则浏览器将会认为它是一个普通的字符串.<br>    <em>如果在同一区域重复对同一个变量做var声明，那么后者如果有值，则覆盖前者，否则不会影响前者变量的值</em></p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<li>使用‘’或“”括起来的字符串</li>
+<li>字符串中包含‘，可以使用“”括起来，如果包含“，就使用\转义，如：“I’m a \”Male\””,这样程序就会认为转义后的”为一个普通字符</li>
+<li>\x## 表示Ascii码值为十六进制##的字符。如’\x41’＝‘A’;</li>
+<li>ES6中，使用反引号<code>...</code>来代替‘\n’换行。如下：<ul>
+<li>`it </li>
+<li>is </li>
+<li>an</li>
+<li>end`</li>
+</ul>
+</li>
+<li>数组中，发生越界，只会返回undefined，并不会报错<br><strong>常见的字符串操作</strong></li>
+<li>s.length  求字符串长度,给其他类型数据求长度返回undifined</li>
+<li>和Java一样，字符串具有不可变性，给使用索引获取到的某一个字符赋值没有意义。</li>
+<li>s.toUpperCase();／toLowerCase返回一个新的字符串</li>
+<li>indexOf(‘word’); 返回字符串’word‘在字符串中出现的位置，结果是w所在的索引</li>
+<li>substring(0,5); 同样的，左闭右开。</li>
+<li>substring(7); 返回从7开始到结束的字符</li>
+<li>可以直接使用‘＋’来连接字符串</li>
+</ul>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li>可包涵任意类型的元素，通过索引访问。长度直接访问length属性。</li>
+<li>重新给length属性赋值，会导致数组长度变化，要么截取要么添加undefined</li>
+<li>可以通过索引来改变数组中对应的元素值</li>
+<li><p>使用上一条出现越界时，同样会改变数组，使用undefined来补位<br><strong>在使用数组时，不提倡越界，修改数组长度</strong></p>
+</li>
+<li><p>indexOf(10) [返回数组中对应元素的索引;找不到返回－1]</p>
+</li>
+<li>slice(a,b) 与substring()对应，同样是左闭右开, [返回其子数组]</li>
+<li>slice(a) 从索引a开始直到结束, [返回所要求的数组]</li>
+<li>slice() 直接返回一个数组的拷贝</li>
+<li>push/pop 向数组末尾添加或删除元素。[push返回值为数组大小]，[pop返回元素]</li>
+<li>unshift/shift 向数组头部添加或删除元素 [unshift返回数组长度，shift返回元素]</li>
+<li>sort() 对当前数组排序，默认升序;[对当前数组进行修改]</li>
+<li>reverse 反转数组</li>
+<li>splice(offset, count, ……) 表示从offset位置删除count个元素，然后从offset位置加入若干元素。第三个参数可以缺省。[返回的是被删除的元素]</li>
+<li>concat() 参数可以是单独的元素，也可以是数组，无限制，拆开之后重新组装为新数组并[返回新数组]</li>
+<li>join(‘-‘)表示将数组中的每一个元素用指定字符连接，然后返回字符串。若数组中有非字符串，转换后连接  ［返回字符串］</li>
+</ul>
+<h4 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h4><p>数组中的某些元素也是数组。</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ul>
+<li>无序键值对集合</li>
+<li>取出之后可以重新赋值</li>
+<li>如果是使用的‘’包裹的非标识符键，则需要使用[“xxx”]来获取键值<ul>
+<li>其他情况均通用</li>
+</ul>
+</li>
+<li><code>添加属性</code> 给一个不存在的属性赋值</li>
+<li><code>删除属性</code>  delete 对应属性<ul>
+<li>删除一个不存在的属性 不报错</li>
+</ul>
+</li>
+<li><code>in</code> 判断属性是否存在  name in person<ul>
+<li>当属性为其继承“父类”的属性时，会返回true，如Object的toString</li>
+<li>因此给出了更加合理的方法：name.hasOwnProperty(…);只在自己的属性中查找</li>
+</ul>
+</li>
+</ul>
+<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><p>基本规则和java以及其他语言一样，<strong>都建议加上{}</strong></p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><ul>
+<li>for…in 可用来遍历一个对象中所有的属性。<strong><em>如果给数组做for…in，则返回遍历的是下标。如果使用属性赋值，则该属性会被加到数组中，而for…in会将它包含在内。数组的length属性却不会改变。</em></strong></li>
+<li>do while    /    while</li>
+</ul>
+<h3 id="Map-Set"><a href="#Map-Set" class="headerlink" title="Map Set"></a>Map Set</h3><ul>
+<li><code>Map</code>: <ul>
+<li>可以通过一个二维数组作为参数来实例化,或空集合</li>
+<li>set(key, value);//存入一个键值对</li>
+<li>has(key);//判断是否存在，[返回true／false]</li>
+<li>get(key);//获取值，返回［值］</li>
+<li>delete(key);删除对应的key值对,如果删除成功，［返回结果true，否则false］</li>
+<li>如果重复压入相同的键值元素，则覆盖前者<br><strong>以上存在对不存在的对象的操作，返回undefined</strong></li>
+</ul>
+</li>
+<li><code>Set</code>:<ul>
+<li>相当于Map的简化版，不存储value，只存key，即就是存储不重复元素</li>
+<li>使用一维数组作为输入实例化或者直接创建空的。</li>
+<li>add(key) 向数组中添加元素</li>
+<li>delete(key)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Iterable"><a href="#Iterable" class="headerlink" title="Iterable"></a>Iterable</h3><p>属于iterable的集合有：<code>Array</code>、<code>Map</code>、<code>Set</code>  </p>
+<ul>
+<li><p>for…of 遍历以上Iterable类型集合</p>
+<ul>
+<li>for(var x of a)// for…in， for…of， for…each基本一样</li>
+<li>使用 for…of 则会修复 for…in的对应的bug，它只循环属于自己的元素，直接通过赋值的元素不会被遍历。</li>
+</ul>
+</li>
+<li><p>iterable内置的forEach方法：[里边所有变量对外边透明]</p>
+<ol>
+<li><p><code>forEach</code> for Array:<br>a.forEach(function (element, index, array){<br> element//当前元素<br> index//当前下标<br> array//数组，即就是a<br>});</p>
+</li>
+<li><p><code>forEach</code> for Set:<br>s.forEach(function (element, sameElement, set){<br> 前两个参数都是元素本身//因为Set没有索引<br>});</p>
+</li>
+<li><p><code>forEach</code> for Map:<br>s.forEach(function (value, key, map){</p>
+<p>});<br><strong>以上参数可以对应缺省,但是顺序是一一对应的，缺省顺序遵循Cplus</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>函数就是一种代码的抽象方式</p>
+<h3 id="函数定义和调用"><a href="#函数定义和调用" class="headerlink" title="函数定义和调用"></a>函数定义和调用</h3><ul>
+<li>function functionName(arguements){<br>  程序如果顺序执行完毕，则返回undefined，否则按照<br>  代码所以写返回所要求的值<br>}<br><em>functionName(arguements)是一个函数对象，functionName可以看作指向该对象的一个变量</em></li>
+<li><p><code>匿名函数</code>var abs = function(arguments){<br>  返回值直接赋给abs;<br>  //vs Java: Java 中的匿名内部类主要是用来实现接口或者继承<br>  //来直接获取对象的。而Js也是类似，不过Js只是相当于把函数名functionName给放到    //赋值号前边了而已，调用方法的时候，依然使用funcitionName来调用<br>}</p>
+</li>
+<li><p>函数的调用：</p>
+<ul>
+<li>可以给参数列表后随意加参数，不过 in vain</li>
+<li>如果缺省了唯一的参数，则返回NaN（此时，形参收到undefined，返回NaN）</li>
+<li>因此要避免收到undefined<ul>
+<li>typeof x! == ‘number’ 判断x的类型和number是否一致</li>
+<li>throw “xxx”; 抛异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>arguments：函数体内部自带的辅助参数<ul>
+<li>永远指向传入的参数，可以看作一个数组</li>
+<li>它的存在不依赖于是否传入参数</li>
+<li>常用来辅助判断传入参数的个数</li>
+</ul>
+</li>
+<li>rest参数：//意思是额外的参数<ul>
+<li>相当于专门接收额外参数的数组</li>
+<li>rest在ES6之前是空的，需要我们人为为它通过arguments来push元素</li>
+<li>在ES6之后，我们可以将<code>...rest</code>作为参数放到形参最后，系统会自动将多余的参数存入rest，如果参数未满，rest接收空数组。</li>
+</ul>
+</li>
+</ul>
+<p><strong><em>Notice</em></strong></p>
+<ul>
+<li><code>return</code> :在写代码的时候，如果不在return后加分号，则Js引擎会自动加；，很容易引起歧义。可以考虑使用代码块来解决，别忘记加<code>;</code>喔～ <em>总之不要换行</em></li>
+</ul>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><ul>
+<li>在代码块内部定义的所有变量在代码块外部是不可见的。</li>
+<li>代码块内部定义的变量，在顺序执行的前提下，在代码块内部是可见的，同样在嵌套的函数体中适用。</li>
+<li>代码块执行完毕后，其中的变量一律被释放</li>
+</ul>
+<p><em><a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344993159773a464f34e1724700a6d5dd9e235ceb7c000" target="_blank" rel="external">当前学习进度</a></em></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/04/Revisiting-the-Old-Haunt/" itemprop="url">
+                  Revisiting the Old Haunt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-04T08:39:14+08:00" content="2016-01-04">
+              2016-01-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/英语/" itemprop="url" rel="index">
+                    <span itemprop="name">英语</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>Ladies and gentlemen,<br>Permit me first to thank you, our Chinese host, for your <strong>extraordinary arrangements and hospitality</strong>. My wife and I, as well as our entire party, are deeply gratefull. </p>
+<blockquote>
+<p>首先，请允许我感谢中国主人的精心安排与好客。我与我夫人以及我团的全体随行人员都深为感激。<br>[生词辟义]：<br>extraordinary：非凡的，异常的；<br>arrangement：整理，安排。verb：arrange；<br>hospitality：款待。hospital：医院</p>
+</blockquote>
+<p>In the short period of six days, we have gone a longer distance than the <strong>world-renowned</strong> “Long March”. We have acquired a keen sense of the <strong>diversity, dynamism</strong>, and progress of China under your policies of reform and opening to the outside world. </p>
+<blockquote>
+<p>在短暂的6天里，我们的行程超过了举世闻名的“长征”。 在改革开放政策引导下的中国，气象万千，充满活力，不断进步，这些我们都已经强烈地感受到了。<br>[生词辟义]：<br>be renowned／known for ：因…而出名，renowned也可单独做形容词。noun：renown声望，名誉。authors of great renown，极有声望的作家<br>acquire:获得，得到。<br>keen: 渴望，喜欢。be keen on….；a keen sense of …强烈的感受<br>diversity：多元化，多样性。diverse，多样的<br>dynamism：活力。dynamic，充满活力，动态的。dynamic language。动态语言<br>progress：进度，进步；make progress with…在某方面获得进步。</p>
+</blockquote>
+<p>My wife and I have a special regard and personal friendship for the people of China. Beijing is for us an old and <strong>nostalgic</strong> home. During our stay here ten years ago we spent <strong>a great deal of</strong> memorable time with the people here - working, shopping, sightseeing, and touring the city on our bicycles. During that time we never experienced anything other than the <strong>utmost courtesy</strong> and <strong>genuine</strong> friendship of the Chinese people.  </p>
+<blockquote>
+<p>我与我夫人对中国人民怀有一种特殊的仰慕之情和个人友谊。对我们两人来说，北京是我们思念的故乡。10年前我们在此生活期间，我们与这里的人们一起度过了许多难忘的时光 —— 我们在这里工作、购物、观光、骑自行车逛城。在那段日子里，我们感受到的总是中国人民的高度礼貌和诚挚友情。<br>[生词辟义]<br>regard：noun 尊敬，as ～ … 关于<br>nostalgic：怀旧的<br>utmost: 极度地<br>courtesy: 礼貌<br>a great deal of：大量许多<br>never experienced anything other than ….总是感受到….双重否定表肯定。other than，不同于，除了<br>genuine: 真诚的</p>
+</blockquote>
+<p>Those were happy days. They are good days, important days. We were part of the <strong>dramatic</strong> process which brought us back together and set us on the road to a genuine friendly and cooperative relationship.  </p>
+<blockquote>
+<p>那是一些令人愉快的日子，一些美好的日子，一些意义重大的日子。我们参与了富有戏剧性的转变过程，这种转变使我们重新走到了一起，是我们踏上了一条通往建立一种真诚友好的合作关系的道路。<br>[生词辟义]<br>dramatic: 富有戏剧性的，drama：戏剧<br>cooperative: 合作的，cooperation合作，cooperate with，合作  </p>
+</blockquote>
+<p>Our friendly and cooperative <strong>ties</strong> have become extensive, affecting all aspects of our national lives: <strong>commerce</strong>, culture, education, and scientific exchange.  </p>
+<blockquote>
+<p>我们友好合作关系的领域十分广泛，已深入到我们国家生活的所有方面：商业，文化，教育，以及科学交流。<br>[生词辟义]<br>tie：领带，纽带<br>commerce：商业  </p>
+</blockquote>
+<p>I am most proud of the large number of Chinese students being educated in exchange in my country. I myself teach some of them and see the benefits that come form this exchange. At the same time we are learning valuable lessons from you.  </p>
+<blockquote>
+<p>大批中国学生通过交流正在我国学习，我对此深感自豪。我自己也给一些学生上课，亲眼目睹了这交流所产生的益处。与此同时，我们也从你们身上汲取了宝贵的经验。  </p>
+</blockquote>
+<p><strong>Nonetheless</strong>, problems remain in our economic, education and strategic relations. While we are not so naive as to believe that there are no issues of difference between us, I also believe that our differences are greatly overshadowed by issues which bind us and strengthen our relationship.  </p>
+<blockquote>
+<p>然而，我们在经济、教育以及战略关系中仍然存在着问题。一方面，我们不会天真地以为我们之间不存在分歧，另一方面，我也认为那些将我们联系在一起并且强化我们关系的事物，在很大程度上弱化了我们之间的差异。  </p>
+</blockquote>
+<p>As a former government leader and now a <strong>private citizen</strong>, I recognize that many of the <strong>burdens</strong> and opportunities of our relationship have now passed to the <strong>non-governmantal sectors</strong> of our two societies: to individuals, our corporations, universities, research institutes, foundations, and so on. There is no doubt that our relations have reached a new stage. In this context, it is important for our two societies to search for areas of cooperation which clearly add to our <strong>mutual</strong> benefit.  </p>
+<blockquote>
+<p>作为一名前政府领导人，现在的一名普通公民，我感到我们关系中的许多重任和机遇已转到两国的民间机构，如个人、公司、大学、研究院、基金会的等。毋庸讳言，我们的关系已经进入了一个新的阶段。在这种形势下，寻求显然可以增进互惠互利的合作领域对我们两国来说显得十分重要。<br>[生词辟义]<br>former：前任，老的<br>private citizen: 普通公民<br>burden ：重担<br>sector：机构、行业<br>non－governmantal：非政府机构的，民间的<br>institutes：协会，机构<br>mutual：相互的</p>
+</blockquote>
+<p>My visit is a symbol of the good <strong>faith</strong> with which we seek to build up the strength of our friendship, our cultural and commercial ties and our important strategic relationship. Events of the past decade have confirmed time and time again that our friendship and cooperation will continue to <strong>flourish</strong> and <strong>yield</strong> more fruits in the days to come.  </p>
+<blockquote>
+<p>我的访问是良好诚意的象征，我们怀着这种良好的诚意，希望能在友谊的基础上建立文化和商业关系，简历重要的战略关系。我们过去10年的交往一再证明，我们之间的友谊与合作将在未来的岁月里持续发展并结出更多的果实。<br>[生词辟义]<br>faith：信任，信仰<br>flourish：繁荣，健康成长<br>yield：产出，结果</p>
+</blockquote>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/31/2015年终总结/" itemprop="url">
+                  Review and Preview in 2015
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-31T22:09:25+08:00" content="2015-12-31">
+              2015-12-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <blockquote>
+<p>想自己所想，做自己想做……<br>黄口、舞勺、舞象之时立下的人生理想牵绊于私塾学堂<br>现已逾弱冠，是时候兑现对理想的承诺了<br>不踌躇于瞻前顾后，不约束于世事杂俗<br>开启人生新的十年<br>为而立年华果断，不悔～</p>
+</blockquote>
+<h2 id="回顾2015"><a href="#回顾2015" class="headerlink" title="回顾2015"></a>回顾2015</h2><h3 id="正式开启Android学习之路"><a href="#正式开启Android学习之路" class="headerlink" title="正式开启Android学习之路"></a>正式开启Android学习之路</h3><blockquote>
+<p>大概是在新年的时候，大家都在走亲戚、过年串门，而我就在家里的床上开启了我的Android学习之路。接下来就是到开学了，这一学期现在回想起来，也是我大学里不同寻常的一学期。</p>
+<blockquote>
+<p>这学期里，我的日常基本是：写代码、看书、逃课在寝室，图书馆撸代码、上课看书、上课写代码。每一种所占据的时间比重和顺序成反比。与之伴随的是，上日语课的时候，经常因为回答不上来老师的问题而被批评。上完课了，发现好几本书都是新的。直到考试的当天，才会在早晨6点钟爬起来看书，很幸运，当时的四五门考试都没有挂科。记得上学期各科的加权平均分是67分，在系里78人排到了60几名（倒数的哈），大三学年排名是21名，和三等奖学金恰好擦肩而过…..（原本计划大学期间拿满一等、二等、三等奖学金的愿望GG了[哈哈，此处纯属玩笑]）。  </p>
+</blockquote>
+</blockquote>
+<h3 id="买了心爱的MBP"><a href="#买了心爱的MBP" class="headerlink" title="买了心爱的MBP"></a>买了心爱的MBP</h3><blockquote>
+<p>7月份的时候，快要放假的那几天，打算假期去实习工作的我下决心买一台MacBook。当时也算是费尽周折，最终拿下了心爱的MBP。虽然买MBP让我直到现在在经济上都有些许没缓过来。但是毋庸置疑的是，这是我在2015年做的最正确的事情之一，虽然它是我大学期间买的最贵的一件东西，但又是最为超值的一件，“生产力工具”名副其实。有了使用了一学期的Linux经验，这使得我在接受OSX OS上变得游刃有余。几乎没有任何的门槛，这也得归功于OSX源于Unix。</p>
+</blockquote>
+<h3 id="入职稀土"><a href="#入职稀土" class="headerlink" title="入职稀土"></a>入职<a href="http://gold.xitu.io" target="_blank" rel="external">稀土</a></h3><blockquote>
+<p>很幸运能够在7月份的同时得到<a href="http://daimajia.com" target="_blank" rel="external">文哥</a>的赏识，在买MacBook Pro的同时得到了稀土的offer，这也是对我在2015年所做一切的最大回报。因为入职了稀土，我认识了好多好多很厉害而又热心的哥哥们，有稀土的每一人，有”干货群“的群友们，还有线下面基后的群友，还有好多国内知名的公众账号维护者。曾经只能在电脑荧屏上看到的一些人，一些事全都被搬到了现实生活中。有掘金的线下活动，GDG之<a href="http://mp.weixin.qq.com/s?__biz=MzA5MDg3MjczMg==&amp;mid=400444352&amp;idx=1&amp;sn=38a89d0c6c278ea8e97120700e5c8b69&amp;scene=2&amp;srcid=1107O3Uz8WJPLS2VO9iq9rKt&amp;from=timeline&amp;isappinstalled=0#rd" target="_blank" rel="external">北京站</a>….还有技术小黑屋，光头哥朱凯，邓凡平老师等等…基本上不仅开阔了我的视角，更开阔了我的眼角…</p>
+</blockquote>
+<h3 id="离开稀土"><a href="#离开稀土" class="headerlink" title="离开稀土"></a>离开稀土</h3><blockquote>
+<p><a href="https://www.zhihu.com/question/38460071/answer/76520493?group_id=659332765069643776" target="_blank" rel="external">我在知乎的回答</a></p>
+</blockquote>
+<h3 id="再次找到新工作"><a href="#再次找到新工作" class="headerlink" title="再次找到新工作"></a>再次找到新工作</h3><blockquote>
+<p>准确说，这份offer也是挺意外的。就在我在学校看书的时候，公司创始人给我发来邮件，说是邀请我去他们公司做React－Native开发。我自己也是对JavaScript完全一窍不通，但是依然很高兴创始人杰哥对我的信任。自己也是在Android和Rn开发之间做了好几天的思想斗争，最终决定去看看Js的世界。这对自己来说也是一种全新的挑战，这也意味着得要重新碰碰“新手墙”了，[“新手墙”是我个人自造的一个词，是用来表达在接触新的领域时，从一无所知到初中及级阶段所经历的一段时间。]也可以说是我们常说的入门的”门“，我们没有办法去永恒的跨越这层障碍，只有硬着头皮迎面去撞墙了……（希望在一段时间之后，我能够为自己能够做出这个决定而庆幸吧…）</p>
+</blockquote>
+<h2 id="展望2016"><a href="#展望2016" class="headerlink" title="展望2016"></a>展望2016</h2><ul>
+<li>能够尽自己最大的努力融入到JavaScript开发中去，做好React－Native的本职工作</li>
+<li>提升自己的英文水准</li>
+<li>全面提升开发广度</li>
+<li>加深单项技能深度</li>
+<li>学习从架构上思考编程</li>
+</ul>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/26/RecyclerView的使用和提升/" itemprop="url">
+                  RecyclerView的使用与提升
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-11-26T21:51:00+08:00" content="2015-11-26">
+              2015-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>自7月份参加工作以来，对于列表的实现，一直采用了RecyclerView的实现方式。一方面呢，是因为<a href="http://daimajia.com" target="_blank" rel="external">文哥</a>之前在<em><a href="http://gold.xitu.io" target="_blank" rel="external">掘金</a></em>一直用的是RecyclerView，而且在面试的时候，给我讲过这一段知识；另一方面Recycler相对于ListView有着(android studio之于eclipse级别的优势)。所以，我毅然决然地抛弃了ListView,投奔了RecyclerView的怀抱。</p>
+<h2 id="正文："><a href="#正文：" class="headerlink" title="正文："></a>正文：</h2><h3 id="RecyclerView的优势："><a href="#RecyclerView的优势：" class="headerlink" title="RecyclerView的优势："></a>RecyclerView的优势：</h3><ul>
+<li>它自带ViewHolder来实现View的复用机制，再也不用ListView那样在getView()里自己写了  </li>
+<li>使用LayoutManager可以实现ListView，GridView以及流式布局的列表效果</li>
+<li>通过<code>setItemAnimator(ItemAnimator animator)</code>可以实现增删动画（懒的话，可以使用默认的ItemAnimator对象，效果也不错）</li>
+<li>控制item的间隔，可以使用<code>addItemDecoration(ItemDecoration decor)</code>，不过里边的ItemDecoration是一个抽象类，需要自己去实现…</li>
+</ul>
+<h3 id="用法介绍："><a href="#用法介绍：" class="headerlink" title="用法介绍："></a>用法介绍：</h3><ol>
+<li>导入RecyclerView的v7库:<br>RecyclerView是一个android.support.v7库里的控件，因此在使用的时候我们需要在gradle配置文件里加上<code>compile &#39;com.android.support:recyclerview-v7:22.2.1&#39;</code>来引入google官方的这个库</li>
+<li><p>xml布局中，使用常规的控件引入方式，来引入RecyclerView，如下：</p>
+ <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">&lt;android<span class="selector-class">.support</span><span class="selector-class">.v7</span><span class="selector-class">.widget</span><span class="selector-class">.RecyclerView</span></span><br><span class="line"> android:id=<span class="string">"@+id/recyclerview_content"</span></span><br><span class="line">    style=<span class="string">"?recyclerview_style"</span></span><br><span class="line">    android:scrollbars=<span class="string">"vertical"</span></span><br><span class="line">    android:fadeScrollbars=<span class="string">"true"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_marginBottom=<span class="string">"-55dp"</span> /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>代码中的写法基本和ListView相差无几，但还是要重点说一下：  </p>
+<ol>
+<li><p>在实例化RecyclerView之后，我们需要使用setLayoutManager()给它设置布局管理器，其中的实参即就是LayoutManager，这里总共有两种LayoutManager：</p>
+<ol>
+<li>StaggeredGridLayoutManager，是我们之前提到的流式布局：<br>它有一个构造方法<code>StaggeredGridLayoutManager(int spanCount, int orientation)</code>，第一个是网格的列数，第二个参数是数据呈现的方向<br>（如果是竖直，那么第一个参数的意义就是列数，反之为行数。而且第二个参数在StaggeredGridLayoutManager里也有同样名称的常量，请同学们自行采纳［这里还是建议大家使用库里自带的常量，因为他们一般都是整型值，这样可以避免各个类里所判别的常量值不一样而导致的其他问题］）；  </li>
+<li><p>GridLayoutManager，网格布局（流式布局应该是它的一个特殊情况）：<br><code>GridLayoutManager(Context context, int spanCount）</code>或<br><code>GridLayoutManager(Context context, int spanCount, int orientation,
+ boolean reverseLayout)</code>需要说明的是，最后一个参数表示的是是否逆向布局（意思是将数据反向显示，原先从左向右，从上至下。设为true之后全部逆转）。<br><strong>小提示：在这两个LayoutManager中，默认的orientation为vertical，reverseLayout为false。对应的参数在GridLayoutManager中都有对应的方法来进行补充设置。而在StaggeredGridLayoutManager中所有的方法都针对reverseLayout做了判断，然而它并没有给出这个参数设定值的api。</strong></p>
+</li>
+<li><p>线性布局, LinearLayoutManager<br><code>LinearLayoutManager(Context context)</code>构建一个默认布局方向为VERTICAL的RecyclerView，这种样式也是ListView默认的。<br><code>LinearLayoutManager(Context context, int orientation, boolean reverseLayout)</code>。发现没有，线性布局和网格布局几乎是一样的。只是少了一个spanCount参数。</p>
+</li>
+</ol>
+</li>
+<li><p>和ListView一样，为RecyclerView设置Adapter</p>
+ <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter&lt;HomeAdapter</span>.<span class="title">MyViewHolder&gt;</span></span></span><br><span class="line">&#123;</span><br><span class="line">     </span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      public <span class="type">MyViewHolder</span> onCreateViewHolder(<span class="type">ViewGroup</span> parent, int viewType)</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="type">MyViewHolder</span> holder = <span class="keyword">new</span> <span class="type">MyViewHolder</span>(<span class="type">LayoutInflater</span>.from(</span><br><span class="line">                  <span class="type">HomeActivity</span>.<span class="keyword">this</span>).inflate(<span class="type">R</span>.layout.item_home, parent,</span><br><span class="line">                  <span class="literal">false</span>));</span><br><span class="line">          <span class="keyword">return</span> holder;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      public void onBindViewHolder(<span class="type">MyViewHolder</span> holder, int position)</span><br><span class="line">      &#123;</span><br><span class="line">          holder.tv.setText(mDatas.get(position));</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      public int getItemCount()</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="keyword">return</span> mDatas.size();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="class"><span class="keyword">class</span> <span class="title">MyViewHolder</span> <span class="keyword">extends</span> <span class="title">ViewHolder</span></span></span><br><span class="line">      &#123;</span><br><span class="line">          <span class="type">TextView</span> tv;</span><br><span class="line"></span><br><span class="line">          public <span class="type">MyViewHolder</span>(<span class="type">View</span> view)</span><br><span class="line">          &#123;</span><br><span class="line">              <span class="keyword">super</span>(view);</span><br><span class="line">              tv = (<span class="type">TextView</span>) view.findViewById(<span class="type">R</span>.id.id_num);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>如上，即就是Adapter的写法。其中的ViewHolder就是拿来负责View的回收和复用的，这样就不需要我们自己写完ViewHolder之后，还要在<code>getView(int position, View convertView, ViewGroup parent)</code>里一顿判断，一顿绑定，一顿find了。而且这里的ViewHolder成为了RecyclerView中必须继承的一部分，重写完后就需要放入 <code>RecyclerView.Adapter&lt; &gt;</code>这里来对基类的范型初始化。</p>
+</li>
+</ol>
+<p><strong>在这里，Recyclerview已经为你封装好了：</strong></p>
+<p>   <code>getItemCount()</code>就不必多说了，和ListView是一样的  </p>
+<p>   <code>getItemViewType(int position)</code>是用来根据position的不同来实现RecyclerView中对不同布局的要求。从这个方法中所返回的值会在onCreateViewHolder中用到。比如头部，尾部，等等的特殊itemView（这里说成ViewHolder比较好）都可以在这里进行判断。  </p>
+<p>   <code>onCreateViewHolder(ViewGroup parent, int viewType)</code>是用来配合写好的ViewHolder来返回一个ViewHolder对象。这里也涉及到了条目布局的加载。viewType则表示需要给当前position生成的是哪一种ViewHolder，这个参数也说明了RecyclerView对多类型ItemView的支持。</p>
+<p>   <code>onBindViewHolder(MyViewHolder holder, int position)</code>专门用来绑定ViewHolder里的控件和数据源中position位置的数据。<br>这里，会有人问，那么item的子控件findViewById 去哪儿了？我们把它交给了ViewHolder的构造方法（其他方法也可以），它的本质是在onCreateViewHolder方法里生成ViewHolder的时候执行的。</p>
+</li>
+</ul>
+<h3 id="提升"><a href="#提升" class="headerlink" title="提升:"></a>提升:</h3><ul>
+<li><p>代码重构:<br>在上边看了这么多，有木有觉得，ViewHolder的功能并不是非常明确？它既负责了子控件的查询，又负责了子控件的装载工作。而布局加载和数据绑定却交给了Adapter……<br>我们来看看<a href="http://gold.xitu.io/app" target="_blank" rel="external"><strong>掘金</strong></a>的做法：<br>  首先，它把Adapter和ViewHolder的功能以一种较为低耦合的方式进行了职能分离，让ViewHolder里所有的逻辑代码全部都只出现在ViewHolder中。我们现在就对前边提到的代码进行重构：</p>
+<p>  ViewHodler：</p>
+  <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewHolder</span> <span class="keyword">extends</span> <span class="title">ViewHolder</span></span>&#123;</span><br><span class="line">     <span class="type">TextView</span> tv;		</span><br><span class="line">     public <span class="type">MyViewHolder</span>(<span class="type">Context</span> context, <span class="type">View</span> view)&#123;</span><br><span class="line">            <span class="keyword">super</span>(view);</span><br><span class="line">            tv = (<span class="type">TextView</span>) view.findViewById(<span class="type">R</span>.id.id_num);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//当然，我们也可以在这里使用view来对RecyclerView的一个item进行事件监听,也可以使用  </span></span><br><span class="line">            <span class="comment">//tv等子控件来实现item的子控件的事件监听。这也是我之所以要传context的原因之一呢～</span></span><br><span class="line">            ......</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">     public static <span class="type">MyViewHolder</span> newInstance(<span class="type">Activity</span> context, <span class="type">ViewGroup</span> parent)&#123;</span><br><span class="line">     		<span class="type">View</span> view = <span class="type">LayoutInflater</span>.from(</span><br><span class="line">                context).inflate(<span class="type">R</span>.layout.item_home, parent,<span class="literal">false</span>);</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">MyViewHolder</span>(context, view);</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//你没看错，数据绑定也被整合进来了，  </span></span><br><span class="line">	<span class="comment">//将adapter里的数据根据position获取到后传进来。当然，也可以根据具体情况来做调整。</span></span><br><span class="line">     public void onBinViewHolder(<span class="type">String</span> data)&#123;     </span><br><span class="line">     	tv.setText(data);<span class="comment">//既然这里也有子控件，那么这里也可以做item子控件的事件监听喽</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  RecyclerView</p>
+  <figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">HomeAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">MyViewHolder</span>&gt;</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">MyViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span></span>&#123;<span class="comment">//如需要，还要对viewType做判断</span></span><br><span class="line">        <span class="keyword">return</span> MyViewHolder.newInstance(<span class="keyword">this</span>, parent)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(MyViewHolder holder, <span class="keyword">int</span> position)</span></span>&#123;</span><br><span class="line">        holder.onBindViewHolder(mDatas.get(position));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> mDatas.<span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抽取一个条目点击事件，让它更像ListView:</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">MyViewHolder</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> OnItemClickListener mOnItemClickListener;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnItemClickLitener</span><span class="params">(OnItemClickLitener mOnItemClickLitener)</span>  </span><br><span class="line">    </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mOnItemClickLitener = mOnItemClickLitener;  </span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span></span>&#123;<span class="comment">//如需要，还要对viewType做判断</span></span><br><span class="line">        <span class="keyword">return</span> MyViewHolder.newInstance(<span class="keyword">this</span>, parent)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(MyViewHolder holder, <span class="keyword">int</span> position)</span></span>&#123;</span><br><span class="line">        holder.onBindViewHolder(mDatas.get(position));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果设置了回调，则设置点击事件  </span></span><br><span class="line">        <span class="keyword">if</span> (mOnItemClickLitener != <span class="keyword">null</span>) &#123;  </span><br><span class="line">            viewHolder.itemView.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;  </span><br><span class="line">                <span class="meta">@Override</span>  </span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;  </span><br><span class="line">                   mOnItemClickLitener.onItemClick(viewHolder.itemView, i);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mDatas.size();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnItemClickLitener</span> </span>&#123;  </span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View view, <span class="keyword">int</span> position)</span></span>;  </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  接口调用</p>
+  <figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line">	mAdapter.setOnItemClickLitener(<span class="keyword">new</span> OnItemClickLitener() &#123;  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View view, <span class="keyword">int</span> position)</span> </span>&#123; </span><br><span class="line">    	......</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="External"><a href="#External" class="headerlink" title="External"></a>External</h2><p>上边提到了</p>
+<blockquote>
+<p>控制item的间隔，可以使用<code>addItemDecoration(ItemDecoration decor)</code>，不过里边的ItemDecoration是一个抽象类，需要自己去实现…</p>
+</blockquote>
+<p>这个问题，那我们来实际解决一下：</p>
+<ul>
+<li>这是<a href="http://blog.csdn.net/lmj623565791" target="_blank" rel="external">羊神</a>实现的一个子类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zhy.sample.demo_recyclerview;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * Copyright (C) 2014 The Android Open Source Project</span><br><span class="line"> *</span><br><span class="line"> * Licensed under the Apache License, Version 2.0 (the "License");</span><br><span class="line"> * limitations under the License.</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.res.TypedArray;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Rect;</span><br><span class="line"><span class="keyword">import</span> android.graphics.drawable.Drawable;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.widget.LinearLayoutManager;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.widget.RecyclerView;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.widget.RecyclerView.State;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * This class is from the v7 samples of the Android SDK. It's not by me!</span><br><span class="line"> * &lt;p/&gt;</span><br><span class="line"> * See the license above for details.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DividerItemDecoration</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ItemDecoration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>[] ATTRS = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;</span><br><span class="line">            android.R.attr.listDivider</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> VERTICAL_LIST = LinearLayoutManager.VERTICAL;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Drawable mDivider;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mOrientation;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DividerItemDecoration</span><span class="params">(Context context, <span class="keyword">int</span> orientation)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> TypedArray a = context.obtainStyledAttributes(ATTRS);</span><br><span class="line">        mDivider = a.getDrawable(<span class="number">0</span>);</span><br><span class="line">        a.recycle();</span><br><span class="line">        setOrientation(orientation);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOrientation</span><span class="params">(<span class="keyword">int</span> orientation)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (orientation != HORIZONTAL_LIST &amp;&amp; orientation != VERTICAL_LIST) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"invalid orientation"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        mOrientation = orientation;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas c, RecyclerView parent)</span> </span>&#123;</span><br><span class="line">        Log.v(<span class="string">"recyclerview - itemdecoration"</span>, <span class="string">"onDraw()"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (mOrientation == VERTICAL_LIST) &#123;</span><br><span class="line">            drawVertical(c, parent);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            drawHorizontal(c, parent);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawVertical</span><span class="params">(Canvas c, RecyclerView parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> left = parent.getPaddingLeft();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> right = parent.getWidth() - parent.getPaddingRight();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> childCount = parent.getChildCount();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> View child = parent.getChildAt(i);</span><br><span class="line">            android.support.v7.widget.RecyclerView v = <span class="keyword">new</span> android.support.v7.widget.RecyclerView(parent.getContext());</span><br><span class="line">            <span class="keyword">final</span> RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child</span><br><span class="line">                    .getLayoutParams();</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> top = child.getBottom() + params.bottomMargin;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> bottom = top + mDivider.getIntrinsicHeight();</span><br><span class="line">            mDivider.setBounds(left, top, right, bottom);</span><br><span class="line">            mDivider.draw(c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawHorizontal</span><span class="params">(Canvas c, RecyclerView parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> top = parent.getPaddingTop();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> bottom = parent.getHeight() - parent.getPaddingBottom();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> childCount = parent.getChildCount();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> View child = parent.getChildAt(i);</span><br><span class="line">            <span class="keyword">final</span> RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child</span><br><span class="line">                    .getLayoutParams();</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> left = child.getRight() + params.rightMargin;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> right = left + mDivider.getIntrinsicHeight();</span><br><span class="line">            mDivider.setBounds(left, top, right, bottom);</span><br><span class="line">            mDivider.draw(c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getItemOffsets</span><span class="params">(Rect outRect, <span class="keyword">int</span> itemPosition, RecyclerView parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mOrientation == VERTICAL_LIST) &#123;</span><br><span class="line">            outRect.set(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, mDivider.getIntrinsicHeight());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            outRect.set(<span class="number">0</span>, <span class="number">0</span>, mDivider.getIntrinsicWidth(), <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>然后就是为我们的RecyclerView实例添加分割线</p>
+<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">addItemDecoration(<span class="name">new</span> DividerItemDecoration(<span class="name">this</span>,</span><br><span class="line">DividerItemDecoration.VERTICAL_LIST))<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统默认的分割线往往达不到我们产品和设计师的要求，怎么办呢？</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">&lt;<span class="built_in">item</span> <span class="built_in">name</span>=<span class="string">"android:listDivider"</span>&gt;@drawable/your_custom_divider&lt;/<span class="built_in">item</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>通过以上xml属性，将系统的listDivider设为自己画出来的分割线，只需要放在你对应activity的主题下即可。<br>（不会画的，请自行<a href="http://www.google.com" target="_blank" rel="external">google</a>,关键字：<code>android</code> <code>shape</code>）</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/15/人在稀土/" itemprop="url">
+                  人在稀土
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-11-15T22:37:00+08:00" content="2015-11-15">
+              2015-11-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/稀土/" itemprop="url" rel="index">
+                    <span itemprop="name">稀土</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>来北京也有整整4个月，123天了。也就在今天，我决定离开稀土，暂时离开北京一段日子。<br>现在我就来讲讲我和<a href="http://www.xitu.io" target="_blank" rel="external">稀土</a>的故事〜</p>
+<h2 id="初识稀土"><a href="#初识稀土" class="headerlink" title="初识稀土"></a>初识稀土</h2><p>我是大学三年级，也就是今年春季开学开始接触android的。自己在学校利用零零碎碎的时间学了两三个月，大概在五月份左右的时候，经过<a href="http://iamwent.github.io/" target="_blank" rel="external">铁哥</a>介绍，我加入了大名鼎鼎的<a href="http://www.daimajia.com" target="_blank" rel="external">代码家</a>的干货群。自己也经常在这个群里学习到很多很多的东西，一方面是因为我在做自己的<a href="https://github.com/Bob1993/DigCSDN" target="_blank" rel="external">DigCSDN</a>的时候不懂的太多，更主要的是群里的小伙伴们都很热情，而且人人都是身怀绝技。</p>
+<p>突然的某一天，在群里经过代码家了解到稀土(文哥(后文中的文哥均指代码家)所在的团队)在招实习生，通过<a href="http://www.xitu.io" target="_blank" rel="external">稀土招人</a>看到各个岗位都在招人并且招实习生的消息之后，通过文哥后来知道android也招实习生，当时萌生了一点想法。  </p>
+<p>后来等我做完DigCSDN之后，补充了一下之前发在各大招聘网站上的简历之后，抱着试试看的心态发给了文哥。大概过了一两天过后，就收到文哥的回复，说是请我过去“喝茶”。生涯第一次投简历，而且还是给自己的偶像投，重点是还过了！真的很开心很开心。具体内容可以看我的这篇博客 <a href="http://blog.csdn.net/bob1993_dev/article/details/46705899" target="_blank" rel="external">面稀土，战码家</a>。  </p>
+<h2 id="身在稀土"><a href="#身在稀土" class="headerlink" title="身在稀土"></a>身在稀土</h2><p>我是7月15号到的北京，当时是和Andy一起到的北京,也算是相依为命了吧。他是稀土的web前端实习，听他说之前在学校干过一段时间的外包，期间还赚了一笔钱，买了电脑～总之在我当时看就是很厉害，毕竟相比之下，我只是一个毫无经验可言的毛头小子，新人一个！<br>我们两个穷学生（其实我更穷，哈哈）在北京从15号一致呆到17号三天才算是找到房子，他比我要先找到，而我没有办法只好拖着好重的行李箱最后直接前往朝阳区，根据后来的经验，大概有80分钟左右的路程，直记得当时手已经快要被磨出血了。</p>
+<p>在这4个月的时间里，前三个月我和Andy是一起工作的。而我则是一个人在Android端坚守了三个月，这也是让我印象最深，最难熬的一段时间。因为之前没有任何的工作经验，基本算是一个小白菜鸟吧，很多东西都只听说过，从没用过，有些甚至听都没听过。几乎绝大多数时间都是在不断的学习项目中之前用到的一些库，有新需求了，自己也竭尽全力去学习相应的实现方法，而我们伟大的设计师<a href="http://www.yangxinlin.com" target="_blank" rel="external">昕霖</a>也比较理解我，经常在设计上和我商量折中的方案。这一段时间因为没有人带着我学习熟悉项目，数不清多少次动了要离开稀土的想法，后来<a href="http://www.easydone.cn" target="_blank" rel="external">涛哥</a>也一直劝我不要质疑自己出来实习的动机，自己一个人成长起来虽然苦，但是期间确实很能锻炼人的，期间提高自己的的水平是井喷式的，毕竟如果让别人带的话，自己也就负责很小的模块了，而且在实际开发的过程中，师傅也不可能腾出太多的时间来照顾我这边。</p>
+<p>后来在第四个月的时候，稀土来了新的Android主程<a href="http://kingideayou.github.io/" target="_blank" rel="external">Next__</a>,也就是我之前的师傅，从此展开了有人带的一个半月，期间我的任务基本就是给师傅打杂，主体功能基本由他完成，虽然具体怎么做，我也都知道，但是相比熟悉度以及考虑到时间成本的问题，一些功能模块以及之前无法解决的bug基本都是由他来解决了，小的模块就由我来写。一般只有我当天没有事情做的时候，才会让我做些大模块的开发。当出现一些比较好效果由我来写而从没接触过的时候，师傅就会帮我一起查好资料或者直接把查好的URL发给我，帮助我学习。  </p>
+<p>在进入11月，也就是我辞职的最后半个月的时候，我们的昕霖嫂子因为要待产了，所以我又尝试了一段没有产品&amp;&amp;设计的日子，开发进度几乎停滞了下来。每天除了解bug就是解bug，没有bug的时候，就只好自己做一些事情（比如刷一下《程序员代码面试指南》，写点小清新的文章之类的）。印象最深的就是有一天从中午开始就断网了，那天下午就一直没有来过网，只好自己翻开书看起了《Android开发艺术探索》，那天因为无法工作，下班的也比较早。直到后来因为学校需要考期末考试，而且一考就是一周，再加上因为前几天交了学费，自己已经承担不起当月的房租了，只好狠下心来违约房子，赔了押金不说，还给室友赔了750（T_T,好伤心）。不多说了，谁让我是一个好人呢？？？</p>
+<h2 id="致谢稀土的每一个人"><a href="#致谢稀土的每一个人" class="headerlink" title="致谢稀土的每一个人"></a>致谢稀土的每一个人</h2><p><em>代码家</em></p>
+<blockquote>
+<p>因为文哥，我了解到了稀土，也是因为文哥，我比较轻松地拥有了这份实习offer（具体详情请见<a href="http://blog.csdn.net/bob1993_dev/article/details/46705899" target="_blank" rel="external">面稀土，战码家</a>）。我知道单凭自己的能力去获取一份实习offer并不容易，至少从旅途上可以让我掉一层皮，后来才知道文哥也是在我身上赌了一把，事实证明他赌赢了。在我单独开发掘金的这三个月里，我并没有惹出什么乱子来（大家别笑话），而且根据产品设计要求，顺利跟上了iOS的脚步完成了对应1.3.5 —— 2.2.0的开发。功能上虽然没有特别大的改变，但我也基本上从整体上完成了对代码的View，所写的模块也都按照现有的框架完美兼容。<br>另外你能想象自己就坐在偶像面前面试的感觉吗？哈哈，那种感觉很难再有了。本来是想去<a href="http://www.boohee.com/" target="_blank" rel="external">上海薄荷</a>的，因为<a href="http://www.stormzhang.com" target="_blank" rel="external">奇哥</a>向CTO申请实习名额未果后，只好放弃了当初去上海的想法。北京这边呢，文哥在面试的过程中就教了我很多很多的东西，很难想象如果能够和文哥一起工作三四个月，那该是多么爽歪歪的一件事情……</p>
+</blockquote>
+<p><em>明明</em></p>
+<blockquote>
+<p>我在稀土认识的第二个人就是明明，很多时候想要叫他明哥，但是他也一直强调这样不太好，毕竟大家都是90后，一直让我叫他明明。也是在文哥给我技术面试完毕之后，在CEO面试中认识的，整个人很坦诚，而且对于一个产品有着独到的见解，总之就是那种让人无法挑刺的观点和看法。事实证明我的看法没有错，因为在后来的同学面试阿里的消息中得知，我了解到了在阿里的产品面试中就有着QQ vs 微信 二者的差异，而标准答案和明明给我讲的基本一致，结果我想说的只有两个字“牛逼”！！！在后期的开发中，明明也参与了不少和产品工作上的事情。作为剑桥的高材生，对于一些事情的看法和观点真的是不一般，这点给256个赞！！！</p>
+</blockquote>
+<p><em>明泽</em></p>
+<blockquote>
+<p>他的id是ming_Zhe,关于为什么不是ming_ze，他说是因为从美学角度上来讲ooxx……哈哈，大家不要误会，我是想不起来了。明泽作为创始人之一，虽然担任的是掘金的ios端的开发以及财务行政，但毫无疑问成为了我前三个月的师傅。哈哈，一方面呢，是从一些移动端开发的经验上来讲，另一方面就是比较有意思的一件事情。在来稀土之前，我只会用Github做一些add, commit, pull, push这几个基本的操作，而现在我可以用到的命令多达20余个，而且不只是简单的记忆，更多的是项目中实际的应用。现在只有一些比较生僻的命令还没有用到，基本上都可以熟练使用了。这都得归功于好几天下班以后以及日常明泽和明明两个人的“Git教程时间”，而且在这次离职的过程中，太多的事情都做的过于草率，以至于我都回到学校了，他才知道。他也给了我一些批评。显而易见，明泽教给我的不只是一些知识上的东西，更多的是作为职场分子的一些经验！感谢有这样的老师……</p>
+</blockquote>
+<p><em>江江</em></p>
+<blockquote>
+<p>群里的一些朋友都叫他江大大，因为牛逼的市场公关运营能力以及前端开发能力(突然发现稀土的四位创始人都是前端大牛，因此程序员全栈化不得不再次摆上我个人的日程表)。尤其是最近在处理<a href="http://gold.xitu.io/#/entry/5640a72a00b0023ca8f567a7" target="_blank" rel="external">“蜻蜓FM造假门事件”</a>上处理的游刃有余，让人不得不折服。他这个人执行力特别强，记得那次吃饭的时候，在谈到我经常用于查看的一个手册工具“Android学习手册”的时候，他说到要用一些黑科技做一些事情，我就感觉到不对劲了，然后商量着我和Next给做一个类似于该功能的app，而且一路还讨论了不少。因为考虑到可能会和我们当前的开发任务会有冲突，他就说他用phoneGap做一个,结果呢？就在第二天，我就在他电脑上看到了一个初具模型的web app，这执行力简直也是没谁了！！！</p>
+</blockquote>
+<p>在稀土的每一天，都在不断的进步中。这次情非得已的离开的确让我失去了这份难得的机会，失去了在稀土的每一个人。但是还是那句话：”天下哪儿有不散的宴席“，或许这次的离开是为了下次更好的重逢做准备也说不定呢～～～<br><img src="https://raw.githubusercontent.com/Bob1993/ImageCache/master/Images/juejin_Logo.png" alt=""></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/10/最長情的告白/" itemprop="url">
+                  最長情的告白
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-11-10T16:37:20+08:00" content="2015-11-10">
+              2015-11-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Huan/" itemprop="url" rel="index">
+                    <span itemprop="name">Huan</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="秋已去，同桌的你是否记得"><a href="#秋已去，同桌的你是否记得" class="headerlink" title="秋已去，同桌的你是否记得"></a>秋已去，同桌的你是否记得</h3><blockquote>
+<p><em>高一那年</em>，晦澀的數學沒有壓倒傻傻的我，感謝有你的陪伴<br><em>高二那年</em>，很幸運我們能夠再次成為同桌，感恩我們在35人中的重逢<br><em>高三那年</em>，我的離開沒想到成為了迄今的離別<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/10/最長情的告白/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/09/10/中华传统将何去何从/" itemprop="url">
+                  中华传统将何去何从
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-09-10T16:37:20+08:00" content="2015-09-10">
+              2015-09-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>中华传统在这里不仅仅指延续了几千年的传统文化，更是指中华儿女立足于世界之根本。没有了传统文化的国家和民族无异于失去灵魂的躯壳，这样的躯壳无法长久是众所周知的。  </p>
+<p>自从18、19两个世纪的两次工业革命的发起，我们整个世界都被卷入了工业化，电子自动化的时代。最经典的案例就是欧洲的崛起，在亚洲则是日本孜孜不倦的学习和改革。反观中国，则是在自我陶醉中被欧洲的炮火轰开了大门，紧接着的就是长达大半个世纪的改革和革命。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/10/中华传统将何去何从/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+
+  </section>
+
+  
+
+
+        </div>
+
+        
+
+
+        
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="//default_avatar.jpg" alt="Pober Wong" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Pober Wong</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description"></p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">标签</span>
+              
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="//jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+
+  
+
+  
+
+  <script type="text/javascript" src="//helpers.js?v="></script>
+  <script type="text/javascript" src="//velocity/velocity.min.js"></script>
+<script type="text/javascript" src="//velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="//motion.js?v=" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="//fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="//jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+
+  <script type="text/javascript" src="//bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
