@@ -1,0 +1,74 @@
+<html>
+<head>
+	
+	<title>ReactNative JSX中组件的方法属性</title>
+	<meta name="keywords" content="Stupid man deserves learning more!" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <!--<link rel="stylesheet" href="/css/main.css">-->
+	<link href="/css/main.css?v=2" rel="stylesheet" type="text/css" />
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2"/>
+    
+
+</head>
+
+<body>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>众所周知，在ReactNative中，对于UI的渲染是放在了React组件的render函数中，因此在对组件的各种属性以及style样式都在组件的使用中以类似于xml的语法进行组织，这就是JSX语法。</p>
+<a id="more"></a>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>和xml, html一样，JSX中组件的各种属性都是以属性名=来赋值。而组件的属性类型则在React中PropTypes中有枚举，当我们的属性值为<code>PropTypes.func</code>的时候，也就是说我们的组件需要一个属性类型为方法的属性，这其实也就是我们所常提的方法回调。</p>
+<p>同Java中使用接口的方式来实现方法回调不同，Jsx中只需要写回调方法即可，不再需要像Java一样通过创建接口对象才能去覆写对应的回调方法。</p>
+<p>以下给出几种方法回调的写法:  </p>
+<ol>
+<li><p>直接通过赋值方法的签名  </p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">example</span> = &#123;this._example&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Lambda表达式对该属性赋值</p>
+<figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">example = &#123;() =&gt; <span class="meta">&#123;...&#125;</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>使用function对属性赋值</p>
+<figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">example = &#123;function() <span class="meta">&#123;...&#125;</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中，第一种是直接使用函数名来对该属性进行赋值，此时如果需要this对象，则可以直接使用<code>this._example.bind(this)</code>来达到目的。</p>
+<p>对于第二种和第三种，这二者本质上是一样的，因为Lambda表达式就是对匿名函数的一种变形。这里的参数依然对应回调方法里的参数，如果在这里还需要调用外部方法，则应该使用<code>this._example()</code>, 如果此方法需要this，那么就只能通过传递参数的形式来传递this了。</p>
+
+
+<!--<a href="http://lovinghuan.com/2016/02/15/ReactNative-JSX中组件的方法属性/#disqus_thread" class="article-comment-link">Comments</a>-->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'undefined'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=undefined&web_id=undefined" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
