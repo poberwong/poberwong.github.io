@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="翻译,Lambda,Java 8," />
+
+
+<meta name="description" content="英文官方文档
+概述目的本文主要是来介绍Java SE 8里的Lambda表达式。
+阅读耗时大约1小时
+介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lambda for Java 8（译）">
+<meta property="og:url" content="http://poberwong.com/2015/12/09/Lambda for Java 8（译）/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="英文官方文档
+概述目的本文主要是来介绍Java SE 8里的Lambda表达式。
+阅读耗时大约1小时
+介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta property="og:updated_time" content="2016-10-11T03:34:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lambda for Java 8（译）">
+<meta name="twitter:description" content="英文官方文档
+概述目的本文主要是来介绍Java SE 8里的Lambda表达式。
+阅读耗时大约1小时
+介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Lambda for Java 8（译） </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="Lambda for Java 8（译）"> Lambda for Java 8（译） </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2015-12-09T20:13:23+08:00" content="2015-12-09">
+              2015-12-09
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#Android" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html#" target="_blank" rel="external"><em>英文官方文档</em></a></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>本文主要是来介绍Java SE 8里的Lambda表达式。</p>
+<h3 id="阅读耗时"><a href="#阅读耗时" class="headerlink" title="阅读耗时"></a>阅读耗时</h3><p>大约1小时</p>
+<h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><p>Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。<br>这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的介绍。提供了对匿名内部函数的介绍，并且已经被函数式接口和新的Lambda句法所遵从。那么在Lambda之前以及之后的一种通用的使用模式就这样出现了。<br>下一个模块评估了一个常用的搜索用例和如何通过Lambda表达式来提升Java代码。除此之外，一些常用的函数式接口如：Predicate 和 Function，已经在 java.util.function 被包含了进来。<br>OBE完成了使用Lambda表达式如何更新Java 集合的评估。<br>这里还为大家提供了所有例子的源码。</p>
+<h3 id="硬件和软件要求"><a href="#硬件和软件要求" class="headerlink" title="硬件和软件要求"></a>硬件和软件要求</h3><p>以下是硬件和软件的要求列表：</p>
+<ul>
+<li>JDK8及以上</li>
+<li>NetBeans 7.4</li>
+</ul>
+<h3 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h3><p>想要运行本文中的例子，你的JDK必须要是JDK8并且NetBeans必须要是7.4版本及以上。对应的连接可以在<a href="http://openjdk.java.net/projects/lambda/" target="_blank" rel="external">the main Lambda site</a>里找到。为了方便起见，这里直接给出这两个链接</p>
+<ul>
+<li><a href="https://jdk8.java.net/download.html" target="_blank" rel="external">Java Development Kit 8 (JDK8) Early Access</a><ul>
+<li>建议：在同一页也下载JDK 8的API文档</li>
+</ul>
+</li>
+<li><a href="http://netbeans.org/" target="_blank" rel="external">NetBeans 7.4 or later</a>，7.4版本的NetBeans支持JDK 8</li>
+</ul>
+<p><strong>注意</strong>：所有版本的主流操作系统都有对应的编译工具。这些OBE是使用Linux 13（Ubuntu／Debian）来写的。<br>安装JDK8和NetBeans等工具都有提供下载。然后需要为Java和NetBeans添加bin目录到你电脑的环境路径PATH中。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>###匿名内部类</p>
+<p>在Java中，匿名内部类提供了一种只在程序中出现一次的方式来实现一个类（接口）。例如，在标准的Swing或者JavaFX 应用中，一些事件处理器要求键盘或鼠标事件，你可以像这样写：</p>
+<figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line">JButton testButton = <span class="keyword">new</span> JButton(<span class="string">"Test Button"</span>);</span><br><span class="line">     testButton.addActionListener(<span class="keyword">new</span> ActionListener()&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent ae)</span></span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"Click Detected by Anon Class"</span>);</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;);</span><br></pre></td></tr></table></figure>
+<p>否则，你就需要为每一个事件写一个类来实现ActionListener。在这种地方创建类，所有创建该类的地方的代码都会变得不易读。大量的代码被书写仅仅是为了定义一个方法就导致了代码缺乏优雅性。</p>
+<h3 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h3><p>定义ActionListener接口的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.awt.event;</span><br><span class="line">  <span class="keyword">import</span> java.util.EventListener;</span><br><span class="line">   </span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ActionListener</span> <span class="keyword">extends</span> <span class="title">EventListener</span> </span>&#123;</span><br><span class="line">       </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span></span>;</span><br><span class="line">   </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这个ActionListener案例是一个仅包含一个方法的接口。在Java SE8中，像这样的代码形式被称为“函数式接口”<br>    <strong>注意:</strong>接口类型之前被称作单抽象方法类型（SAM）</p>
+<p>在匿名内部类上使用函数式接口是在Java中是一种比较普遍使用的模式。除EventListener类以外，还有Runnable和Comparator等像这样被使用。所以，使用Lambda表达式对函数式接口的使用意义非凡。</p>
+<h3 id="Lambda表达式句法："><a href="#Lambda表达式句法：" class="headerlink" title="Lambda表达式句法："></a>Lambda表达式句法：</h3><p>Lambda表达式可以将繁杂的匿名内部类代码从5行转换为1行。这种简单水平答案解决了内部类带来的“纵向问题”。</p>
+<p>一个Lambda表达式由以下部分组成：  </p>
+<table>
+<thead>
+<tr>
+<th>参数列表</th>
+<th>箭头</th>
+<th>函数体  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(int x, int y)</td>
+<td>-&gt;</td>
+<td>x + y  </td>
+</tr>
+</tbody>
+</table>
+<p>函数体可以是单行的表达式，也可以声明一个语句块。  </p>
+<ul>
+<li>表达式：表达式会被执行然后返回执行结果</li>
+<li>语句块：语句块中的语句会被依次执行，就像方法中的语句一样<ul>
+<li><code>return</code>语句会把控制权交给匿名方法的调用者</li>
+<li><code>break</code>和<code>continue</code>只能在循环中使用</li>
+<li>如果函数有返回值，那么函数体内部的每一条路径都必须有返回值或者抛出异常</li>
+</ul>
+</li>
+</ul>
+<p>再看看以下例子：</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="params">(int x, int y)</span> -&gt;</span> x + y</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="params">()</span> -&gt;</span> <span class="number">42</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="params">(String s)</span> -&gt;</span> &#123; System.out.println(s); &#125;</span><br><span class="line">``<span class="javascript"><span class="string">`		</span><br><span class="line"> 第一个Lambda表达式有两个整型参数`</span>x<span class="string">`和`</span>y<span class="string">`,并且返回两个数的和。第二个表达式没有参数，返回了一个整型数42.第三个表达式有一个字符串参数，并且将它打印到控制台，没有返回值。</span><br><span class="line"> </span><br><span class="line">看了一些基本的句法，我们再来看看一些例子。</span><br><span class="line"></span><br><span class="line">## Lambda例子</span><br><span class="line"></span><br><span class="line">### Runnable Lambda</span><br><span class="line">使用Lambda来写Runnable</span></span></span><br></pre></td></tr></table></figure>
+<p>public class RunnableTest {<br>   public static void main(String[] args) {</p>
+<pre><code>System.out.println(&quot;=== RunnableTest ===&quot;);
+
+// Anonymous Runnable
+Runnable r1 = new Runnable(){
+
+  @Override
+  public void run(){
+    System.out.println(&quot;Hello world one!&quot;);
+  }
+};
+
+// Lambda Runnable
+Runnable r2 = () -&gt; System.out.println(&quot;Hello world two!&quot;);
+
+// Run em!
+r1.run();
+r2.run();
+</code></pre><p>   }<br> }<br><figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">在两个例子中，注意这里没有参数传递和返回。Lambda表达式把5行代码转换为了一行。</span><br><span class="line"></span><br><span class="line">Comparator Lambda</span><br><span class="line">在java中，Comparator类是用来对Collections集合进行排序的。在以下例子中，一个ArrayList包涵了一组使用surName属性来排序的<span class="keyword">Person</span>对象集合，以下是<span class="keyword">Person</span>类里的字段。</span><br></pre></td></tr></table></figure></p>
+<p>public class Person{<br>    private String givenName;<br>    private String surName;<br>    private int age;<br>    private Gender gender;<br>    private String eMail;<br>    private String phone;<br>    private String address;<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">以下代码使用了内部类的方式以及一些Lambda表达式来应用Comparator类</span><br></pre></td></tr></table></figure></p>
+<p>public class ComparatorTest{</p>
+<pre><code>public static void main(String[] args) {
+
+ List&lt;Person&gt; personList = Person.createShortList(); 
+ // Sort with Inner Class
+ Collections.sort(personList, new Comparator&lt;Person&gt;(){
+     public int compare(Person p1, Person p2){
+         return p1.getSurName().compareTo(p2.getSurName());
+       }
+});
+
+System.out.println(&quot;=== Sorted Asc SurName ===&quot;);
+for(Person p:personList){
+      p.printName();
+}
+
+// Use Lambda instead
+
+// Print Asc
+System.out.println(&quot;=== Sorted Asc SurName ===&quot;);
+Collections.sort(personList, (Person p1, Person p2) -&gt;
+p1.getSurName().compareTo(p2.getSurName())); 
+
+for(Person p:personList){
+      p.printName();
+}
+
+// Print Desc
+ System.out.println(&quot;=== Sorted Desc SurName ===&quot;);
+ Collections.sort(personList, (p1, p2) -&gt;
+p2.getSurName().compareTo(p1.getSurName())); 
+
+for(Person p:personList){
+    p.printName();    
+}
+</code></pre><p>  }<br>}<br><figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="number">17</span><span class="number">-21</span>行的代码可以很容易就被<span class="number">32</span>行的代码所代替。请注意，第一个Lambda表达式声明了参数类型。然而，在第二个表达式中你可以看到，参数类型是可选的。Lambda支持根据上下文推理出所需要的“目标类型”。因为我们为Comparator分配范型，因此编译器能够推理出两个参数的类型是Person。</span><br><span class="line"></span><br><span class="line"><span class="meta">### Listener Lambda</span></span><br><span class="line">最后我们重新看一下ActionListener这个例子。</span><br></pre></td></tr></table></figure></p>
+<p>public class ListenerTest {<br>   public static void main(String[] args) {</p>
+<pre><code> JButton testButton = new JButton(&quot;Test Button&quot;);
+ testButton.addActionListener(new ActionListener(){
+ @Override public void actionPerformed(ActionEvent ae){
+     System.out.println(&quot;Click Detected by Anon Class&quot;);
+   }
+ });
+
+ testButton.addActionListener(e -&gt; System.out.println(&quot;Click Detected by Lambda Listner&quot;));
+
+// Swing stuff
+JFrame frame = new JFrame(&quot;Listener Test&quot;);
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.add(testButton, BorderLayout.CENTER);
+frame.pack();
+frame.setVisible(true);
+</code></pre><p>  }<br>}<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">请注意，Lambda表达式给出了一个参数，目标类型会在一些上下文中被使用过，如：</span><br><span class="line"></span><br><span class="line">  * 各种声明中</span><br><span class="line">  * 任务委派</span><br><span class="line">  * 返回声明</span><br><span class="line">  * 数组初始化</span><br><span class="line">  * 方法或构造器参数中</span><br><span class="line">  * Lambda函数体中</span><br><span class="line">  * 条件表达式中 如 ？：</span><br><span class="line">  * 表达式转换</span><br><span class="line"></span><br><span class="line"><span class="section">### 资源</span></span><br><span class="line">包含有这部分源码的NetBeans工程包可以到以下链接下载  </span><br><span class="line">[<span class="string">LambdaExamples01.zip</span>](<span class="link">http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/examples/LambdaExamples01.zip</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">## 使用Lambda表达式优化代码</span></span><br><span class="line">这部分依赖于之前的例子来向你展示Lambda表达式如何优化你的代码。Lambda提供了一种更好的解决重复使用规则并且使你的代码更加简洁易读的一种方式。</span><br><span class="line"></span><br><span class="line"><span class="section">### 常用的查询用例</span></span><br><span class="line">程序中常用的查询用例指在数据集合中查找符合具体某一个标准的数据。在JavaOne 2012 “Jump-Starting Lambda”的演示上，Stuart Marks 和Mike Duigou就使用到了这个用例。给出一些人，让机器人按照多种要求的标准来匹配。这次的教程遵循样本适当的多样性。</span><br><span class="line"></span><br><span class="line">在这个例子中，我们是要针对美国的以下三种人：</span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>司机：年龄大于16岁的人</span><br><span class="line"><span class="bullet">* </span>入伍士兵：年龄在18－25岁之间的男性</span><br><span class="line"><span class="bullet">* </span>领航员（商业类领航员）：年龄在23－65岁之间的人</span><br><span class="line"></span><br><span class="line">真正能这样做的机器人还未步入我们的商业圈。对于打电话，取而代之的可以是邮递或者邮件，一条打印到工作台的信息。信息包涵一个人的姓名，年龄以及具体信息的联系方案（例如，什么时候发邮件，打电话的时间）。</span><br><span class="line"></span><br><span class="line"><span class="strong">**Person 类**</span></span><br><span class="line">每一个在测试群体中的人用包含有如下字段的Person类来定义：</span><br></pre></td></tr></table></figure></p>
+<p>public class Person {<br>      private String givenName;<br>       private String surName;<br>       private int age;<br>       private Gender gender;<br>       private String eMail;<br>       private String phone;<br>       private String address;<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">这个Person类使用Builder来创建一个实体。一个人群样本使用`createShortList`方法来创建。以下是这个方法的部分代码片段。 <span class="keyword">*</span><span class="keyword">*</span>注意：<span class="keyword">*</span><span class="keyword">*</span>关于本教程的所有源码都在本模块末尾的NetBeans项目链接里。</span><br></pre></td></tr></table></figure></p>
+<p>public static List<person> createShortList(){<br>    List<person> people = new ArrayList&lt;&gt;();<br>     people.add(<br>       new Person.Builder()<br>             .givenName(“Bob”)<br>             .surName(“Baker”)<br>             .age(21)<br>            .gender(Gender.MALE)<br>            .email(“bob.baker@example.com”)<br>            .phoneNumber(“201-121-4678”)<br>            .address(“44 4th St, Smallville, KS 12333”)<br>            .build()<br>      );</person></person></p>
+<pre><code>people.add(
+  new Person.Builder()
+        .givenName(&quot;Jane&quot;)
+        .surName(&quot;Doe&quot;)
+        .age(25)
+         .gender(Gender.FEMALE)
+        .email(&quot;jane.doe@example.com&quot;)
+        .phoneNumber(&quot;202-123-4678&quot;)
+        .address(&quot;33 3rd St, Smallville, KS 12333&quot;)
+        .build() 
+  );
+
+people.add(
+  new Person.Builder()
+        .givenName(&quot;John&quot;)
+        .surName(&quot;Doe&quot;)
+        .age(25)
+        .gender(Gender.MALE)
+        .email(&quot;john.doe@example.com&quot;)
+        .phoneNumber(&quot;202-123-4678&quot;)
+        .address(&quot;33 3rd St, Smallville, KS 12333&quot;)
+        .build()
+); 
+</code></pre><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">### 第一次尝试</span></span><br><span class="line">对于这个Person类和搜索功能的定义，你可以定义一个`RoboContact`类。一种可行的方案是为每一个用例定义这样一个方法：</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>RoboContactsMethods.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+<pre><code>package com.example.lambda;
+
+import java.util.List;
+
+/**
+ *
+ * @author MikeW
+ */
+public class RoboContactMethods {
+
+ public void callDrivers(List&lt;Person&gt; pl){
+   for(Person p:pl){
+     if (p.getAge() &gt;= 16){
+       roboCall(p);
+     }
+   }
+ }
+
+ public void emailDraftees(List&lt;Person&gt; pl){
+   for(Person p:pl){
+     if (p.getAge() &gt;= 18 &amp;&amp; p.getAge() &lt;= 25 &amp;&amp; p.getGender() == Gender.MALE){
+       roboEmail(p);
+     }
+   }
+ }
+
+ public void mailPilots(List&lt;Person&gt; pl){
+   for(Person p:pl){
+     if (p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65){
+       roboMail(p);
+     }
+   }
+ }
+
+      public void roboCall(Person p){
+   System.out.println(&quot;Calling &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getPhone());
+ }
+
+ public void roboEmail(Person p){
+   System.out.println(&quot;EMailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getEmail());
+ }
+
+ public void roboMail(Person p){
+   System.out.println(&quot;Mailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getAddress());
+ }
+</code></pre><p>   }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">正如你看到描述几种行为发生的方法名（`callDrivers`,`emailDraftees`和`mailPilots`）一样。搜索要求被清晰地表示并且每一个机器动作都发出了合适的请求。然而，这个设计仍有一些做的不好的部分：</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span> 没有遵循DRY原则</span><br><span class="line">  <span class="keyword">*</span> 在每一个方法里都定义了同一个循环体</span><br><span class="line">  <span class="keyword">*</span> 筛选条件在每一个方法里必须要被重写</span><br><span class="line"><span class="keyword">*</span> 很多方法被要求实现每一个用例</span><br><span class="line"><span class="keyword">*</span> 代码可变动性差，如果一个搜索条件改变了，此时就会要求大量的代码被修改。这样，代码就变得难以维护。</span><br><span class="line"></span><br><span class="line"><span class="comment">### 方法的重构</span></span><br><span class="line">怎么修改以上这个类呢？搜索条件是一个不错的入口。如果把测试条件分离出一个单独的方法，那会是一个不错的提升。</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>RoboContactMethods2.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
+<p>package com.example.lambda;</p>
+<pre><code>import java.util.List;
+
+/**
+ *
+ * @author MikeW
+ */
+public class RoboContactMethods2 {
+
+ public void callDrivers(List&lt;Person&gt; pl){
+   for(Person p:pl){
+     if (isDriver(p)){
+       roboCall(p);
+     }
+   }
+ }
+
+ public void emailDraftees(List&lt;Person&gt; pl){
+   for(Person p:pl){
+     if (isDraftee(p)){
+       roboEmail(p);
+     }
+   }
+ }
+
+ public void mailPilots(List&lt;Person&gt; pl){
+   for(Person p:pl){
+     if (isPilot(p)){
+       roboMail(p);
+     }
+   }
+ }
+
+    public boolean isDraftee(Person p){
+  return p.getAge() &gt;= 18 &amp;&amp; p.getAge() &lt;= 25 &amp;&amp; p.getGender() == Gender.MALE;
+ }
+
+ public boolean isPilot(Person p){
+   return p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65;
+ }
+
+ public void roboCall(Person p){
+   System.out.println(&quot;Calling &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getPhone());
+ }
+
+ public void roboEmail(Person p){
+   System.out.println(&quot;EMailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getEmail());
+ }
+
+ public void roboMail(Person p){
+   System.out.println(&quot;Mailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getAddress());
+ }
+</code></pre><p>   }<br><figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">搜索判定条件被写在了一个单独的方法里，相比上一个例子是一个提升。测试条件可以在整个类中被重用、修改。然而在这个类中依旧存在着大量重复的代码，每一个用例依旧要求一个单独的方法。那么对于这种情况，还有更好的方式来优化搜索条件吗？</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 内部类</span><br><span class="line"></span><br><span class="line">在Lambda表达式之前，匿名内部类也是一种可选的方案。比如，一个只包含一个测试方法并且返回一个boolean类型值的接口<span class="comment">(**MyTest.java｜函数式接口**)</span>或许是一个不错的方案。当方法被调用时测试标准应该被执行。接口如下：</span><br></pre></td></tr></table></figure></p>
+<p>public interface MyTest<t> {<br>    public boolean teset(T t);<br>}<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">重写机器人类如下：</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>RoboContactAnon.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></t></p>
+<p> public class RoboContactAnon {</p>
+<p>  public void phoneContacts(List<person> pl, MyTest<person> aTest){<br>    for(Person p:pl){<br>      if (aTest.test(p)){<br>        roboCall(p);<br>      }<br>    }<br> }</person></person></p>
+<p>  public void emailContacts(List<person> pl, MyTest<person> aTest){<br>    for(Person p:pl){<br>      if (aTest.test(p)){<br>        roboEmail(p);<br>      }<br>    }<br>  }</person></person></p>
+<p>  public void mailContacts(List<person> pl, MyTest<person> aTest){<br>    for(Person p:pl){<br>      if (aTest.test(p)){<br>        roboMail(p);<br>      }<br>    }<br>  }  </person></person></p>
+<p>  public void roboCall(Person p){<br>    System.out.println(“Calling “ + p.getGivenName() + “ “ + p.getSurName() + “ age “ + p.getAge() + “ at “ + p.getPhone());<br>  }</p>
+<p>   public void roboEmail(Person p){<br>     System.out.println(“EMailing “ + p.getGivenName() + “ “ + p.getSurName() + “ age “ + p.getAge() + “ at “ + p.getEmail());<br>   }</p>
+<pre><code>    public void roboMail(Person p){
+System.out.println(&quot;Mailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getAddress());
+</code></pre><p>   }</p>
+<p> }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">这又是另外一个提升，因为机器人只需要运行三个方法。然而，当方法被调用的时候仍然会有一点丑陋的问题。为这个类再写一个测试类：</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>RoboCallTest03.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
+<p>package com.example.lambda;</p>
+<p>   import java.util.List;</p>
+<p>   /**</p>
+<pre><code> * @author MikeW
+*/
+public class RoboCallTest03 {
+
+ public static void main(String[] args) {
+
+   List&lt;Person&gt; pl = Person.createShortList();
+  RoboContactAnon robo = new RoboContactAnon();
+
+  System.out.println(&quot;\\n==== Test 03 ====&quot;);
+  System.out.println(&quot;\\n=== Calling all Drivers ===&quot;);
+  robo.phoneContacts(pl, 
+      new MyTest&lt;Person&gt;(){
+        @Override
+        public boolean test(Person p){
+          return p.getAge() &gt;=16;
+         }
+      }
+  );
+
+  System.out.println(&quot;\\n=== Emailing all Draftees ===&quot;);
+  robo.emailContacts(pl, 
+      new MyTest&lt;Person&gt;(){
+        @Override
+        public boolean test(Person p){
+          return p.getAge() &gt;= 18 &amp;&amp; p.getAge() &lt;= 25 &amp;&amp; p.getGender() == Gender.MALE;
+        }
+      }
+  );
+
+  System.out.println(&quot;\\n=== Mail all Pilots ===&quot;);
+  robo.mailContacts(pl, 
+      new MyTest&lt;Person&gt;(){
+        @Override
+        public boolean test(Person p){
+          return p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65;
+        }
+      }
+  );
+
+
+}
+</code></pre><p>  }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">这是一个很不错的关于“纵向”问题的案例，这段代码读起来可能稍微有点困难。另外，我们还必须为每一个用例自定义一个搜索标准。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Lambda表达式让世界更美好</span></span><br><span class="line">Lambda可以解决迄今为止遇到的所有问题。但是第一次会有些整理工作</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>java.util.function<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">在前边的几个例子中，`MyTest`这个函数式接口使用匿名内部类来实现。然而，那样实现接口没必要。Java SE8 提供了的java.util.function包里有一些标准的函数式接口。既然这样，以下Predicate接口也符合我们的需求。</span><br></pre></td></tr></table></figure></p>
+<p>public interface Predicate<t> {<br>    public boolean test(T t);<br>}<br><figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">`test`方法在一个范型类中并且返回了一个boolean值的结果。这个方法也是筛选判断需要写的部分。以下是最终版本的`robot`类。</span><br><span class="line"></span><br><span class="line">**RoboContactsLambda.java**</span><br></pre></td></tr></table></figure></t></p>
+<p>package com.example.lambda;</p>
+<pre><code>import java.util.List;
+import java.util.function.Predicate;
+
+/**
+ *
+ * @author MikeW
+ */
+</code></pre><p>   public class RoboContactLambda {<br>     public void phoneContacts(List<person> pl, Predicate<person> pred){<br>       for(Person p:pl){<br>         if (pred.test(p)){<br>           roboCall(p);<br>         }<br>       }<br>     }</person></person></p>
+<pre><code> public void emailContacts(List&lt;Person&gt; pl, Predicate&lt;Person&gt; pred){
+  for(Person p:pl){
+     if (pred.test(p)){
+       roboEmail(p);
+     }
+   }
+ }
+
+ public void mailContacts(List&lt;Person&gt; pl, Predicate&lt;Person&gt; pred){
+   for(Person p:pl){
+    if (pred.test(p)){
+      roboMail(p);
+    }
+  }
+}  
+
+      public void roboCall(Person p){
+  System.out.println(&quot;Calling &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getPhone());
+}
+
+public void roboEmail(Person p){
+  System.out.println(&quot;EMailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getEmail());
+}
+
+ public void roboMail(Person p){
+  System.out.println(&quot;Mailing &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot; age &quot; + p.getAge() + &quot; at &quot; + p.getAddress());
+}
+</code></pre><p>  }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">使用这种方式，只需要三个方法就够了，每一种联系方式。Lambda表达式只需要筛选Persons实例就可以达到测试条件。</span><br><span class="line"></span><br><span class="line"><span class="comment">### 纵向问题的解决</span></span><br><span class="line">Lambda表达式解决了纵向问题以及很容易就可以复用一些表达式。再看看一些实用Lambda表达式写的测试类。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>RoboCallTest04.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
+<p>package com.example.lambda;</p>
+<pre><code>import java.util.List;
+import java.util.function.Predicate;
+
+/**
+ *
+ * @author MikeW
+ */
+</code></pre><p>   public class RoboCallTest04 {</p>
+<pre><code>public static void main(String[] args){ 
+
+  List&lt;Person&gt; pl = Person.createShortList();
+  RoboContactLambda robo = new RoboContactLambda();
+
+  // Predicates
+  Predicate&lt;Person&gt; allDrivers = p -&gt; p.getAge() &gt;= 16;
+  Predicate&lt;Person&gt; allDraftees = p -&gt; p.getAge() &gt;= 18 &amp;&amp; p.getAge() &lt;= 25 &amp;&amp; p.getGender() == Gender.MALE;
+  Predicate&lt;Person&gt; allPilots = p -&gt; p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65;
+
+  System.out.println(&quot;\\n==== Test 04 ====&quot;);
+  System.out.println(&quot;\\n=== Calling all Drivers ===&quot;);
+  robo.phoneContacts(pl, allDrivers);
+
+  System.out.println(&quot;\\n=== Emailing all Draftees ===&quot;);
+  robo.emailContacts(pl, allDraftees);
+
+  System.out.println(&quot;\\n=== Mail all Pilots ===&quot;);
+  robo.mailContacts(pl, allPilots);
+
+  // Mix and match becomes easy
+  System.out.println(&quot;\\n=== Mail all Draftees ===&quot;);
+  robo.mailContacts(pl, allDraftees);  
+
+  System.out.println(&quot;\\n=== Call all Pilots ===&quot;);
+  robo.phoneContacts(pl, allPilots);    
+
+}
+</code></pre><p>   }<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">注意Predicate设置了allDrivers，allDrafees，allPilots三组对象。你可以通过这三组任意一个来过滤并调用对应的方法。代码变的非常简洁易读，而且重复性低了。</span><br><span class="line"></span><br><span class="line"><span class="section">### 资源</span></span><br><span class="line">包含有这部分源码的NetBeans工程包可以到以下链接下载  </span><br><span class="line">[<span class="string">RoboCallExample.zip</span>](<span class="link">http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/examples/RoboCallExample.zip</span>)</span><br><span class="line"></span><br><span class="line"><span class="section">## java.util.function 包</span></span><br><span class="line"><span class="section">### 介绍 java.util.function 包</span></span><br><span class="line"> 当然，Java SE 8不仅仅提供了Predicate一个函数式接口。为开发者还提供了很多的标准接口作为引导。</span><br><span class="line"> </span><br><span class="line"> * Predicate: 带有参数的特点</span><br><span class="line"> * Consumer: 带有参数并且表示一种行为</span><br><span class="line"> * Function: 把一个T变成U</span><br><span class="line"> * Supplier: 提供一个T的实例</span><br><span class="line"> * UnaryOperator: 一个一元操作 T-&gt;T</span><br><span class="line"> * BinaryOperator: 一个二元操作 (T, T)-&gt;T</span><br><span class="line">除此之外，这些接口里多数都有一些早期的版本。这些都会给你的Lambda表达式体统一个不错的起点。</span><br><span class="line"></span><br><span class="line"><span class="section">### 东方风格的名称以及方法引用</span></span><br><span class="line">在写以上代码过程中，我发现对于<span class="code">`Person`</span>类来讲，这是一个可变性不错的打印系统。现在有一个特别的需求是将姓名以西方以及东方两种风格的形式展现出来。在西方，名字会写在前边，姓会写在后边。在多数的东方文化里，却是姓在前，名字在后。</span><br><span class="line"></span><br><span class="line"><span class="strong">**一个老版本的例子**</span></span><br><span class="line">以下是不使用Lambda表达式实现Person打印类的例子。</span><br><span class="line"></span><br><span class="line"><span class="emphasis">*Person.java*</span></span><br></pre></td></tr></table></figure></p>
+<p>public void printWesternName(){</p>
+<pre><code>System.out.println(&quot;\\nName: &quot; + this.getGivenName() + &quot; &quot; + this.getSurName() + &quot;\\n&quot; +
+         &quot;Age: &quot; + this.getAge() + &quot;  &quot; + &quot;Gender: &quot; + this.getGender() + &quot;\\n&quot; +
+         &quot;EMail: &quot; + this.getEmail() + &quot;\\n&quot; + 
+         &quot;Phone: &quot; + this.getPhone() + &quot;\\n&quot; +
+         &quot;Address: &quot; + this.getAddress());
+</code></pre><p>   }</p>
+<p>   public void printEasternName(){</p>
+<pre><code>System.out.println(&quot;\\nName: &quot; + this.getSurName() + &quot; &quot; + this.getGivenName() + &quot;\\n&quot; +
+         &quot;Age: &quot; + this.getAge() + &quot;  &quot; + &quot;Gender: &quot; + this.getGender() + &quot;\\n&quot; +
+         &quot;EMail: &quot; + this.getEmail() + &quot;\\n&quot; + 
+         &quot;Phone: &quot; + this.getPhone() + &quot;\\n&quot; +
+         &quot;Address: &quot; + this.getAddress());
+</code></pre><p>   }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">这里为每一种打印名字的风格都写了一个方法。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>函数式接口<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">函数式接口对这个问题很有用。以以下方式只需要写一个方法就够了</span><br><span class="line">`public R apply(T t)&#123; &#125;`</span><br><span class="line">它使用了一个范型T和返回范型值R。在这个例子中，是Person类和返回一个字符串值。一个可修改的打印信息的方法可以这么写：</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span>Person.java<span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
+<p>public String printCustom(Function <person, string=""> f){<br>       return f.apply(this);<br> }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">变得更加简单了。一个函数传递给了这个方法并且返回了一个字符串。`apply`方法可以通过Lambda表达式来决定什么样的Person信息会被返回。</span><br><span class="line"></span><br><span class="line">那么具体函数怎么定义呢？以下是一段调用之前方法的测试代码。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>NameTestNew.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></person,></p>
+<p>public class NameTestNew {</p>
+<p>   public static void main(String[] args) {</p>
+<pre><code>System.out.println(&quot;\\n==== NameTestNew02 ===&quot;);
+
+List&lt;Person&gt; list1 = Person.createShortList();
+
+// Print Custom First Name and e-mail
+System.out.println(&quot;===Custom List===&quot;);
+for (Person person:list1){
+    System.out.println(
+        person.printCustom(p -&gt; &quot;Name: &quot; + p.getGivenName() + &quot; EMail: &quot; + p.getEmail())
+    );
+}
+
+
+// Define Western and Eastern Lambdas
+
+Function&lt;Person, String&gt; westernStyle = p -&gt; {
+  return &quot;\\nName: &quot; + p.getGivenName() + &quot; &quot; + p.getSurName() + &quot;\\n&quot; +
+         &quot;Age: &quot; + p.getAge() + &quot;  &quot; + &quot;Gender: &quot; + p.getGender() + &quot;\\n&quot; +
+         &quot;EMail: &quot; + p.getEmail() + &quot;\\n&quot; + 
+         &quot;Phone: &quot; + p.getPhone() + &quot;\\n&quot; +
+         &quot;Address: &quot; + p.getAddress();
+};
+
+Function&lt;Person, String&gt; easternStyle =  p -&gt; &quot;\\nName: &quot; + p.getSurName() + &quot; &quot; 
+        + p.getGivenName() + &quot;\\n&quot; + &quot;Age: &quot; + p.getAge() + &quot;  &quot; + 
+        &quot;Gender: &quot; + p.getGender() + &quot;\\n&quot; +
+        &quot;EMail: &quot; + p.getEmail() + &quot;\\n&quot; + 
+        &quot;Phone: &quot; + p.getPhone() + &quot;\\n&quot; +
+        &quot;Address: &quot; + p.getAddress();   
+
+// Print Western List
+System.out.println(&quot;\\n===Western List===&quot;);
+for (Person person:list1){
+    System.out.println(
+        person.printCustom(westernStyle)
+    );
+}
+// Print Eastern List
+System.out.println(&quot;\\n===Eastern List===&quot;);
+for (Person person:list1){
+    System.out.println(
+        person.printCustom(easternStyle)
+    );
+}
+</code></pre><p>   }<br> }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">第一个循环打印了名字以及邮件地址。但是一些有效信息本应该被传入printCustom方法的。东方以及西方风格的打印方式使用Lambda表达式定义并且使用变量引用之。这两个变量被用在了两个循环中。Lambda表达式很容易就被合并到Map中而且复用也更加容易。Lambda表达式为代码的可修整性提供了一个不错的解决方案。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>示例输出<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">下边是程序的一些输出范例。</span><br></pre></td></tr></table></figure></p>
+<p>==== NameTestNew02 ===<br>===Custom List===<br>Name: Bob EMail: bob.baker@example.com<br>Name: Jane EMail: jane.doe@example.com<br>Name: John EMail: john.doe@example.com<br>Name: James EMail: james.johnson@example.com<br>Name: Joe EMail: joebob.bailey@example.com<br>Name: Phil EMail: phil.smith@examp;e.com<br>Name: Betty EMail: betty.jones@example.com</p>
+<p>===Western List===</p>
+<p>Name: Bob Baker<br>Age: 21  Gender: MALE<br>EMail: bob.baker@example.com<br>Phone: 201-121-4678<br>Address: 44 4th St, Smallville, KS 12333</p>
+<p>Name: Jane Doe<br>Age: 25  Gender: FEMALE<br>EMail: jane.doe@example.com<br>Phone: 202-123-4678<br>Address: 33 3rd St, Smallville, KS 12333</p>
+<p>Name: John Doe<br>Age: 25  Gender: MALE<br>EMail: john.doe@example.com<br>Phone: 202-123-4678<br>Address: 33 3rd St, Smallville, KS 12333</p>
+<p>Name: James Johnson<br>Age: 45  Gender: MALE<br>EMail: james.johnson@example.com<br>Phone: 333-456-1233<br>Address: 201 2nd St, New York, NY 12111</p>
+<p>Name: Joe Bailey<br>Age: 67  Gender: MALE<br>EMail: joebob.bailey@example.com<br>Phone: 112-111-1111<br>Address: 111 1st St, Town, CA 11111</p>
+<p>Name: Phil Smith<br>Age: 55  Gender: MALE<br>EMail: phil.smith@examp;e.com<br>Phone: 222-33-1234<br>Address: 22 2nd St, New Park, CO 222333</p>
+<p>Name: Betty Jones<br>Age: 85  Gender: FEMALE<br>EMail: betty.jones@example.com<br>Phone: 211-33-1234<br>Address: 22 4th St, New Park, CO 222333</p>
+<p>===Eastern List===</p>
+<p>Name: Baker Bob<br>Age: 21  Gender: MALE<br>EMail: bob.baker@example.com<br>Phone: 201-121-4678<br>Address: 44 4th St, Smallville, KS 12333</p>
+<p>Name: Doe Jane<br>Age: 25  Gender: FEMALE<br>EMail: jane.doe@example.com<br>Phone: 202-123-4678<br>Address: 33 3rd St, Smallville, KS 12333</p>
+<p>Name: Doe John<br>Age: 25  Gender: MALE<br>EMail: john.doe@example.com<br>Phone: 202-123-4678<br>Address: 33 3rd St, Smallville, KS 12333</p>
+<p>Name: Johnson James<br>Age: 45  Gender: MALE<br>EMail: james.johnson@example.com<br>Phone: 333-456-1233<br>Address: 201 2nd St, New York, NY 12111</p>
+<p>Name: Bailey Joe<br>Age: 67  Gender: MALE<br>EMail: joebob.bailey@example.com<br>Phone: 112-111-1111<br>Address: 111 1st St, Town, CA 11111</p>
+<p>Name: Smith Phil<br>Age: 55  Gender: MALE<br>EMail: phil.smith@examp;e.com<br>Phone: 222-33-1234<br>Address: 22 2nd St, New Park, CO 222333</p>
+<p>Name: Jones Betty<br>Age: 85  Gender: FEMALE<br>EMail: betty.jones@example.com<br>Phone: 211-33-1234<br>Address: 22 4th St, New Park, CO 222333<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">### 资源</span></span><br><span class="line">包含有这部分源码的NetBeans工程包可以到以下链接下载  </span><br><span class="line">[<span class="string">LambdaFunctionExamples.zip</span>](<span class="link">http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/examples/LambdaFunctionExamples.zip</span>)</span><br><span class="line"></span><br><span class="line"><span class="section">## Lambda表达式以及集合</span></span><br><span class="line">前边的几个模块介绍了函数式接口以及使用Lambda表达式写了一些例子。这个模块将介绍Lambda表达式对Collection集合的优化。</span><br><span class="line"></span><br><span class="line"><span class="section">### Lambda表达式以及集合</span></span><br><span class="line">到目前为止讲到的例子中，集合类就是用了一点点。然而，一些Lambda表达式特性可以影响一些使用集合的方式。以下模块介绍了一少部分的新特性。</span><br><span class="line"></span><br><span class="line"><span class="strong">**其他类**</span>  </span><br><span class="line">司机，领航员，以及入伍士兵的搜索条件已经被涵盖在了<span class="code">`SearchCriteria`</span>类中</span><br><span class="line"></span><br><span class="line"><span class="emphasis">*SearchCriteria.java*</span></span><br></pre></td></tr></table></figure></p>
+<p>package com.example.lambda;<br>  import java.util.HashMap;<br>  import java.util.Map;<br>  import java.util.function.Predicate;</p>
+<p>  /<em>*
+   </em></p>
+<ul>
+<li><p>@author MikeW<br>*/<br>public class SearchCriteria {</p>
+<p>private final Map<string, predicate<person="">&gt; searchMap = new HashMap&lt;&gt;();</string,></p>
+<p>private SearchCriteria() {<br>super();<br>initSearchMap();<br>}</p>
+<p>private void initSearchMap() {<br>Predicate<person> allDrivers = p -&gt; p.getAge() &gt;= 16;<br>Predicate<person> allDraftees = p -&gt; p.getAge() &gt;= 18 &amp;&amp; p.getAge() &lt;= 25 &amp;&amp; p.getGender() == Gender.MALE;<br>Predicate<person> allPilots = p -&gt; p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65;</person></person></person></p>
+<p>searchMap.put(“allDrivers”, allDrivers);<br>searchMap.put(“allDraftees”, allDraftees);<br>searchMap.put(“allPilots”, allPilots);</p>
+<p>}</p>
+<p>public Predicate<person> getCriteria(String PredicateName) {<br>Predicate<person> target;</person></person></p>
+<p>target = searchMap.get(PredicateName);</p>
+<p>if (target == null) {</p>
+<p> System.out.println(“Search Criteria not found… “);<br> System.exit(1);</p>
+<p>}</p>
+<p>return target;</p>
+<pre><code>}
+</code></pre><p>public static SearchCriteria getInstance() {<br>return new SearchCriteria();<br>}<br>}</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">基于搜索条件的Predicate使用在了这类里并且对我们的测试方法也是可用的。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>循环<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">第一个特性我们来着眼于一些可用forEach方法的集合类。以下是两个打印Person列表的例子  </span><br><span class="line"><span class="keyword">*</span>Test01ForEach.java<span class="keyword">*</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>public class Test01ForEach {</p>
+<p>  public static void main(String[] args) {</p>
+<pre><code>List&lt;Person&gt; pl = Person.createShortList();
+
+System.out.println(&quot;\\n=== Western Phone List ===&quot;);
+pl.forEach( p -&gt; p.printWesternName() );
+
+System.out.println(&quot;\\n=== Eastern Phone List ===&quot;);
+pl.forEach(Person::printEasternName);
+
+System.out.println(&quot;\\n=== Custom Phone List ===&quot;);
+pl.forEach(p -&gt; { System.out.println(p.printCustom(r -&gt; &quot;Name: &quot; + r.getGivenName() + &quot; EMail: &quot; + r.getEmail())); });
+</code></pre><p>  }</p>
+<p>}<br><figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">第一个例子使用了标准的<span class="type">Lambda</span>表达式来打印每一个人的西方文化的姓名。第二个例子使用了一个方法映射。在这种一个类里已经存在一个方法去执行某个操作的时候，这种句式就可以使用基本的<span class="type">Lambda</span>表达式来做到。最后一个例子在这种情况下如何使用printCustom来实现同样的功能。请注意当一个<span class="type">Lambda</span>表达式在不同的地方被引入的时候，会因为名称的不同而产生细微的差异。</span><br><span class="line">你可以对其他集合得出类似的结论。对循环的优化来讲基本的结构都是类似的。然而，对于拥有迭代器的类来讲好处更多。</span><br><span class="line"></span><br><span class="line">**链表、过滤器**</span><br><span class="line"></span><br><span class="line">除了循环容器的内容以外，you can chain <span class="keyword">method</span> together.第一个方法是把<span class="type">Predicate</span>接口作为参数的过滤器。</span><br><span class="line"></span><br><span class="line">*<span class="type">Test02Filter</span>.java*</span><br></pre></td></tr></table></figure></p>
+<p>public class Test02Filter {</p>
+<p>   public static void main(String[] args) {</p>
+<pre><code>List&lt;Person&gt; pl = Person.createShortList();
+
+SearchCriteria search = SearchCriteria.getInstance();
+
+System.out.println(&quot;\\n=== Western Pilot Phone List ===&quot;);
+
+pl.stream().filter(search.getCriteria(&quot;allPilots&quot;))
+  .forEach(Person::printWesternName);
+
+
+System.out.println(&quot;\\n=== Eastern Draftee Phone List ===&quot;);
+
+pl.stream().filter(search.getCriteria(&quot;allDraftees&quot;))
+  .forEach(Person::printEasternName);
+</code></pre><p>   }<br>}<br><figure class="highlight capnproto"><table><tr><td class="code"><pre><span class="line">第一个和最后一个循环展示了基于搜索标准的<span class="built_in">List</span>过滤器。输出如下：</span><br></pre></td></tr></table></figure></p>
+<p>=== Eastern Draftee Phone List ===</p>
+<p>Name: Baker Bob<br>Age: 21  Gender: MALE<br>EMail: bob.baker@example.com<br>Phone: 201-121-4678<br>Address: 44 4th St, Smallville, KS 12333</p>
+<p>Name: Doe John<br>Age: 25  Gender: MALE<br>EMail: john.doe@example.com<br>Phone: 202-123-4678<br>Address: 33 3rd St, Smallville, KS 12333<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">*</span>还可以更懒<span class="keyword">*</span>  </span><br><span class="line">这些特性都很有用，但目前集合的循环策略已经足够完美了啊？把这些特性加到库里，Java开发者将能够对代码做更多的优化。为了更好的解释，以下定义了几个术语：</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span>懒惰:<span class="keyword">*</span><span class="keyword">*</span> </span><br><span class="line">在程序中，懒指的是只在你需要执行代码块的时候程序才会去执行。在前边的几个例子中，最后一个循环之所以被称为“懒”是因为它只需要在过滤后剩下的两个对象中进行循环。由于最终的操作都是在选定的对象上执行的，因此代码效率更高。</span><br><span class="line"><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span>饥饿:<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">在列表中每一个对象上的操作可以看作“渴望”。例如，通过将一整个List集合的范围转换为两个对象的循环优化就可以看作更加“急切渴望”的做法。</span><br><span class="line"></span><br><span class="line">通过两个集合库上做循环，当合适的情况下代码可以通过“懒惰”的方式来得到优化。当一个更迫切的操作需要响应（如求和求平均值），饥饿法就可以被使用。这种方案要比只用饥饿法的效率和可修改性要高很多。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span>stream方法<span class="keyword">*</span>   </span><br><span class="line">在前边的例子中，请注意stream方法在过滤和循环开始之前被调用。这个方法将Collection作为输入，返回一个java.util.stream.Stream接口对象作为输出。一个流表示一系列将多种方法连接到一起的元素。默认的，一旦元素被用尽，流里的这些元素将不再可用。因此，一串的操作在一个特定的流上只能够执行一次。除此之外，依赖于方法被调用，一个流也可以被序列化（默认）或平行化。一个平行化流的例子会在本模块的末尾进行介绍。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>转变和结果<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">正如之前提到的一样，一个流会在使用后被销毁掉。因此，一个集合里的元素是不能够通过流来修改或者转型。那你到底想要在你一系列的操作完成之后返回什么样的元素呢？你可以把它们存到一个新的集合中。以下代码会告诉你怎么做：  </span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>Test03toList.java<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
+<p>public class Test03toList {</p>
+<p>   public static void main(String[] args) {</p>
+<pre><code>List&lt;Person&gt; pl = Person.createShortList();
+
+SearchCriteria search = SearchCriteria.getInstance();
+
+// Make a new list after filtering.
+List&lt;Person&gt; pilotList = pl
+        .stream()
+        .filter(search.getCriteria(&quot;allPilots&quot;))
+        .collect(Collectors.toList());
+
+System.out.println(&quot;\\n=== Western Pilot Phone List ===&quot;);
+pilotList.forEach(Person::printWesternName);
+</code></pre><p>   }</p>
+<p> }<br><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">`collect`方法只有一个参数，Collectors类。Collectors类可以基于结果流返回一个List或者Set对象。这个例子展示了结果流如何被指派到一个新的List集合。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>map的计算<span class="keyword">*</span><span class="keyword">*</span>  </span><br><span class="line">map方法经常和过滤器配合使用。这个方法从一个类里获取特性并为之服务。以下的例子基于计算年龄来说明这个特性。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span>Test04Map.java<span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
+<p>public class Test04Map {</p>
+<p>   public static void main(String[] args) {<br>     List<person> pl = Person.createShortList();</person></p>
+<pre><code>SearchCriteria search = SearchCriteria.getInstance();
+
+// Calc average age of pilots old style
+System.out.println(&quot;== Calc Old Style ==&quot;);
+int sum = 0;
+int count = 0;
+
+for (Person p:pl){
+  if (p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65 ){
+    sum = sum + p.getAge();
+    count++;
+  }
+}
+
+long average = sum / count;
+System.out.println(&quot;Total Ages: &quot; + sum);
+System.out.println(&quot;Average Age: &quot; + average);
+
+
+// Get sum of ages
+System.out.println(&quot;\\n== Calc New Style ==&quot;);
+long totalAge = pl
+        .stream()
+        .filter(search.getCriteria(&quot;allPilots&quot;))
+        .mapToInt(p -&gt; p.getAge())
+        .sum();
+
+// Get average of ages
+OptionalDouble averageAge = pl
+        .parallelStream()
+        .filter(search.getCriteria(&quot;allPilots&quot;))
+        .mapToDouble(p -&gt; p.getAge())
+        .average();
+
+System.out.println(&quot;Total Ages: &quot; + totalAge);
+System.out.println(&quot;Average Age: &quot; + averageAge.getAsDouble());    
+</code></pre><p>   }</p>
+<p> }<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">输出如下：</span><br></pre></td></tr></table></figure></p>
+<p>== Calc Old Style ==<br>Total Ages: 150<br>Average Age: 37</p>
+<p>== Calc New Style ==<br>Total Ages: 150<br>Average Age: 37.5<br>```<br>这段代码计算了我们列表中领航员的平均年龄。第一个循环展示了使用老风格的for循环计算数字。第二个循环通过一个序列化流使用了map方法获取每一个人的年龄。注意总年龄是一个long型数。map方法返回一个含有返回值为long型数据的sum方法的IntSteam对象。</p>
+<p><strong>注意:</strong><br>第二次计算平均值时，计算总年龄是没必要的。接下来便是sum方法的例子。</p>
+<p>最后一个循环从流中计算了平均年龄。注意parallelStream方法是用来获取平行流里的数据并加以运算。返回值在这里也略有不同。</p>
+<h3 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h3><p>包含有这部分源码的NetBeans工程包可以到以下链接下载<br><a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/examples/LambdaCollectionExamples.zip" target="_blank" rel="external">LambdaCollectionExample.zip</a></p>
+<p>##总结<br>在本次的教程中，你可以学到：</p>
+<ul>
+<li>Java中的匿名内部类</li>
+<li>在Java SE 8中使用Lambda表达式替换匿名内部类</li>
+<li>Lambda表达式的正确句法</li>
+<li>Perdicate接口在List列表搜索上的使用</li>
+<li>使用函数式接口将一种数据转型</li>
+<li>在Java SE 8中添加到Collections中一些支持Lambda表达式的新特性</li>
+</ul>
+<h3 id="资源-1"><a href="#资源-1" class="headerlink" title="资源"></a>资源</h3><p>更多关于Java SE 8的Lambda表达式的信息，可以看看以下链接：</p>
+<ul>
+<li><a href="http://openjdk.java.net/projects/jdk8/" target="_blank" rel="external">Java 8</a></li>
+<li><a href="http://openjdk.java.net/projects/lambda/" target="_blank" rel="external">Lambda项目</a></li>
+<li><a href="http://cr.openjdk.java.net/~briangoetz/lambda/lambda-state-4.html" target="_blank" rel="external">Lambda说明</a></li>
+<li><a href="http://cr.openjdk.java.net/~briangoetz/lambda/sotc3.html" target="_blank" rel="external">Lambda集合的说明</a></li>
+<li><a href="http://www.youtube.com/watch?v=bzO5GSujdqI" target="_blank" rel="external">Jump-Starting Lambda JavaOne 2012(You Tube)</a></li>
+<li>学习更多关于Java以及了解相关话题，请点击 <a href="http://www.oracle.com/goto/oll" target="_blank" rel="external">Oracle Learning Library</a></li>
+</ul>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阅读耗时"><span class="nav-text">阅读耗时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍："><span class="nav-text">介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件和软件要求"><span class="nav-text">硬件和软件要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先决条件"><span class="nav-text">先决条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式接口"><span class="nav-text">函数式接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambda表达式句法："><span class="nav-text">Lambda表达式句法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源"><span class="nav-text">资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源-1"><span class="nav-text">资源</span></a></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#Lambda" rel="tag">#Lambda</a>
+        
+          <a href="/tags#Java 8" rel="tag">#Java 8</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

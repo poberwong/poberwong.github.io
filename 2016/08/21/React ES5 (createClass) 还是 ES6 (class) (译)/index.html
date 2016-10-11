@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React,React-Native,翻译,ES6,ES5," />
+
+
+<meta name="description" content="原文链接
+写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。
+React可以用ES5或ES6完美书写。
+使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React ES5 (createClass) 还是 ES6 (class)? (译)">
+<meta property="og:url" content="http://poberwong.com/2016/08/21/React ES5 (createClass) 还是 ES6 (class) (译)/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文链接
+写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。
+React可以用ES5或ES6完美书写。
+使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta property="og:updated_time" content="2016-10-11T04:13:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React ES5 (createClass) 还是 ES6 (class)? (译)">
+<meta name="twitter:description" content="原文链接
+写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。
+React可以用ES5或ES6完美书写。
+使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> React ES5 (createClass) 还是 ES6 (class)? (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="React ES5 (createClass) 还是 ES6 (class)? (译)"> React ES5 (createClass) 还是 ES6 (class)? (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-08-21T23:12:09+08:00" content="2016-08-21">
+              2016-08-21
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><a href="https://daveceddia.com/react-es5-createclass-vs-es6-classes/" target="_blank" rel="external">原文链接</a></p>
+<p>写React的时候，你是应该用<code>React.createClass</code>语法还是ES6的<code>class</code>语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。</p>
+<p>React可以用ES5或ES6完美书写。</p>
+<p>使用JSX意味着你将通过Babel将JSX通过“build”转化为<code>React.createElement</code>调用。很多人利用这个特点在Babel的编译列表中添加一些<code>es2015</code>的语法以此来让ES6完全可用。</p>
+<p>如果你正在使用<a href="https://github.com/satya164/quik" target="_blank" rel="external">Quik</a>或是<a href="https://github.com/insin/react-heatpack" target="_blank" rel="external">React Heatpack</a>，这已经为你配置好了(如果你还没有安装环境，请阅读<a href="https://daveceddia.com/test-drive-react" target="_blank" rel="external">quick start React</a>)。</p>
+<h2 id="比较-createClass-和-class"><a href="#比较-createClass-和-class" class="headerlink" title="比较 createClass 和 class"></a>比较 createClass 和 class</h2><p>以下是使用<code>React.createClass</code>和ES6的<code>class</code>书写相同的组件：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> InputControlES5 = React.createClass(&#123;</span><br><span class="line">  propTypes: &#123;</span><br><span class="line">    initialValue: React.PropTypes.string</span><br><span class="line">  &#125;,</span><br><span class="line">  defaultProps: &#123;</span><br><span class="line">    initialValue: <span class="string">''</span></span><br><span class="line">  &#125;, <span class="comment">// Set up initial state</span></span><br><span class="line">  getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      text: <span class="keyword">this</span>.props.initialValue || <span class="string">'placeholder'</span> </span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  handleChange: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      text: event.target.value</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        Type something:</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> </span><br><span class="line">          <span class="attr">value</span>=<span class="string">&#123;this.state.text&#125;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputControlES6</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props); </span><br><span class="line">    <span class="comment">// Set up initial state</span></span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      text: props.initialValue || <span class="string">'placeholder'</span> </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// Functions must be bound manually with ES6 classes</span></span><br><span class="line">    <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>); </span><br><span class="line">  &#125; </span><br><span class="line">  handleChange(event) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123; </span><br><span class="line">      text: event.target.value</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; </span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        Type something:</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span></span><br><span class="line">          <span class="attr">value</span>=<span class="string">&#123;this.state.text&#125;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">InputControlES6.propTypes = &#123; </span><br><span class="line">  initialValue: React.PropTypes.string</span><br><span class="line">&#125;;</span><br><span class="line">InputControlES6.defaultProps = &#123;</span><br><span class="line">  initialValue: ''</span><br><span class="line">&#125;;</span></span><br></pre></td></tr></table></figure>
+<p>以下是一些关键的不同点：</p>
+<h3 id="函数的绑定"><a href="#函数的绑定" class="headerlink" title="函数的绑定"></a>函数的绑定</h3><p>这或许是最大的一个变化点</p>
+<p>使用<code>createClass</code>, 每一个函数属性都会被React自动绑定。指的是<code>this.whateverFn</code>这样的函数在任何你需要调用的时候都会自动为你绑定正确的<code>this</code>。</p>
+<p>在ES6的<code>class</code>中，就不同了: 函数不再被自动绑定。你需要手动去绑定它们。最好的地方就是和以上例子一样，在构造函数里。</p>
+<p>如果你不想非要手动打印所有的绑定操作，也可以通过<a href="https://www.npmjs.com/package/react-autobind" target="_blank" rel="external"><code>react-autobind</code></a>或者<a href="https://www.npmjs.com/package/autobind-decorator" target="_blank" rel="external"><code>autobind-decorator</code></a>来检查。</p>
+<p>另一种方式就是在你使用的地方通过内联来绑定:<br><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Use `.bind`:</span></span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="built_in">return</span> (</span><br><span class="line">      &lt;input onChange=&#123;<span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>)&#125;</span><br><span class="line">        value=&#123;<span class="keyword">this</span>.state.<span class="built_in">text</span>&#125; /&gt; </span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// --- OR ---</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Use an arrow function:</span></span><br><span class="line">render() &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;input onChange=&#123;() =&gt; <span class="keyword">this</span>.handleChange()&#125; </span><br><span class="line">      value=&#123;<span class="keyword">this</span>.state.<span class="built_in">text</span>&#125; /&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上任意一种都可以，然而在效率上却不行了。每一次调用<code>render</code>(可以说是非常频繁！)一个新的函数都会被创建。与在构造函数里只绑定一次相比就慢一些。</p>
+<p>最终的选择是使用箭头函数直接替换函数在类中的声明，像这样：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// the normal way</span></span><br><span class="line"><span class="comment">// requires binding elsewhere</span></span><br><span class="line">handleChange(event) &#123;</span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    text: event.target.value</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// the ES7 way</span></span><br><span class="line"><span class="comment">// all done, no binding required</span></span><br><span class="line">handleChange = (event) =&gt; &#123; </span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    text: event.target.value</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过这种方式，你不需要绑定任何东西。这都已经通过神奇的箭头函数被搞定了。像期望的那样，函数内部的<code>this</code>将会指向组件实例。</p>
+<p>唯一的注意的地方就是这仅是一个”试验性” 的特性，意味着这不是官方的ES6规范。但是这依旧可以通过设置babel为”stage-0”来支持。如果你喜欢这种语法（被称作“把handleChange设置为带event的箭头函数”），试试吧。</p>
+<h3 id="构造函数应该调用super"><a href="#构造函数应该调用super" class="headerlink" title="构造函数应该调用super"></a>构造函数应该调用super</h3><p>ES6类的constructor需要接收<code>props</code>并且调用<code>super(props)</code>。这是<code>createClass</code>所没有的一点。</p>
+<h3 id="class和createClass的比较"><a href="#class和createClass的比较" class="headerlink" title="class和createClass的比较"></a>class和createClass的比较</h3><p>这个很明显，一个调用<code>React.createClass</code>并传入一个对象，另一个则是使用<code>class</code>继承<code>React.Component</code>。</p>
+<p><em>小提示：</em> 导入<code>Component</code>时如果在一个文件里包含多个组件，可以直接通过以下方式节省一些代码量：<br><code>import React, {Component} from &#39;react&#39;</code></p>
+<h3 id="初始化State的设置"><a href="#初始化State的设置" class="headerlink" title="初始化State的设置"></a>初始化State的设置</h3><p><code>createClass</code> 接受一个只会在组件被挂载时才会调用一次的<code>initialState</code>函数。</p>
+<p>ES6 的<code>class</code>则使用构造函数。在调用<code>super</code>之后，可以直接设置state。</p>
+<h3 id="propTypes-和-defaultProps-的设置"><a href="#propTypes-和-defaultProps-的设置" class="headerlink" title="propTypes 和 defaultProps 的设置"></a>propTypes 和 defaultProps 的设置</h3><p>使用<code>createClass</code>时，在传入的对象上定义一个<code>propTypes</code>和<code>defaultProps</code>作为属性。</p>
+<p>使用ES6的类，这些将会成为类本身的属性，因此它们可以在类定义之后补充上。</p>
+<p>如果你开启了ES7属性初始化，这里还有些捷径:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  <span class="keyword">static</span> propTypes = &#123; </span><br><span class="line">    name: React.PropTypes.string, </span><br><span class="line">    age: React.PropTypes.string </span><br><span class="line">  &#125;; </span><br><span class="line">  <span class="keyword">static</span> defaultProps = &#123; </span><br><span class="line">    name: <span class="string">''</span>, </span><br><span class="line">    age: <span class="number">-1</span> </span><br><span class="line">  &#125;; </span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="第三种选择"><a href="#第三种选择" class="headerlink" title="第三种选择"></a>第三种选择</h2><p>除<code>createClass</code>和<code>class</code>以外，React也支持“无状态函数式组件”。基本上，这仅是一个不能有state的函数，并且它不能使用像<code>componentWillMount</code>或<code>shouldComponentUpdate</code>这样的任何生命周期方法。无状态函数式组件对仅仅接受并依赖props渲染的简单组件来讲很棒，以下是几个例子：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">&#123;firstName, lastName&#125;</span>) </span>&#123; </span><br><span class="line">  <span class="keyword">return</span> ( </span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;lastName&#125;, &#123;firstName&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span> </span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这利用ES6的解构将传入的props分解开来，但也可以这么写：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">props</span>) </span>&#123; </span><br><span class="line">  <span class="keyword">var</span> firstName = props.firstName; </span><br><span class="line">  <span class="keyword">var</span> lastName = props.lastName; </span><br><span class="line">  <span class="keyword">return</span> ( </span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;lastName&#125;, &#123;firstName&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span> </span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="用哪个才对呢？"><a href="#用哪个才对呢？" class="headerlink" title="用哪个才对呢？"></a>用哪个才对呢？</h2><p>Facebook已经<a href="https://facebook.github.io/react/blog/2015/03/10/react-v0.13.html" target="_blank" rel="external">声明</a>了React.createClass将最终会被ES6的classes替代，但是他们也说“在我们找到当前mixin所使用的例子的替代者以及在语言上支持类属性的初始化器前，我们不打算废弃React.createClass”。</p>
+<p>在任何可以使用无状态函数式组件的地方使用它。简单而且会强制性地简化你的组件。</p>
+<p>对于一些需要state，生命周期方法或是通过ref来操作潜在的DOM节点的复杂组件来讲，请使用class。</p>
+<p>尽管知道这三种写法风格很棒，但在StackOverflow或者其他地方查找解决方案时可能仍会看到一些混杂着ES5和ES6写法的答案。ES6风格已经非常流行了但这不会是你看到的唯一一种写法。</p>
+<blockquote>
+<p>累死宝宝了，在翻译的过程中，自己也在宏观上了解了一些东西，希望能够帮助更多英语不好的同学们。<br>——译者注</p>
+</blockquote>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#比较-createClass-和-class"><span class="nav-text">比较 createClass 和 class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的绑定"><span class="nav-text">函数的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数应该调用super"><span class="nav-text">构造函数应该调用super</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class和createClass的比较"><span class="nav-text">class和createClass的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化State的设置"><span class="nav-text">初始化State的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#propTypes-和-defaultProps-的设置"><span class="nav-text">propTypes 和 defaultProps 的设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三种选择"><span class="nav-text">第三种选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用哪个才对呢？"><span class="nav-text">用哪个才对呢？</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#ES6" rel="tag">#ES6</a>
+        
+          <a href="/tags#ES5" rel="tag">#ES5</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

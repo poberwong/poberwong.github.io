@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React,React-Native," />
+
+
+<meta name="description" content="原文链接: Where to Hold React Component Data: state, store, static, and this
+
+
+随着React和Redux的出现，出现了一些常见问题：
+
+在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？
+
+但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。
+我们来重温一下它们中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在哪儿存储组件的数据呢？state, store, static还是this (译)">
+<meta property="og:url" content="http://poberwong.com/2016/09/26/在哪儿存储组件的数据呢？/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文链接: Where to Hold React Component Data: state, store, static, and this
+
+
+随着React和Redux的出现，出现了一些常见问题：
+
+在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？
+
+但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。
+我们来重温一下它们中">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*jXzqMnnrXfePvfVglIYm5Q.jpeg">
+<meta property="og:updated_time" content="2016-10-11T03:05:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在哪儿存储组件的数据呢？state, store, static还是this (译)">
+<meta name="twitter:description" content="原文链接: Where to Hold React Component Data: state, store, static, and this
+
+
+随着React和Redux的出现，出现了一些常见问题：
+
+在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？
+
+但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。
+我们来重温一下它们中">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 在哪儿存储组件的数据呢？state, store, static还是this (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="在哪儿存储组件的数据呢？state, store, static还是this (译)"> 在哪儿存储组件的数据呢？state, store, static还是this (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-09-26T12:34:21+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><blockquote>
+<p><em>原文链接:</em> <a href="https://medium.freecodecamp.com/where-do-i-belong-a-guide-to-saving-react-component-data-in-state-store-static-and-this-c49b335e2a00#.2celv5qfh" target="_blank" rel="external"><em>Where to Hold React Component Data: state, store, static, and this</em></a></p>
+</blockquote>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png" alt=""></p>
+<p>随着<a href="https://facebook.github.io/react/" target="_blank" rel="external">React</a>和<a href="https://github.com/reactjs/redux" target="_blank" rel="external">Redux</a>的出现，出现了一些常见问题：</p>
+<blockquote>
+<p>在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？</p>
+</blockquote>
+<p>但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：<strong>static</strong>和<strong>this</strong>。</p>
+<p>我们来重温一下它们中的每一个，什么时候去用它们。</p>
+<h2 id="本地的state"><a href="#本地的state" class="headerlink" title="本地的state"></a>本地的state</h2><p>当React初次被介绍时，呈现给我们的是本地的state。需要注意的一点就是当本地的state值发生改变时，它会触发一次渲染。</p>
+<p>这个state可以把一些能够将你的组件从智能数据组件和纯展示的<strong>props</strong>传递给子组件</p>
+<p>以下是使用本地state的一个基本的计数app：<br><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">React</span> from <span class="symbol">'reac</span>t'</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">      <span class="keyword">this</span>.state = &#123;</span><br><span class="line">        counter: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">this</span>.addOne = <span class="keyword">this</span>.addOne.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  addOne() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      counter: <span class="keyword">this</span>.state.counter + <span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button</span><br><span class="line">          onClick=&#123; <span class="keyword">this</span>.addOne &#125;&gt;</span><br><span class="line">          <span class="type">Increment</span></span><br><span class="line">        &lt;/button&gt;</span><br><span class="line">        &#123; <span class="keyword">this</span>.state.counter &#125;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export <span class="keyword">default</span> <span class="type">App</span></span><br></pre></td></tr></table></figure></p>
+<p>你的数据(counter的值)存储在了App这个组件中，并且能够被传入它的子组件中。</p>
+<h3 id="用例"><a href="#用例" class="headerlink" title="用例"></a>用例</h3><p>假定这个计数器对你的应用很重要，并且存储的数据对其他组件可能也会很有用，因此你不应该使用本地的state来存储这些值。</p>
+<p>目前最佳实践是使用本地state来处理你的用户接口(UI)状态而非数据。例如，使用一个<a href="https://facebook.github.io/react/docs/forms.html#controlled-components" target="_blank" rel="external">受控组件</a>来填写一个表单就是一个本地state的完美有效使用。</p>
+<p>另一个你可以使用本地<strong>state</strong>来存储UI数据的例子就是在列表选项中选中tab标签。</p>
+<p>考虑什么时候才使用本地的state可以先衡量一下你现在存储的值是否会被其他组件使用到是一个不错的途径。如果一个值只会被一个单独的组件(或者说只有一个子组件的组件)使用到，那么使用本地state存储将会更加安全。</p>
+<p><strong>小结: </strong> 在本地state中存储UI状态以及临时数据(例如表单的输入)。</p>
+<h2 id="Redux-存储"><a href="#Redux-存储" class="headerlink" title="Redux 存储"></a>Redux 存储</h2><p>一段时间后，每个人都开始推崇<a href="https://www.youtube.com/watch?v=i__969noyAM" target="_blank" rel="external">单向数据流</a>的理念，我们有了Redux。</p>
+<p>使用Redux， 我们又一个全聚德store。这个store的生命周期在你的应用中级别最高并且能够向每一个子组件传递数据。你可以使用<a href="https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options" target="_blank" rel="external"><strong>connect</strong>和<strong>mapStateToProps</strong>来在某个组件中连接全局的store</a>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*jXzqMnnrXfePvfVglIYm5Q.jpeg" alt=""></p>
+<p>首先，人们把所有东西都存入Redux的<strong>store</strong>中。用户，实体，表单，套接字… 所有你说的上来的。(这几个词可译可不译 ——译者注)</p>
+<p>以下是一个相同但使用Redux的计数器应用。需要注意的很重要的一点是<strong>counter</strong>现在在connect函数(用来将counter的值从全局的<strong>store</strong>传递到当前组件的<strong>props</strong>中)中使用mapStateToProps后是来自于<strong>this.props.counter</strong>。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> Actions <span class="keyword">from</span> <span class="string">'./Actions.js'</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">    <span class="keyword">this</span>.addOne = <span class="keyword">this</span>.addOne.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  addOne() &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.dispatch(Actions.addOne())</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span></span><br><span class="line">          <span class="attr">onClick</span>=<span class="string">&#123;</span> <span class="attr">this.addOne</span> &#125;&gt;</span></span><br><span class="line">          Increment</span><br><span class="line">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        &#123; this.props.counter &#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> mapStateToProps = store =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    counter: store.counter</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps)(App)</span><br></pre></td></tr></table></figure></p>
+<p>现在当你点击按钮的时候，一个action会被分发并缺全局的store会被更新。数据在我们本地组件之外被处理并回传了进来。</p>
+<p>当<strong>props</strong>被更新是没有什么卵用的，它也可以像更新<strong>state</strong>一样触发二次渲染。</p>
+<h3 id="用例-1"><a href="#用例-1" class="headerlink" title="用例"></a>用例</h3><p>Redux 的<strong>store</strong>用来存储应用状态是非常好的而非UI状态。一个完美的例子是用户的登录状态。我们的很多组件都会触及这个信息，登录状态一改变，所有的组件(至少是那些被渲染出来的) 将会依据更新的信息被重新渲染。</p>
+<p>Redux在触发一些在多组件或者多路由之间的事件上很有用。这样的例子如可能被贯穿于整个应用的大量按钮所触发的登录遮罩。不要根据条件去很多地方渲染遮罩，你可以在你应用的顶层容器里通过Redux根据store中的某个值的改变来触发。</p>
+<p><strong>小结: </strong> 将你将在多个组件之间共享的数据存入<strong>store</strong></p>
+<h2 id="this"><a href="#this" class="headerlink" title="this."></a>this.<something></something></h2><p>在使用React时，小而有用的一个特性是this。人们经常忘记Ract使用的是ES2015语法。你在JavaScript写的任何东西都可以用在React中。</p>
+<p>以下这个函数式计数器应用例子和上边两个一样。<br><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">React</span> from <span class="symbol">'reac</span>t'</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">    <span class="keyword">this</span>.counter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">this</span>.addOne = <span class="keyword">this</span>.addOne.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  addOne() &#123;</span><br><span class="line">    <span class="keyword">this</span>.counter += <span class="number">1</span></span><br><span class="line">    <span class="keyword">this</span>.forceUpdate()</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button</span><br><span class="line">          onClick=&#123; <span class="keyword">this</span>.addOne &#125;&gt;</span><br><span class="line">          <span class="type">Increment</span></span><br><span class="line">        &lt;/button&gt;</span><br><span class="line">        &#123; <span class="keyword">this</span>.counter &#125;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export <span class="keyword">default</span> <span class="type">App</span></span><br></pre></td></tr></table></figure></p>
+<p>我们把<strong>counter</strong>值存在了组件中并且当它改变后调用<a href="https://facebook.github.io/react/docs/component-api.html#forceupdate" target="_blank" rel="external">forceUpdate()</a> 来重新渲染。这是因为除了<strong>state</strong>和<strong>props</strong>以外的任何东西都不会触发二次渲染。</p>
+<p>这也是不应该使用this的一个例子。如果你发现你在使用<strong>forceUpdate</strong>，你可能在做一些错误的事。对于一些应该触发二次渲染的值，你应该使用state或者Redux store后的props。</p>
+<h3 id="用例-2"><a href="#用例-2" class="headerlink" title="用例"></a>用例</h3><p><strong>this</strong>的用例是用来存储一些不会因为改变触发二次渲染的值。例如，使用<strong>this</strong>来存储套接字(sockets)就很完美。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Socket &#125; <span class="keyword">from</span> <span class="string">'phoenix'</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.socket = <span class="keyword">new</span> Socket(<span class="string">'http://localhost:4000/socket'</span>)</span><br><span class="line">    <span class="keyword">this</span>.socket.connect()</span><br><span class="line">    <span class="keyword">this</span>.configureChannel(<span class="string">"lobby"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.socket.leave()</span><br><span class="line">  &#125;</span><br><span class="line">  configureChannel(room) &#123;</span><br><span class="line">    <span class="keyword">this</span>.channel = <span class="keyword">this</span>.socket.channel(<span class="string">`rooms:<span class="subst">$&#123;room&#125;</span>`</span>)</span><br><span class="line">    <span class="keyword">this</span>.channel.join()</span><br><span class="line">      .receive(<span class="string">"ok"</span>, () =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`Succesfully joined the <span class="subst">$&#123;room&#125;</span> chat room.`</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      .receive(<span class="string">"error"</span>, () =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`Unable to join the <span class="subst">$&#123;room&#125;</span> chat room.`</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        My App</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App</span><br></pre></td></tr></table></figure></p>
+<p>还有，很多人并没有认识到在他们定义函数时总是在使<strong>this</strong>。 当你定义<strong>render()</strong>时，你已经定义了<strong>this.prototype.render = function()</strong>，但它已经在ES2015语法中被隐藏掉了。</p>
+<p><strong>小结: </strong> 使用this去存储那些不会触发二次渲染的东西</p>
+<h2 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static" target="_blank" rel="external">静态方法</a> 和属性是ES2015中classes(要冷静，是的，我知道在底层它并不是真正的类)鲜为人知的一点。更多是因为它们的使用频率不高。但他们并非是一堆复杂的东西。如果你已经在使用<a href="https://facebook.github.io/react/docs/reusable-components.html#prop-validation" target="_blank" rel="external"><strong>PropTypes</strong></a>，那么你已经定义了<strong>static</strong>属性了。</p>
+<p>以下两个代码块是一样的。第一个是绝大多数人定义PropTypes的方式。第二个是使用static来定义。<br><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (&lt;div&gt;&#123; <span class="keyword">this</span>.props.title &#125;&lt;/div&gt;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">App</span>.propTypes = &#123;</span><br><span class="line">  title: <span class="type">React</span>.<span class="type">PropTypes</span>.string.isRequired</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> propTypes &#123;</span><br><span class="line">    title: React.PropTypes.string.isRequired</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123; this.props.title &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正如你所看到的，static并不复杂。这仅仅是给class添加一个值的方式，区别于<strong>this</strong>的是你不需要实例化一个类就可以访问这个值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>()</span><br><span class="line">    <span class="keyword">this</span>.prototypeProperty = &#123;</span><br><span class="line">      baz: <span class="string">"qux"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> staticProperty = &#123;</span><br><span class="line">    foo: <span class="string">"bar"</span></span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>My App<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> proto = <span class="keyword">new</span> App();</span><br><span class="line"><span class="keyword">const</span> proto2 = proto.prototypeProperty <span class="comment">// =&gt; &#123; baz: "qux" &#125;</span></span><br><span class="line"><span class="keyword">const</span> stat = App.staticProperty <span class="comment">// =&gt; &#123; foo: "bar" &#125;</span></span><br></pre></td></tr></table></figure>
+<p>在上边这个例子中，你可以看到获取<strong>staticProperty</strong>值，我们直接从class中获取到了而没有实例化它，但在获取<strong>prototypeProperty</strong>时，我们需要使用<strong>new App()</strong>来实例化。</p>
+<h3 id="用例-3"><a href="#用例-3" class="headerlink" title="用例"></a>用例</h3><p>静态方法和属性比较少用，应该被用于一些特定类型的组件才会需要用到的一些工具类函数。</p>
+<p><strong>PropTypes</strong>是一种你可能会关联一些按钮类的组件时用到的工具类函数例子，因为你渲染的每一个按钮都会使用一些相同的值。</p>
+<p>另外一个用例就是如果你担心过度请求数据的问题。如果你使用GraphQL或者Falcor，你能够确定从服务器返回的数据。这样你不需要去终止请求超出你组件所需要的一些数据。</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  static requiredData = [</span><br><span class="line">    <span class="string">"username"</span>,</span><br><span class="line">    <span class="string">"email"</span>,</span><br><span class="line">    <span class="string">"thumbnail_url"</span></span><br><span class="line">  ]</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span>(&lt;div&gt;&lt;/div&gt;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在以上例子中，在为一个指定的组件请求数据之前，你可以通过<strong>App.requiredData</strong>来快速的获取查询所需要值的数组。浙江使得你不需要过度请求数据就可以发起一个请求。</p>
+<p><strong>小结: </strong>你可能永远也不会用到<strong>static</strong></p>
+<h2 id="其他选项…"><a href="#其他选项…" class="headerlink" title="其他选项…"></a>其他选项…</h2><p>这儿还有我在题目以外保留下来一些选项，因为你不应该这样做：你可以在文件中导出一些全局存储的变量，作用域。</p>
+<p>这儿有一些这样做比较有意义的场景，但是更多时候你不应该用它。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">let</span> counter = <span class="number">0</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">    <span class="keyword">this</span>.addOne = <span class="keyword">this</span>.addOne.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  addOne() &#123;</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line">    <span class="keyword">this</span>.forceUpdate()</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span></span><br><span class="line">          <span class="attr">onClick</span>=<span class="string">&#123;</span> <span class="attr">this.addOne</span> &#125;&gt;</span></span><br><span class="line">          Increment</span><br><span class="line">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        &#123; counter &#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App</span><br></pre></td></tr></table></figure></p>
+<p>你可以看到除了污染了全局state，它的用法和this是一样的。</p>
+<p>如果你需要和其他组件共用一些数据并且想要将数据全局保存，那么使用Redux <strong>store</strong>是极好的。</p>
+<p><strong>小结: </strong>不要使用全局变量。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地的state"><span class="nav-text">本地的state</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用例"><span class="nav-text">用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-存储"><span class="nav-text">Redux 存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用例-1"><span class="nav-text">用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this"><span class="nav-text">this.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用例-2"><span class="nav-text">用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static"><span class="nav-text">Static</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用例-3"><span class="nav-text">用例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他选项…"><span class="nav-text">其他选项…</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

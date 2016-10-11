@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React,React-Native,翻译,ES6," />
+
+
+<meta name="description" content="原文链接在网站 Ticket Arena 从React 0.12 到0.13的变迁中包含了很多ES6为JavaScript带来的新特性。我们一直在用Babel和Webpack来尽可能确保在使用更多新特性的情况下维护浏览器的兼容性。
+尤其，我们在使用class来写React组件时会是这样:import React from &apos;react&apos;;let &amp;#123;Component, PropTypes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Autobinding, React和ES6中的class (译)">
+<meta property="og:url" content="http://poberwong.com/2016/08/21/Autobinding, React和ES6中的class (译)/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文链接在网站 Ticket Arena 从React 0.12 到0.13的变迁中包含了很多ES6为JavaScript带来的新特性。我们一直在用Babel和Webpack来尽可能确保在使用更多新特性的情况下维护浏览器的兼容性。
+尤其，我们在使用class来写React组件时会是这样:import React from &apos;react&apos;;let &amp;#123;Component, PropTypes">
+<meta property="og:updated_time" content="2016-10-11T03:16:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Autobinding, React和ES6中的class (译)">
+<meta name="twitter:description" content="原文链接在网站 Ticket Arena 从React 0.12 到0.13的变迁中包含了很多ES6为JavaScript带来的新特性。我们一直在用Babel和Webpack来尽可能确保在使用更多新特性的情况下维护浏览器的兼容性。
+尤其，我们在使用class来写React组件时会是这样:import React from &apos;react&apos;;let &amp;#123;Component, PropTypes">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Autobinding, React和ES6中的class (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="Autobinding, React和ES6中的class (译)"> Autobinding, React和ES6中的class (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-08-21T18:20:49+08:00" content="2016-08-21">
+              2016-08-21
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><a href="http://www.ian-thomas.net/autobinding-react-and-es6-classes/" target="_blank" rel="external">原文链接</a><br>在网站 <a href="http://www.ticketarena.co.uk/" target="_blank" rel="external">Ticket Arena</a> 从React 0.12 到0.13的变迁中包含了很多ES6为JavaScript带来的新特性。我们一直在用<code>Babel</code>和<code>Webpack</code>来尽可能确保在使用更多新特性的情况下维护浏览器的兼容性。</p>
+<p>尤其，我们在使用class来写React组件时会是这样:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">let</span> &#123;Component, PropTypes&#125; = React;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="comment">// lifecycle methods and statics</span></span><br><span class="line">  ... </span><br><span class="line">  <span class="comment">// render actual DOM output</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyComponent.propTypes = &#123; foo: PropTypes.bool.isRequired&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在前边几个版本的React中所依赖的几个已经移除的特性中，尤其是<code>Mixin</code>, 还有一些相对不明显的，自动绑定。</p>
+<h2 id="使用React-createClass自动绑定"><a href="#使用React-createClass自动绑定" class="headerlink" title="使用React.createClass自动绑定"></a>使用<code>React.createClass</code>自动绑定</h2><p>在以往，你在eventListener中使用<code>this.handler</code>时React会魔法般的为这个handler绑定当前对象的this，<code>this.handler === this.handler.bind(this)</code>。然而，在变迁到ES6的类中后这个特性被移除了，还好我们有一个超级简单的变通方案，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="external">箭头函数</a>!</p>
+<p>你可以在<a href="https://github.com/facebook/react/blob/master/src/classic/class/ReactClass.js#L639-L705" target="_blank" rel="external"><code>ReactClass</code></a>的源码来看看Facebook的详细实现。</p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>箭头函数并不会定义他们自己的<code>this</code>值，取而代之的是当前上下文的this。因此<code>(x) =&gt; this.y * x</code> 可以等价于 <code>function(x) { return this.y * x }.bind(this)</code></p>
+<p>我们在React中怎么去使用它呢？好吧，这是一个小问题， ES6在类的定义中不允许这样初始化属性的(<code>foo = &#39;bar&#39;;</code>)。然而，可以通过Babel来支持，只需要如下设置即可<code>&quot;optional&quot;: [&quot;es7.classProperties&quot;]</code>。</p>
+<p>接下来就可以这样来重写前边的一段代码，我们可以模拟auto-binding:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">let</span> &#123;Component, PropTypes&#125; = React;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">Component</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="comment">// lifecycle methods and statics</span></span><br><span class="line">  <span class="keyword">static</span> propTypes = &#123; foo: PropTypes.bool.isRequired &#125;</span><br><span class="line">  handler = (e) =&gt; &#123; ... &#125; <span class="comment">// render actual DOM output</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handler&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可以在<a href="https://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#autobinding" target="_blank" rel="external">React官方博客</a> 上查看更多相关信息。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用React-createClass自动绑定"><span class="nav-text">使用React.createClass自动绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-text">箭头函数</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#ES6" rel="tag">#ES6</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

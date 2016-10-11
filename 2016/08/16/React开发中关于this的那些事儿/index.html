@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React,React-Native,ES6,this," />
+
+
+<meta name="description" content="在React开发的这半年以来，关于this以及es6中方法的书写及其使用多多少少出现一些问题，期间也在Evernote上做过一些阶段性的总结，但陆续有遇到一些问题，导致我不得不写下这篇文章
+
+在es5中, 普通用function声明的函数是定义在window对象上的，显而易见其内部的this肯定是默认指向window对象。而直接用函数名来调用得到的函数内this也是window对象。可以这么理解，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React开发中关于this的那些事儿">
+<meta property="og:url" content="http://poberwong.com/2016/08/16/React开发中关于this的那些事儿/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="在React开发的这半年以来，关于this以及es6中方法的书写及其使用多多少少出现一些问题，期间也在Evernote上做过一些阶段性的总结，但陆续有遇到一些问题，导致我不得不写下这篇文章
+
+在es5中, 普通用function声明的函数是定义在window对象上的，显而易见其内部的this肯定是默认指向window对象。而直接用函数名来调用得到的函数内this也是window对象。可以这么理解，">
+<meta property="og:updated_time" content="2016-10-11T03:17:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React开发中关于this的那些事儿">
+<meta name="twitter:description" content="在React开发的这半年以来，关于this以及es6中方法的书写及其使用多多少少出现一些问题，期间也在Evernote上做过一些阶段性的总结，但陆续有遇到一些问题，导致我不得不写下这篇文章
+
+在es5中, 普通用function声明的函数是定义在window对象上的，显而易见其内部的this肯定是默认指向window对象。而直接用函数名来调用得到的函数内this也是window对象。可以这么理解，">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> React开发中关于this的那些事儿 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="React开发中关于this的那些事儿"> React开发中关于this的那些事儿 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-08-16T14:51:23+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>在React开发的这半年以来，关于this以及es6中方法的书写及其使用多多少少出现一些问题，期间也在Evernote上做过一些阶段性的总结，但陆续有遇到一些问题，导致我不得不写下这篇文章</p>
+<ul>
+<li><em>在es5中, 普通用function声明的函数是定义在window对象上的，显而易见其内部的this肯定是默认指向window对象。而直接用函数名来调用得到的函数内this也是window对象。可以这么理解，那个看不见的调用者就是window</em></li>
+<li><em>在es6中，为了规范function中this的所属问题，在使用‘use strict’模式下，不显示地用window对象调用函数则其内部的this为undefined，也就是强制你使用window对象严格得去调用。</em></li>
+</ul>
+<hr>
+<h2 id="关于bind"><a href="#关于bind" class="headerlink" title="关于bind"></a>关于bind</h2><h3 id="与this相关的-bind-call-apply-三兄弟"><a href="#与this相关的-bind-call-apply-三兄弟" class="headerlink" title="与this相关的 bind call apply 三兄弟"></a>与this相关的 bind call apply 三兄弟</h3><ol>
+<li>bind通常用来重新绑定函数体中的this并返回一个具有指定this的函数。</li>
+<li>call 和 apply 则表示重新指定this并调用返回结果，区别在于call采用多个实参的方式传参，apply则是使用一个数组。</li>
+</ol>
+<blockquote>
+<p><strong>共同点</strong>: 在于第一个参数指定为this(这里用对象描述比较合理些)，作用都是用来重定向this；从第二个参数起都算作是参数传递。<br><strong>不同点</strong>: [1]是用来返回具有特定this的函数，[2]是用来调用函数的。而对于函数的获得，则通过其声明宿主(指所在对象，并非es6中的class类。在es6中，class和Java的类似，想要调用需要创建对象)</p>
+</blockquote>
+<h3 id="React中的bind"><a href="#React中的bind" class="headerlink" title="React中的bind"></a>React中的bind</h3><p><em>准确说，应该是es6中bind的使用，但因为在开发中常用到，就暂且以React开发为背景。</em><br>因为是返回指定this的函数，因此它的应用场景一定是函数的传递，而非函数的普通调用。在开发中，函数的传递赋值主要有以下几个场景(如有遗漏，欢迎补充)：</p>
+<ul>
+<li>组件属性：组件内部函数的回调，通过把一个函数传递给组件的props，本质上和把函数作为实参传递给被调用函数是一致的。(至于是在Jsx中虚拟Dom中传递还是通过<code>createElement</code>、<code>cloneElement</code>等React API就不多说了)</li>
+<li>高阶函数：本质上也是一种回调，就是在调用的地方提前写好即将被调用的函数并传进去，这里的‘即将’既可以是同步也可以是异步。<br><strong>在以上两种情况中，组件的属性对this的依赖还是比较大的</strong></li>
+</ul>
+<p>当我们给组件属性所传递的函数中，需要使用到当前类中非静态函数或字段(这两种成员都归属于this)时就不得不使用this来调用。</p>
+<h4 id="使用场景一"><a href="#使用场景一" class="headerlink" title="使用场景一"></a>使用场景一</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">  render () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">CustomView</span> <span class="attr">onPress</span>=<span class="string">&#123;this.readBook&#125;</span> /&gt;</span></span><br><span class="line">  &#125;</span><br><span class="line">  readBook () &#123;</span><br><span class="line">    let bookName = this.getBookName()</span><br><span class="line">    this.props.ooxx</span><br><span class="line">    this.state.ooxx</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span></span><br></pre></td></tr></table></figure>
+<p>以上代码在运行时，由于<code>this.readBook</code>传递了一个纯函数，而该函数在CustomView类中执行时，this会被指向当前类CustomView的实例this,显而易见此时的foo、props、ooxx显然在另外一个类中是找不到的，<code>undefined</code>这个老朋友的如约而至也成为必然。</p>
+<p>此时我们只需要改写传入方式为<code>this.readBook.bind(this)</code>即可将当前this绑定到readBook中，当然也可以绑定其他你所想要的，只要符合你的需求。</p>
+<h4 id="使用场景二"><a href="#使用场景二" class="headerlink" title="使用场景二"></a>使用场景二</h4><p>由于让函数调用bind会返回一个全新的函数，因此在高阶函数的某些场景下就会因为不是同一个函数(准确说是引用) 而导致出错，如监听器的注册与注销:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PauseMenu</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>._onAppPaused = <span class="keyword">this</span>.onAppPaused.bind(<span class="keyword">this</span>); </span><br><span class="line">  &#125; </span><br><span class="line">  componentWillMount () &#123;</span><br><span class="line">    AppStateIOS.addEventListener(<span class="string">'change'</span>, <span class="keyword">this</span>._onAppPaused); </span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUnmount () &#123;</span><br><span class="line">    AppStateIOS.removeEventListener(</span><br><span class="line">      <span class="string">'change'</span>, <span class="keyword">this</span>._onAppPaused</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  onAppPaused(event)&#123; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到我们在构造函数里为onAppPaused函数单独绑定了this并存到当前this当中，这样在注册和注销的时候都可以保证拿到的是同一个函数对象。(这里需要注意，_onAppPaused是直接定义在this上的，因此在针对一个class new出实例后，_onAppPaused是属于实例的，而onAppPaused是定义在类里的非静态函数，在类的prototype上，实例的__proto__原型上的。)</p>
+<h3 id="在bind时传参数"><a href="#在bind时传参数" class="headerlink" title="在bind时传参数"></a>在bind时传参数</h3><p>这个需求，就我个人来讲是一个非常不合理的需求。高阶函数本来就是传入一个方法签名，而你非要利用bind的附加参数功能有点‘乱来’的意思了。不过也不是不可以，只需要注意此时如果在高阶函数内(或组件内) 的方法回调中本身带有参数，则在bind时禁止附加参数，否则会覆盖原有的回调参数。</p>
+<h2 id="Lambda表达式与匿名函数"><a href="#Lambda表达式与匿名函数" class="headerlink" title="Lambda表达式与匿名函数"></a>Lambda表达式与匿名函数</h2><p>Lambda表达式是es6中函数的一种新的声明方式，如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">() =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上是一个简单的Lambda表达式，在多数的Js教程中都被称作”箭头函数”，它的书面写法上等价于匿名函数，如下:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>他们都可以被用来在<code>高阶函数</code>以及<code>组件属性</code>上以及<code>普通方法</code>的定义，然而又有一些差异:</p>
+<ul>
+<li>Lambda表达式中的this指向当前作用域的this，因此这种情况下就没有bind的事情了，因为Lambda已经有自己的this了。同bind一样，Lambda同样会返回一个全新的函数。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;CustomView onPress=&#123;() =&gt; <span class="keyword">this</span>.props...&#125; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>此时呢，Lambda表达式是直接作为回调被赋值了。因此所有的回调参数都可以在此获取到，后续与this相关的逻辑代码都可以在Lambda表达式中书写。</p>
+<ul>
+<li>匿名函数会因为es5、6的情况而指向window或者undefined，此时如果方法体内需要用到当前的组件的this，则可以通过bind来完成，如：<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;CustomView onPress=&#123;<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.props...</span><br><span class="line">&#125;.bind(<span class="keyword">this</span>)&#125; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样的代码等价于使用函数名bind this一样，如：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;CustomView onPress=&#123;<span class="keyword">this</span>.readProps.bind(<span class="keyword">this</span>)&#125; /&gt;</span><br><span class="line">...</span><br><span class="line">readProps () &#123;</span><br><span class="line">    <span class="keyword">this</span>.props...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果上边的<code>readProps</code>的回调没有传出一些特别的参数，也可以用Lambda表达式改为:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;CustomView onPress=&#123;() =&gt; <span class="keyword">this</span>.readProps()&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当然，这只是用箭头函数包裹了一下，我们仍然可以通过在箭头函数的参数列表中声明参数的方式来达到相同的目的。</p>
+<h3 id="使用Lambda表达式优化"><a href="#使用Lambda表达式优化" class="headerlink" title="使用Lambda表达式优化"></a>使用Lambda表达式优化</h3><p>之前提到了用bind在this中存留一份，可以在构造函数里用对象的属性来存储唯一的函数。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PauseMenu</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  componentWillMount () &#123;</span><br><span class="line">    AppStateIOS.addEventListener(<span class="string">'change'</span>, <span class="keyword">this</span>._onAppPaused); </span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUnmount () &#123;</span><br><span class="line">    AppStateIOS.removeEventListener(</span><br><span class="line">      <span class="string">'change'</span>, <span class="keyword">this</span>._onAppPaused</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  _onAppPaused ＝ (event) =&gt; &#123; </span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样做可以将_onAppPaused 作为类属性的一部分，就不用担心拿不到方法的唯一引用啦。其实这在React 的ES6中也是对this的一种提升方案，具体详情可以参考我翻译的这两篇文章:</p>
+<blockquote>
+<ul>
+<li><a href="http://www.jianshu.com/p/a4c23654932e" target="_blank" rel="external">React: ES5 (createClass) 还是 ES6 (class)? (译)</a></li>
+<li><a href="http://www.jianshu.com/p/7dbd8d0c9363" target="_blank" rel="external">Autobinding, React和ES6中的class (译)</a></li>
+</ul>
+</blockquote>
+<h3 id="Lambda表达式补充："><a href="#Lambda表达式补充：" class="headerlink" title="Lambda表达式补充："></a>Lambda表达式补充：</h3><ol>
+<li>箭头后的部分即为表达式的返回值</li>
+<li>如果出现多条语句操作运算的，需要使用{…} 以函数体的形式书写并以显示的方式<code>return</code>返回值</li>
+<li>如果需要直接返回一个Object的话，语法上会和函数体冲突，此时就必须使用<code>()</code>保护一下，声明此处是一个对象而非函数体</li>
+<li>参数方面，单参数可以不加<code>()</code>括弧, 但是一个以上就必须要加了。同时没有参数时需要使用<code>()</code>来完成语法上的补位</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>在日常开发中，this还是一个让人比较头疼的东西。方法(对象中的函数) 内函数会导致this的重定向，其他的一些对象嵌套也会导致重定向问题，因此大家不要慌，不妨尝试手动获取一下外部this。</p>
+<blockquote>
+<p>路漫漫其修远兮<br>吾将上下而求索<br>——《离骚》</p>
+</blockquote>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于bind"><span class="nav-text">关于bind</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与this相关的-bind-call-apply-三兄弟"><span class="nav-text">与this相关的 bind call apply 三兄弟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React中的bind"><span class="nav-text">React中的bind</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景一"><span class="nav-text">使用场景一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景二"><span class="nav-text">使用场景二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在bind时传参数"><span class="nav-text">在bind时传参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda表达式与匿名函数"><span class="nav-text">Lambda表达式与匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Lambda表达式优化"><span class="nav-text">使用Lambda表达式优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambda表达式补充："><span class="nav-text">Lambda表达式补充：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+          <a href="/tags#ES6" rel="tag">#ES6</a>
+        
+          <a href="/tags#this" rel="tag">#this</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

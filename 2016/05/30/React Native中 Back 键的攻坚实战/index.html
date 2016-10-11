@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React-Native," />
+
+
+<meta name="description" content="前言在ReactNative中，因为在Native层只有一个MainActivity来承载Js层的逻辑，因此Android上的Back键会在点击一次后直接退出应用。
+
+Detect hardware back button presses, and programmatically invoke the default back button functionality to exit the a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native中 Back 键的攻坚实战">
+<meta property="og:url" content="http://poberwong.com/2016/05/30/React Native中 Back 键的攻坚实战/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="前言在ReactNative中，因为在Native层只有一个MainActivity来承载Js层的逻辑，因此Android上的Back键会在点击一次后直接退出应用。
+
+Detect hardware back button presses, and programmatically invoke the default back button functionality to exit the a">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-1f10b43f65472f10.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-11T03:24:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native中 Back 键的攻坚实战">
+<meta name="twitter:description" content="前言在ReactNative中，因为在Native层只有一个MainActivity来承载Js层的逻辑，因此Android上的Back键会在点击一次后直接退出应用。
+
+Detect hardware back button presses, and programmatically invoke the default back button functionality to exit the a">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-1f10b43f65472f10.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> React Native中 Back 键的攻坚实战 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="React Native中 Back 键的攻坚实战"> React Native中 Back 键的攻坚实战 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-05-30T15:59:48+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在ReactNative中，因为在Native层只有一个MainActivity来承载Js层的逻辑，因此Android上的Back键会在点击一次后直接退出应用。</p>
+<blockquote>
+<p>Detect hardware back button presses, and programmatically invoke the default back button functionality to exit the app if there are no listeners or if none of the listeners return true.<br>——<a href="http://facebook.github.io/react-native/docs/backandroid.html#content" target="_blank" rel="external">Facebook offical</a></p>
+</blockquote>
+<p>Docs from facebook<br><figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">BackAndroid.addEventListener(<span class="string">'hardwareBackPress'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="comment">&#123; </span><br><span class="line">  if (!this.onMainScreen()) &#123;</span><br><span class="line">    this.goBack(); return true; // 执行岀栈操作</span><br><span class="line">  &#125;</span> </span><br><span class="line">  <span class="title">return</span> <span class="title">false</span>;</span> <span class="comment">// 退出app</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Method</span>:</span></span><br><span class="line"><span class="keyword">static</span> exitApp()</span><br><span class="line"><span class="keyword">static</span> addEventListener(eventName, handler)</span><br><span class="line"><span class="keyword">static</span> removeEventListener(eventName, handler)</span><br></pre></td></tr></table></figure></p>
+<p>如上是我们能够在<a href="http://facebook.github.io/react-native/docs/backandroid.html#methods" target="_blank" rel="external">官方文档</a>所能找到的资料。看完后是不是有种不知所措的懵比？玛德onMainScreen 是什么鬼？goBack又是什么鬼？在哪儿定义？WTF!!!</p>
+<h2 id="BackAndroid源码解析"><a href="#BackAndroid源码解析" class="headerlink" title="BackAndroid源码解析"></a>BackAndroid源码解析</h2><p><strong>exitApp:</strong><br><figure class="highlight qml"><table><tr><td class="code"><pre><span class="line"><span class="attribute">exitApp</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  DeviceEventManager.invokeDefaultBackPressHandler();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好吧，就一行代码，那我们继续深入<code>invokeDefaultBackPressHandler</code><br>我们来到了DeviceEventManagerModule.java里，看到了如下：<br><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line">   * Invokes <span class="keyword">the</span> default <span class="keyword">back</span> handler <span class="keyword">for</span> <span class="keyword">the</span> host <span class="keyword">of</span> this catalyst instance. This should be invoked</span><br><span class="line">   * <span class="keyword">if</span> JS <span class="keyword">does</span> <span class="keyword">not</span> want <span class="keyword">to</span> handle <span class="keyword">the</span> <span class="keyword">back</span> press itself.</span><br><span class="line">   */</span><br><span class="line">  @ReactMethod</span><br><span class="line">  public void invokeDefaultBackPressHandler() &#123;</span><br><span class="line">    getReactApplicationContext().runOnUiQueueThread(mInvokeDefaultBackPressRunnable);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到这里类似于我们在Native中跳回UI线程的做法，这里最终在Runnable对象的run方法里执行的是<code>invokeDefaultOnBackPressed</code>方法，最终跟踪到Native层后，发现调用的是<code>ReactActivity</code>( Native层中MainActivity的父类，也就是实现了与Js层通信的核心类)中的<code>super.onBackPress()</code>这个方法。具体React Native和Native的通信方式我们在这里不作为重点讲解(毕竟道行不够深，乱讲容易误人子弟)  </p>
+<p>可以看出，这里的<code>exitApp()</code>方法就是调用了Native层的onBackPress方法，这也验证了文章开头讲的部分内容。</p>
+<p><strong>addEventListener<br>removeEventListener:</strong><br><figure class="highlight qml"><table><tr><td class="code"><pre><span class="line"><span class="attribute">addEventListener</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span><br><span class="line">  eventName: BackPressEventName,</span><br><span class="line">  handler: Function</span><br><span class="line"></span>): </span>&#123;<span class="attribute">remove</span>: () =&gt; <span class="keyword">void</span>&#125; &#123;</span><br><span class="line">  _backPressSubscriptions.add(handler);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attribute">remove</span>: () =&gt; BackAndroid.removeEventListener(eventName, handler),</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="attribute">removeEventListener</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span><br><span class="line">  eventName: BackPressEventName,</span><br><span class="line">  handler: Function</span><br><span class="line"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  _backPressSubscriptions.delete(handler);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>抛开方法签名，直接看方法体：</p>
+<ul>
+<li><p>在addEventListener中，在给_backPressSubscriptions这个集合添加我们的回调方法(稍后仔细看看这部分逻辑)后，直接利用闭包返回了移除监听事件的方法。</p>
+</li>
+<li><p>在removeEvent中，也只是_backPressSubscription中这个集合删除了对应的这个方法。从这里可以看到，一定要保证handler这个处理回调的唯一性，否则就会导致remove失败。</p>
+</li>
+<li><p>关于_backPressSubscription：</p>
+</li>
+</ul>
+<figure class="highlight qml"><table><tr><td class="code"><pre><span class="line"><span class="built_in">var</span> DeviceEventManager = <span class="built_in">require</span>(<span class="string">'NativeModules'</span>).DeviceEventManager;</span><br><span class="line"><span class="built_in">var</span> RCTDeviceEventEmitter = <span class="built_in">require</span>(<span class="string">'RCTDeviceEventEmitter'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">var</span> DEVICE_BACK_EVENT = <span class="string">'hardwareBackPress'</span>;</span><br><span class="line"></span><br><span class="line">type BackPressEventName = $Enum&lt;&#123;</span><br><span class="line">  <span class="attribute">backPress</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;&gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">var</span> _backPressSubscriptions = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">RCTDeviceEventEmitter.addListener(DEVICE_BACK_EVENT, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">var</span> backPressSubscriptions = <span class="keyword">new</span> <span class="built_in">Set</span>(_backPressSubscriptions);</span><br><span class="line">  <span class="built_in">var</span> invokeDefault = <span class="literal">true</span>;</span><br><span class="line">  backPressSubscriptions.forEach((subscription) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (subscription()) &#123;</span><br><span class="line">      invokeDefault = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (invokeDefault) &#123;</span><br><span class="line">    BackAndroid.exitApp();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里主要使用了<a href="http://www.ghugo.com/react-native-event-emitter/" target="_blank" rel="external">RCTDeviceEventEmitter</a>(ReactNative中观察者模式的一种实现)来实现具体的响应逻辑。这里的addListener是观察者(订阅者)，而被观察者应该就是Back键被触发后的响应逻辑(这部分应该由底层实现)。</p>
+<p>这里维护了一个Set集合，然后在事件订阅函数里依次对订阅者按照相应顺序进行响应处理。<br>里边还有一个标记量invokeDefault，默认值给了true。在使用forEach遍历完回调的过程中，如果invokeDefault因为回调的返回值为真值时被置为false, 那么在执行完毕后将不执行exitApp的操作(这也是在某种程度上保护了一些页面无辜被退出应用的场景)<br><em>综上所述，onMainScreen、goBack只是一个概念化的方法，仅用来告诉你该干什么</em></p>
+<h2 id="实战使用BackAndroid"><a href="#实战使用BackAndroid" class="headerlink" title="实战使用BackAndroid"></a>实战使用BackAndroid</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">   <span class="keyword">super</span>(props)</span><br><span class="line">   <span class="keyword">this</span>.handleBack = <span class="keyword">this</span>._handleBack.bind(<span class="keyword">this</span>) <span class="comment">// 返回一个绑定好this的方法并存储于当前实例中</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> componentDidMount () &#123;</span><br><span class="line">   BackAndroid.addEventListener(<span class="string">'hardwareBackPress'</span>, <span class="keyword">this</span>.handleBack)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> componentWillUnmount () &#123;</span><br><span class="line">   BackAndroid.removeEventListener(<span class="string">'hardwareBackPress'</span>, <span class="keyword">this</span>.handleBack)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> _handleBack () &#123;</span><br><span class="line">   <span class="keyword">var</span> navigator = <span class="keyword">this</span>.navigator</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (navigator &amp;&amp; navigator.getCurrentRoutes().length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">     navigator.pop()</span><br><span class="line">     <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="订阅与反订阅"><a href="#订阅与反订阅" class="headerlink" title="订阅与反订阅"></a>订阅与反订阅</h3><p>以上是之前写的一个例子，其中坑也不少：</p>
+<ul>
+<li>在订阅和反订阅的时候，一定要保证handleBack的唯一性，这牵扯到能否反订阅成功</li>
+<li>因为这一对儿函数是高阶函数，因此这里的写法目前有三种：<ul>
+<li>Lambda 表达式</li>
+<li>匿名函数</li>
+<li>this._handleBack.bind(this) 绑定this的方式来返回一个含有this的纯函数<br>但是以上三种方式都有一个问题，就是每次调用返回的都是一个全新的函数对象，这样明显保证不了函数的唯一性，因此有了构造方法里的这个函数<code>this.handleBack = this._handleBack.bind(this)</code>。</li>
+</ul>
+</li>
+</ul>
+<p>上边也提到了，在订阅的时候，返回了一个反订阅函数(和Redux的subscribe类似)，因此我们在componentDidMount里还可以这么写：<br><figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.removeListener = BackAndroid.addEventListener(<span class="string">'hardwareBackPress'</span>, <span class="keyword">this</span>._handleBack.bind(<span class="keyword">this</span>))</span><br></pre></td></tr></table></figure></p>
+<p>componentWillUnmount里就变成:<br><figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.removeListener()</span><br></pre></td></tr></table></figure></p>
+<h3 id="handleBack"><a href="#handleBack" class="headerlink" title="_handleBack()"></a>_handleBack()</h3><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">_handleBack () &#123;</span><br><span class="line">  <span class="built_in">var</span> navigator = this.navigator</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (navigator &amp;&amp; navigator.getCurrentRoutes().<span class="built_in">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    navigator.<span class="built_in">pop</span>()</span><br><span class="line">    <span class="built_in">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这部分比较简单，逻辑基本是按照文档给的写。对navigator操作来判断是否在MainScreen以及具体的pop操作。</p>
+<p>##External<br>如果你想要自己监听处理Back键，也可以摆脱BackAndroid的限制，直接采用<br><figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">RCTDeviceEventEmitter.addListener(‘hardwareBackPress’, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ... </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>自己来处理Back逻辑。</p>
+<blockquote>
+<p>士为知己者死,<br>女为悦己者容,<br>吾其报智氏之雠矣<br>  ——《战国策》<br>希望大家能够早日找到红颜、知己！！！</p>
+</blockquote>
+<p>##号外!!!<br>我司举办的开发大赛，欢迎参加喔～<br><img src="http://upload-images.jianshu.io/upload_images/442688-1f10b43f65472f10.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>详情请见官网: <a href="https://applean.cn" target="_blank" rel="external">https://applean.cn</a></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BackAndroid源码解析"><span class="nav-text">BackAndroid源码解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战使用BackAndroid"><span class="nav-text">实战使用BackAndroid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#订阅与反订阅"><span class="nav-text">订阅与反订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#handleBack"><span class="nav-text">_handleBack()</span></a></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

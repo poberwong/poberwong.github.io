@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React,React-Native,翻译," />
+
+
+<meta name="description" content="本来今晚是打算写篇源码分析文章的，不过感觉不在状态，所以决定来篇没有难度的翻译工作，碰巧到Reactjs官网温习一下React相关知识，结果很不幸发现官网的所有中文内容全部消失，想到Context部分本来就没有被翻译过，因此就它啦～——译者注文档源地址
+
+React的最强大的一点就是在React组件之间很容易追踪数据流向。当你关注某一个组件时，你可以很容易地看到属性的传递可以让你的应用易于推理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Context(译)">
+<meta property="og:url" content="http://poberwong.com/2016/08/30/Context(译)/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="本来今晚是打算写篇源码分析文章的，不过感觉不在状态，所以决定来篇没有难度的翻译工作，碰巧到Reactjs官网温习一下React相关知识，结果很不幸发现官网的所有中文内容全部消失，想到Context部分本来就没有被翻译过，因此就它啦～——译者注文档源地址
+
+React的最强大的一点就是在React组件之间很容易追踪数据流向。当你关注某一个组件时，你可以很容易地看到属性的传递可以让你的应用易于推理。">
+<meta property="og:updated_time" content="2016-10-11T03:11:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Context(译)">
+<meta name="twitter:description" content="本来今晚是打算写篇源码分析文章的，不过感觉不在状态，所以决定来篇没有难度的翻译工作，碰巧到Reactjs官网温习一下React相关知识，结果很不幸发现官网的所有中文内容全部消失，想到Context部分本来就没有被翻译过，因此就它啦～——译者注文档源地址
+
+React的最强大的一点就是在React组件之间很容易追踪数据流向。当你关注某一个组件时，你可以很容易地看到属性的传递可以让你的应用易于推理。">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Context(译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="Context(译)"> Context(译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-08-30T22:25:09+08:00" content="2016-08-30">
+              2016-08-30
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><blockquote>
+<p>本来今晚是打算写篇源码分析文章的，不过感觉不在状态，所以决定来篇没有难度的翻译工作，碰巧到Reactjs官网温习一下React相关知识，结果很不幸发现官网的所有中文内容全部消失，想到Context部分本来就没有被翻译过，因此就它啦～<br>——译者注<br><a href="https://facebook.github.io/react/docs/context.html" target="_blank" rel="external">文档源地址</a></p>
+</blockquote>
+<p>React的最强大的一点就是在React组件之间很容易追踪数据流向。当你关注某一个组件时，你可以很容易地看到属性的传递可以让你的应用易于推理。</p>
+<p>一般的，你想要在组件树中传递数据时没必要去手动的在每个层级之间进行传递属性。React的“context” 特性可以帮你实现。</p>
+<blockquote>
+<p><strong>Note</strong>:<br>Context是一个高级实验的特性。在未来的发布版本中这个API可能会改掉。<br>很多应用从来都不需要使用context。如果你是刚刚开始学习React，你可能都不想使用context。使用context可能会因为数据流清晰度的下降而让你的代码变的难以理解。这和在整个应用中通过全局变量传递state类似。<br><strong>如果必须要用context, 请保守使用</strong><br>抛开你是构建一个应用还是库，尝试将context的使用局限于小范围并且尽可能避免直接使用context的API，这样即使API改变了也很容易升级。</p>
+</blockquote>
+<h2 id="在树中自动传递信息"><a href="#在树中自动传递信息" class="headerlink" title="在树中自动传递信息"></a>在树中自动传递信息</h2><p>假定你有如下数据结构:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="keyword">return</span> ( </span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">&#123;&#123;background:</span> <span class="attr">this.props.color</span>&#125;&#125;&gt;</span>       </span><br><span class="line">        &#123;this.props.children&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span> ); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="keyword">return</span> ( </span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span> </span><br><span class="line">        &#123;this.props.text&#125; </span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span> <span class="attr">color</span>=<span class="string">&#123;this.props.color&#125;</span>&gt;</span>Delete<span class="tag">&lt;/<span class="name">Button</span>&gt;</span>    </span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span> </span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MessageList</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="keyword">const</span> color = <span class="string">"purple"</span>;  </span><br><span class="line">    <span class="keyword">const</span> children = <span class="keyword">this</span>.props.messages.map((message) =&gt;<span class="xml"><span class="tag">&lt;<span class="name">Message</span> <span class="attr">text</span>=<span class="string">&#123;message.text&#125;</span> <span class="attr">color</span>=<span class="string">&#123;color&#125;</span> /&gt;</span> </span><br><span class="line">    ); </span><br><span class="line">    return <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，我们为了给<code>Button</code>添加颜色样式和信息而手动去传递属性。这个主题在你想要在整个子树上传递一些信息(如color)时会是一个很好的例子。使用context，我们可以在树中自动的传递它们：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="keyword">return</span> ( </span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">&#123;&#123;background:</span> <span class="attr">this.context.color</span>&#125;&#125;&gt;</span></span><br><span class="line">        &#123;this.props.children&#125; </span><br><span class="line">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span> </span><br><span class="line">     ); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Button.contextTypes = &#123; </span><br><span class="line">  color: React.PropTypes.string</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123; </span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="keyword">return</span> ( </span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span> </span><br><span class="line">        &#123;this.props.text&#125; <span class="tag">&lt;<span class="name">Button</span>&gt;</span>Delete<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span> </span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MessageList</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">  getChildContext() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;color: <span class="string">"purple"</span>&#125;; </span><br><span class="line">  &#125; </span><br><span class="line">  render() &#123; </span><br><span class="line">    <span class="keyword">const</span> children = <span class="keyword">this</span>.props.messages.map((message) =&gt; </span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">Message</span> <span class="attr">text</span>=<span class="string">&#123;message.text&#125;</span> /&gt;</span> </span><br><span class="line">    ); </span><br><span class="line">    return <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>;   </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MessageList.childContextTypes = &#123; </span><br><span class="line">  color: React.PropTypes.string</span><br><span class="line">&#125;;</span></span><br></pre></td></tr></table></figure></p>
+<p>通过给<code>MessageList</code>(context的提供者)添加<code>childContextTypes</code>和<code>getChildContext</code>，React自动将信息信息传递下去而且子树中的任意组件(在这个例子中是<code>Button</code>)都可以通过定义<code>contextTypes</code>来接收它。<br>如果<code>contextTypes</code>没有被定义，context将会是一个空对象。</p>
+<h2 id="父子组件的耦合"><a href="#父子组件的耦合" class="headerlink" title="父子组件的耦合"></a>父子组件的耦合</h2><p>Context也可以让你生成这样的API:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Menu</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">MenuItem</span>&gt;</span>aubergine<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span>      </span><br><span class="line">  <span class="tag">&lt;<span class="name">MenuItem</span>&gt;</span>butternut squash<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span>      </span><br><span class="line">  <span class="tag">&lt;<span class="name">MenuItem</span>&gt;</span>clementine<span class="tag">&lt;/<span class="name">MenuItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Menu</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><strong>翻译就此终止！！！因为已经没有继续翻下去的必要了</strong></strong><br>WTF，在翻译即将结束时，发现<a href="http://reactjs.cn/react/docs/getting-started-zh-CN.html" target="_blank" rel="external">React</a> 官网文档并非去掉了中文部分，只是出了点小插曲：</p>
+<blockquote>
+<p>通过首页链接 <a href="http://reactjs.cn" target="_blank" rel="external">http://reactjs.cn</a> 进入后，点击顶栏的<code>Docs</code>后会进入中文的<code>Getting Started</code>。结果只有这一页是中文的……你在当前页面点击的所有链接都将是英文页面，这应该是网站的问题所在。如Context页面的url为：<a href="http://reactjs.cn/react/docs/context.html" target="_blank" rel="external">http://reactjs.cn/react/docs/context.html</a>, 我们可以通过直接修改url的方式来链到中文文档的地址: 只需要在末尾加上<code>-zh-CN</code>即可，如： <a href="http://reactjs.cn/react/docs/context-zh-CN.html" target="_blank" rel="external">http://reactjs.cn/react/docs/context-zh-CN.html</a></p>
+</blockquote>
+<p>不用谢，请叫我雷锋！！！还有，等啥时候官网正常了可别忘记提醒我呀～</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在树中自动传递信息"><span class="nav-text">在树中自动传递信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#父子组件的耦合"><span class="nav-text">父子组件的耦合</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

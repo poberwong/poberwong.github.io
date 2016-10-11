@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="React,React-Native,Awesome," />
+
+
+<meta name="description" content="前言关于提示类组件，在Android里有Toast、SnackBar，React Native里我也发现了一个非常不错的SnackBar风格的开源组件——react-native-message-bar, 具体使用方法就是在应用的顶级容器里注册，然后在你需要invoke的地方调用所给的show方法即可。这让我不禁想起了Redux的状态管理机制，有兴趣的同学们可以研究一下具体的实现方式( 我尽量克服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结合Redux实现一个优雅的弹窗系统">
+<meta property="og:url" content="http://poberwong.com/2016/06/26/结合Redux实现一个优雅的弹窗系统/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="前言关于提示类组件，在Android里有Toast、SnackBar，React Native里我也发现了一个非常不错的SnackBar风格的开源组件——react-native-message-bar, 具体使用方法就是在应用的顶级容器里注册，然后在你需要invoke的地方调用所给的show方法即可。这让我不禁想起了Redux的状态管理机制，有兴趣的同学们可以研究一下具体的实现方式( 我尽量克服">
+<meta property="og:updated_time" content="2016-10-11T03:22:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="结合Redux实现一个优雅的弹窗系统">
+<meta name="twitter:description" content="前言关于提示类组件，在Android里有Toast、SnackBar，React Native里我也发现了一个非常不错的SnackBar风格的开源组件——react-native-message-bar, 具体使用方法就是在应用的顶级容器里注册，然后在你需要invoke的地方调用所给的show方法即可。这让我不禁想起了Redux的状态管理机制，有兴趣的同学们可以研究一下具体的实现方式( 我尽量克服">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 结合Redux实现一个优雅的弹窗系统 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="结合Redux实现一个优雅的弹窗系统"> 结合Redux实现一个优雅的弹窗系统 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-06-26T22:19:09+08:00" content="2016-06-26">
+              2016-06-26
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于提示类组件，在Android里有Toast、SnackBar，React Native里我也发现了一个非常不错的SnackBar风格的开源组件——<a href="https://github.com/KBLNY/react-native-message-bar" target="_blank" rel="external">react-native-message-bar</a>, 具体使用方法就是在应用的顶级容器里注册，然后在你需要invoke的地方调用所给的<code>show</code>方法即可。这让我不禁想起了Redux的状态管理机制，有兴趣的同学们可以研究一下具体的实现方式( 我尽量克服懒惰研究一下哈 ! )</p>
+<h2 id="开发缘由"><a href="#开发缘由" class="headerlink" title="开发缘由"></a>开发缘由</h2><p>在工作中，因为要给<a href="http://applean.cn" target="_blank" rel="external">Applean</a>添加各种操作的提示框，最后结合了react-native-message-bar的思路并实现了多层级对话框的叠加显示功能，有兴趣的可以去<a href="http://applean.cn" target="_blank" rel="external">Applean</a>体验一下</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>这里假定我们已经接入了<a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="external">redux-thunk</a>这个简单而又非常实用的中间件，并且已经处理好了Redux的异步操作(很简单，就是用applyMiddleware接入所需要的Middleware即可)，这里因为不符合文章主题，不予讲解。</p>
+<h3 id="实现概述"><a href="#实现概述" class="headerlink" title="实现概述"></a>实现概述</h3><ol>
+<li>这里的弹窗是利用<a href="https://github.com/react-bootstrap/react-bootstrap" target="_blank" rel="external">react-bootstrap</a> ( bootstrap对reactjs的一个嫁接 )，当然，这个非常非常的次要</li>
+<li>将所需要展示的整个View以message字段的方式通过ActionCreator传递给Reducer，而在Reducer里则以一个数组的形式来管理，这也是为了提高所展示视图灵活性的一个方案。</li>
+<li>在视图的渲染展示上，还是出现了不小的问题，可以详细讲解一下解决方案</li>
+</ol>
+<h3 id="ActionCreator部分逻辑"><a href="#ActionCreator部分逻辑" class="headerlink" title="ActionCreator部分逻辑"></a>ActionCreator部分逻辑</h3> <figure class="highlight qml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> promptCounter = <span class="number">0</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">showPrompt</span> (<span class="params">payload</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> promptMessage = React.cloneElement(payload.message, &#123;<span class="attribute">key</span>: promptCounter++, <span class="attribute">duration</span>: payload.duration&#125;)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attribute">type</span>: SHOW_PROMPT,</span><br><span class="line">    <span class="attribute">promptMessage</span>: promptMessage</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">hidePrompt</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attribute">type</span>: HIDE_PROMPT,</span><br><span class="line">    <span class="attribute">promptMessage</span>: message</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以看到，这里我们给传进来的message提示框组件通过<code>cloneElement</code>方法给组件key属性加了一个随调用次数自增长的变量值，如果在渲染时再根据遍历所得的index来进行赋值会造成随着数组的变化，元素的key值不断变化。而因为React的diff算法对数组的更新策略是针对unique key值的，如果数组元素没有key值，一来会有系统warning，二来如果某个元素发生变化，会导致系统重绘整个数组。</li>
+<li><code>cloneElement</code>方法中可以看到我们又加了一个duration属性，主要是用来在UI显示层容易拿到这个参数来控制弹框的显示，后文会详细讲到。</li>
+</ul>
+<h3 id="reducer中的处理逻辑"><a href="#reducer中的处理逻辑" class="headerlink" title="reducer中的处理逻辑"></a>reducer中的处理逻辑</h3><figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">const initialState = &#123;promptMessage: []&#125;</span><br><span class="line">export <span class="keyword">default</span> function reducer (<span class="keyword">state</span> = initialState, action = &#123;&#125;) &#123;</span><br><span class="line">  case SHOW_PROMPT: </span><br><span class="line">    return &#123;</span><br><span class="line">      ...<span class="keyword">state</span>,</span><br><span class="line">      promptMessage: [...<span class="keyword">state</span>.promptMessages, action.message]</span><br><span class="line">  case HIDE_PROMPT:</span><br><span class="line">    return &#123;</span><br><span class="line">      ...<span class="keyword">state</span>,</span><br><span class="line">      promptMessage: <span class="keyword">state</span>.promptMessages.filter((x) =&gt; x !== action.promptMessage)</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    return <span class="keyword">state</span>  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里很简单，我们在遵循不修改原有state的原则下，采取了解构对象以及使用filter函数来实现增加、删除数组元素。当然，assign、拆分数组也未尝不可。</p>
+<h3 id="发起一个对话框"><a href="#发起一个对话框" class="headerlink" title="发起一个对话框"></a>发起一个对话框</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">this</span><span class="selector-class">.props</span><span class="selector-class">.dispatch</span>(<span class="selector-tag">showPrompt</span>&#123;</span><br><span class="line">  <span class="attribute">message</span>: &lt;Modal&gt;Example&lt;/Modal&gt;,</span><br><span class="line">  duration: <span class="number">1000</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>就这样，非常简单的发起了一个提示框的Action。</p>
+<h3 id="UI展示层处理"><a href="#UI展示层处理" class="headerlink" title="UI展示层处理"></a>UI展示层处理</h3><p>这里也是多级提示框展示的地方，具体在实现上，也有一些耐人寻味的几点需要注意一下。</p>
+<h4 id="批量化渲染组件"><a href="#批量化渲染组件" class="headerlink" title="批量化渲染组件"></a>批量化渲染组件</h4><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">renderPromptMessage</span> = <span class="params">(promptMessage)</span> =&gt;</span> &#123;</span><br><span class="line">    const onHide = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.props.dispatch(hidePrompt(promptMessage))</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">      promptMessage.props.onHide &amp;&amp; promptMessage.props.onHide()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &lt;ModalWrapper key=&#123;<span class="string">'ModalWrapper'</span> + promptMessage.key&#125; child=&#123;promptMessage&#125;</span><br><span class="line">    duration=&#123;promptMessage.props.duration&#125; onHide=&#123;onHide&#125; /&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以上是对单个promptMessage弹窗的渲染函数，当然，使用的时候，只需要用从State树中获取到的数组调一下map函数就可以啦！</li>
+<li>这里需要注意的是，如果我们直接采取更新数据源的方式来更新提示窗的数量时，整个View都是以一种非常生硬的方式直接从页面中消失，而非存在一个淡出的过程，这时我们就需要通过在合适的时机调用Modal自带的show参数来让它执行自己的淡出逻辑，而我们是通过ModalWrapper组件来实现的。</li>
+<li>当然，这里也有几个参数作为属性被传递了进去<ul>
+<li>child: 这个在数据逻辑上对应视图层级上关系的一个属性，我们在这里将promptMessage作为属性直接传入作处理，当然也可以用标签对包裹。</li>
+<li>duration: 传入后由Wrapper来控制其fade-out逻辑</li>
+<li>onHide: 这里传入的是在当前函数中写好的onHide方法，主要用来响应Modal组件的onHide回调。可以看到在onHide方法中，我们先是在onHide回调存在时执行了它，然后在一秒后dispatch了我们的hidePrompt动作，<strong>这里是数据层面的hide，</strong>为什么延时下边会做介绍。</li>
+</ul>
+</li>
+</ul>
+<h4 id="ModalWrapper包装组件"><a href="#ModalWrapper包装组件" class="headerlink" title="ModalWrapper包装组件"></a>ModalWrapper包装组件</h4><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ModalWrapper</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  static propTypes = &#123;</span><br><span class="line">    child: <span class="type">React</span>.<span class="type">PropTypes</span>.element.isRequired,</span><br><span class="line">    onHide: <span class="type">React</span>.<span class="type">PropTypes</span>.func.isRequired,</span><br><span class="line">    duration: <span class="type">React</span>.<span class="type">PropTypes</span>.number</span><br><span class="line">  &#125;;</span><br><span class="line">  state = &#123;</span><br><span class="line">    show: <span class="literal">true</span></span><br><span class="line">  &#125;;</span><br><span class="line">  onHide = () =&gt; &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      show: <span class="literal">false</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.props.onHide()</span><br><span class="line">  &#125;;</span><br><span class="line">  componentDidMount () &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.duration) &#123;</span><br><span class="line">      <span class="keyword">this</span>.timer = setTimeout(() =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>.onHide()</span><br><span class="line">      &#125;, <span class="keyword">this</span>.props.duration)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  render () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">React</span>.cloneElement(<span class="keyword">this</span>.props.child, &#123;show: <span class="keyword">this</span>.state.show, onHide: <span class="keyword">this</span>.onHide&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUnmount () &#123;</span><br><span class="line">    clearTimeout(<span class="keyword">this</span>.timer)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>作为一个比较核心的类，我们看到它在render函数中返回了一个再次被我们Hack了的child组件(传进来的promptMessage对象)</p>
+<ul>
+<li>show: react-bootstrap 中Modal组件的显示和淡出主要由show属性控制，在正常使用时，可以通过将该属性与state单向绑定来实现对弹框的控制。可以看到在这个组件中，show的初始值是true。</li>
+<li>onHide: 既然show可以直接控制Modal，为何还要写到onHide里呢？这其实也是模拟了Modal.Header中的关闭按钮的逻辑，点击后淡出弹框并执行onHide回调。这个逻辑在没有关闭按钮时是肯定不会触发的。<strong>在设置show为false是从视图层面的hide，然后调用传进来的onHide方法，让它执行数据层面的hide，注意这里存在1s的延时，主要用于给Modal足够的时间淡出，否则这个fade-out动画是无法执行完的。</strong></li>
+<li>componentDidMount: 这个也是我们duration的用武之地。在视图渲染完毕后，倒计时duration然后调用上边的onHide方法。</li>
+<li>干完事情要记得清理战场，为了防止组件被卸载后才执行其对应的逻辑，造成对unmounted componet 操作的bug，我们在组建即将卸载时及时清理掉了这个timer。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本来这篇文章上周就可以完结的，无奈在写的过程中，发现之前使用的thunk中间件可以去掉，而且为了更好地结合关闭按钮和自动关闭逻辑，将hide数据层面的操作从dispatch接收的函数中提取到了Wrapper中。其实最为核心的问题大致总结为以下几点：</p>
+<ul>
+<li>reducer存储数组中message对象的唯一性</li>
+<li>数组中key值的稳定不可变性</li>
+<li>数据层和视图层hide逻辑的分离和延迟</li>
+</ul>
+<blockquote>
+<p>生活不止眼前的苟且<br>还有诗和远方的田野</p>
+</blockquote>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发缘由"><span class="nav-text">开发缘由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现"><span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现概述"><span class="nav-text">实现概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ActionCreator部分逻辑"><span class="nav-text">ActionCreator部分逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reducer中的处理逻辑"><span class="nav-text">reducer中的处理逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发起一个对话框"><span class="nav-text">发起一个对话框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI展示层处理"><span class="nav-text">UI展示层处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#批量化渲染组件"><span class="nav-text">批量化渲染组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ModalWrapper包装组件"><span class="nav-text">ModalWrapper包装组件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+          <a href="/tags#Awesome" rel="tag">#Awesome</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

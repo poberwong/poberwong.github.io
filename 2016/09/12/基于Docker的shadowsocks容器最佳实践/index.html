@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="Docker,Shadowsocks,科学上网," />
+
+
+<meta name="description" content="前言
+前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。
+
+在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Docker的shadowsocks容器最佳实践">
+<meta property="og:url" content="http://poberwong.com/2016/09/12/基于Docker的shadowsocks容器最佳实践/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="前言
+前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。
+
+在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-bc10f77c6513b68b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-7c278871022178f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-58a2100a45d962a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-bee72db7ec2c762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-7e2c0a07a6cd091d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-9fc95f53edc4e710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-11T03:39:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Docker的shadowsocks容器最佳实践">
+<meta name="twitter:description" content="前言
+前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。
+
+在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-bc10f77c6513b68b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 基于Docker的shadowsocks容器最佳实践 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="基于Docker的shadowsocks容器最佳实践"> 基于Docker的shadowsocks容器最佳实践 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-09-12T00:29:49+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#后端" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。</p>
+</blockquote>
+<p>在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这个我脸都黑了，宝宝买vps专门是用来倒腾服务器后端的，Shadowsocks本来就是为了实践docker而玩的嘛～</p>
+<h2 id="购买Vps"><a href="#购买Vps" class="headerlink" title="购买Vps"></a>购买Vps</h2><h3 id="DO介绍"><a href="#DO介绍" class="headerlink" title="DO介绍"></a>DO介绍</h3><p>作为一名长期患有选择困难症的选手来讲，做这样的选择简直就是煎熬，就目前来讲，我选择了<a href="https://m.do.co/c/2761941015a8" target="_blank" rel="external">DigitalOcean</a>，以下是DO( 这里下文中的DO专指DigitalOcean )的价位截图：<br><img src="http://upload-images.jianshu.io/upload_images/442688-bc10f77c6513b68b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>值得一提的是DO是按量付费的，在一个DO账户中可以有多个Droplets(即一个服务器，我也搞不清楚为什么要用小水滴Droplets这个词，可能是和DigitalOcean数据海洋对应吧～)，多个Droplets并行收费。<br><strong><em>DO的按量付费规则是：即用即扣费，删除服务器(Droplets)则扣费停止</em></strong></p>
+<h3 id="我的选择"><a href="#我的选择" class="headerlink" title="我的选择"></a>我的选择</h3><ul>
+<li><p>放弃搬瓦工<br>最开始我买的并非DO，而是更加实惠2美刀的搬瓦工，跟每月5美刀的DO比起来看起来好多了，然而事实并非如此。搬瓦工是一个基于OpenVZ的虚拟容器，暂且把它理解为Docker上的一个容器吧！直接搭建Shadowsocks服务也还行，但是想要在这么一个容器上再跑Docker，就会因为无法升级Linux内核(docker要求环境的Linux内核必须为3.0以上)而无法启动docker。因为OpenVZ和Docker一样，容器与宿主机共用内核，因此容器作为寄生者肯定是没有升级内核的权限的，这也是我放弃搬瓦工的原因，2.x的Kernel内核我就呵呵了….</p>
+</li>
+<li><p>放弃Linode<br>Linode从大众反馈来讲还是非常棒的，但是它的起跳价格是10$/month，性价比和DO几乎一致，但是作为一名刚毕业的新人(工作一年多的老司机)来讲还是有压力的，因此我选择了门槛更低的DO</p>
+</li>
+<li><p>DO注意事项</p>
+<ul>
+<li>DO起跳套餐是5美金每月，虽然是按量收费，但也别为了5美刀而耗费自己额外的精力，而且1T的流量肯定是管饱的。</li>
+<li>每一名DO用户的在成功邀请一名新用户后，邀请者和被邀请者均有一定的奖励～ 在个人的Settings页面即可找到邀请入口，邮箱和连接分享均可。<br><img src="http://upload-images.jianshu.io/upload_images/442688-7c278871022178f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>DO也有让人头疼的地方，在注册并绑定信用卡后，还需要经过一个用户审核的阶段，我想这也是为了防止恶意注册账户领取奖励吧～ 在注册完毕后，网站会提示他们会在2小时内完成人工审核，我当时是等了大概不到一个小时吧，毕竟美帝那时候已经是晚上了，理解万岁～ 在收到用户信息验证后让我回复持有身份证或护照的照片时，因为暂时不方便就给回复了学生证、身份证等信息后居然通过了，点赞！！！</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><h3 id="使用ssh连接服务器"><a href="#使用ssh连接服务器" class="headerlink" title="使用ssh连接服务器"></a>使用ssh连接服务器</h3><blockquote>
+<p>简单说，SSH是一种网络协议，用于计算机之间的加密登录。<br>如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。<br>最早的时候，互联网通信都是明文通信，一旦被截获，内容就暴露无疑。1995年，芬兰学者Tatu Ylonen设计了SSH协议，将登录信息全部加密，成为互联网安全的一个基本解决方案，迅速在全世界获得推广，目前已经成为Linux系统的标准配置。<br>需要指出的是，SSH只是一种协议，存在多种实现，既有商业实现，也有开源实现。<br>引自 阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="external">《SSH原理与运用（一）：远程登录》</a></p>
+</blockquote>
+<p>在注册并创建服务器后，你会得到vps的IP地址和初始root账户的默认密码。<br>打开你的终端，输入 <code>ssh root@你的ip地址</code>敲回车在输入密码即可远程登录你的服务器，接着就进入docker的安装环节啦～</p>
+<h3 id="docker的安装"><a href="#docker的安装" class="headerlink" title="docker的安装"></a>docker的安装</h3><p><em>我的服务器安装的是ubuntu14.04的操作系统</em></p>
+<blockquote>
+<p>完整的安装流程见<a href="https://docs.docker.com/engine/installation/linux/ubuntulinux/" target="_blank" rel="external">Docker官网</a></p>
+</blockquote>
+<ol>
+<li><p>查看你的Linux内核版本<br><code>uname -a</code>命令<br><img src="http://upload-images.jianshu.io/upload_images/442688-58a2100a45d962a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>Docker的Linux安装环境要求：</p>
+<ul>
+<li>64位的操作系统</li>
+<li>Linux内核必须大于3.1</li>
+</ul>
+</li>
+<li><p>为APT安装带有CA证书的https方法<br>因为docker的包源要求，而且下一步我们就要开始为Linux添加docker源啦～</p>
+<ol>
+<li><p>安装证书</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> <span class="keyword">update</span> </span><br><span class="line">$ sudo apt-<span class="built_in">get</span> install apt-transport-https <span class="keyword">ca</span>-certificates</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加GPG key</p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">$</span> <span class="comment">sudo</span> <span class="comment">apt</span><span class="literal">-</span><span class="comment">key</span> <span class="comment">adv</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">keyserver</span> <span class="comment">hkp://p80</span><span class="string">.</span><span class="comment">pool</span><span class="string">.</span><span class="comment">sks</span><span class="literal">-</span><span class="comment">keyservers</span><span class="string">.</span><span class="comment">net:80</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">recv</span><span class="literal">-</span><span class="comment">keys</span> <span class="comment">58118E89F3A912897C070ADBF76221572C52609D</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>为系统添加docker源</p>
+<ol>
+<li><p>这条命令会让你用vi打开docker.list，如果没有会自动创建。</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">vi /etc/apt/sources.<span class="keyword">list</span>.<span class="keyword">d</span>/docker.<span class="keyword">list</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加源：</p>
+<ul>
+<li><p>On Ubuntu Precise 12.04 (LTS)<br><code>deb https://apt.dockerproject.org/repo ubuntu-precise main</code></p>
+</li>
+<li><p>On Ubuntu Trusty 14.04 (LTS)<br><code>deb https://apt.dockerproject.org/repo ubuntu-trusty main</code></p>
+</li>
+<li><p>Ubuntu Wily 15.10<br><code>deb https://apt.dockerproject.org/repo ubuntu-wily main</code></p>
+</li>
+<li><p>Ubuntu Xenial 16.04 (LTS)<br><code>deb https://apt.dockerproject.org/repo ubuntu-xenial main</code><br>根据你的操作系统将以上四种源之一粘入docker.list文件，记得要输入i进入编辑模式，粘贴完后<code>:wq</code>保存退出</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>安装docker：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">apt-get <span class="keyword">update</span></span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> docker-<span class="keyword">engine</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>至此docker就已经安装好了。为方便起见，我省去了部分步骤以及重启过程，就目前来讲还是OK的。</p>
+<h2 id="在Docker上跑起Shadowsocks容器"><a href="#在Docker上跑起Shadowsocks容器" class="headerlink" title="在Docker上跑起Shadowsocks容器"></a>在Docker上跑起Shadowsocks容器</h2><ol>
+<li>启动docker服务<br><code>service docker start</code></li>
+<li><p>然后像brew一样使用search命令来搜一下官方源DockerHub 上都有哪些shadowsocks镜像 <code>docker search shadowsocks</code><br><img src="http://upload-images.jianshu.io/upload_images/442688-bee72db7ec2c762d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在以上源中，可以很容易看到排在第一位的镜像很受欢迎，<br><img src="http://upload-images.jianshu.io/upload_images/442688-7e2c0a07a6cd091d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>被下载数更是遥遥领先呀～</p>
+</li>
+<li><p>下载镜像并启动容器</p>
+<ul>
+<li><code>docker pull oddrationale/docker-shadowsocks</code> 拖取DockerHub上的镜像到本地</li>
+<li><p><code>docker run -d -p 2008:1993 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1993 -k 0000 -m aes-256-cfb</code><br>在启动镜像时，有一点就是要求 宿主机映射到docker容器上的端口必须要和shadowsocks上的设置的端口一致，换句话说就是冒号后边的端口号和最后的端口必须要保证一致。因为想要外界能够访问容器内部应用，就需要给从宿主机通过-p参数给宿主机和容器之间的端口形成一对一的映射来访问，而容器内则需要保证shadowsocks的端口和被映射端口一致即可。</p>
+</li>
+<li><p>此时<code>docker ps</code> 即可看到已经跑起来的shadowsocks容器，如：<br><img src="http://upload-images.jianshu.io/upload_images/442688-9fc95f53edc4e710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>我这里因为示范所以多跑了几个容器。</p>
+</li>
+</ul>
+</li>
+<li><p>接下来就可以根据以下几样东西在Shadowsocks客户端(Windows, Mac, Windows, Android, iPhone) 上配置啦～</p>
+<ul>
+<li>你的服务器IP</li>
+<li>宿主机器分给docker容器的端口 (上边是2008)</li>
+<li>密码 (上边是0000)</li>
+</ul>
+</li>
+</ol>
+<p>全端ss客户端下载地址</p>
+<blockquote>
+<p>Windows<br><a href="https://github.com/breakwa11/shadowsocks-csharp/releases/download/3.7.4.1/ShadowsocksR-win-3.7.4.1.7z" target="_blank" rel="external">ShadowsocksR-win-3.7.4.1.7z</a><br>OS X<br><a href="https://github.com/shadowsocks/shadowsocks-iOS/releases/download/2.6.3/ShadowsocksX-2.6.3.dmg" target="_blank" rel="external">MacOSX ShadowsocksX-2.6.3.dmg</a><br>Linux 客户端<br><a href="https://github.com/shadowsocks/shadowsocks-gui" target="_blank" rel="external">shadowsocks-gui</a> - Cross-platform GUI powered node and by Webkit<br>iOS 客户端<br>需要自己app store购买 surge web或者shadowrocket app store 搜索即可<br>Android 客户端<br><a href="https://github.com/shadowsocks/shadowsocks-android" target="_blank" rel="external">shadowsocks-android</a><br>路由器 / Router 客户端<br><a href="https://github.com/haohaolee/shadowsocks-openwrt" target="_blank" rel="external">shadowsocks-openwrt</a> - works on OpenWRT routers</p>
+</blockquote>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>你可以通过<a href="https://m.do.co/c/2761941015a8" target="_blank" rel="external">链接</a>来注册并使用DO服务，这样你就可以直接获得10美金的起步资金，而我……什么都没有。当然，你在DO上支付25美金后，我也会得到同样的优惠～<br><em>我注册时忘记搞这个了….TT</em></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#购买Vps"><span class="nav-text">购买Vps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DO介绍"><span class="nav-text">DO介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我的选择"><span class="nav-text">我的选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装docker"><span class="nav-text">安装docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ssh连接服务器"><span class="nav-text">使用ssh连接服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker的安装"><span class="nav-text">docker的安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Docker上跑起Shadowsocks容器"><span class="nav-text">在Docker上跑起Shadowsocks容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-text">End</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#Docker" rel="tag">#Docker</a>
+        
+          <a href="/tags#Shadowsocks" rel="tag">#Shadowsocks</a>
+        
+          <a href="/tags#科学上网" rel="tag">#科学上网</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
