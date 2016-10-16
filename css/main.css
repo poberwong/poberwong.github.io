@@ -1382,32 +1382,6 @@ header.header .header-cont .text-area .title {
   display: inline-block;
   font-family: Ebrima;
 }
-header.header .header-cont .text-area .title:before {
-  content: attr(data-text);
-  position: absolute;
-  left: -2px;
-  text-shadow: 1px 0 inherit;
-  top: 0;
-  color: inherit;
-  background: inherit;
-  overflow: hidden;
-  clip: rect(0, 900px, 0, 0);
-  height: 100%;
-  animation: noise-anim-2 3s infinite linear alternate-reverse;
-}
-header.header .header-cont .text-area .title:after {
-  content: attr(data-text);
-  position: absolute;
-  height: 100%;
-  left: 2px;
-  text-shadow: -1px 0 inherit;
-  top: 0;
-  color: inherit;
-  background: inherit;
-  overflow: hidden;
-  clip: rect(0, 900px, 0, 0);
-  animation: noise-anim 2s infinite linear alternate-reverse;
-}
 header.header .header-cont .text-area .description {
   width: 100%;
   text-align: center;
