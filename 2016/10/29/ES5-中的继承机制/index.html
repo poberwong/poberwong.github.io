@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="JavaScript,继承," />
+
+
+<meta name="description" content="这本是一篇应该记录于 EverNote 的技术杂记，然因博客太久未更新了，暂且就拿它顶一下吧。如写的不好，还请轻喷。
+
+JavaScript，我从年初开始学 JavaScript 的时候，它依靠原型链来实现继承的事情我一直都知道，而且因为工作中一直主要在用 es6，以至于对依据原型链实现继承的这回事一直都是处于一个非常模糊的状态。结果呢，就在前几天的一次技术交流上吃了大亏，被问的哑口无言…… 因">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES5 中的继承机制">
+<meta property="og:url" content="http://poberwong.com/2016/10/29/ES5-中的继承机制/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="这本是一篇应该记录于 EverNote 的技术杂记，然因博客太久未更新了，暂且就拿它顶一下吧。如写的不好，还请轻喷。
+
+JavaScript，我从年初开始学 JavaScript 的时候，它依靠原型链来实现继承的事情我一直都知道，而且因为工作中一直主要在用 es6，以至于对依据原型链实现继承的这回事一直都是处于一个非常模糊的状态。结果呢，就在前几天的一次技术交流上吃了大亏，被问的哑口无言…… 因">
+<meta property="og:updated_time" content="2016-10-29T15:15:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES5 中的继承机制">
+<meta name="twitter:description" content="这本是一篇应该记录于 EverNote 的技术杂记，然因博客太久未更新了，暂且就拿它顶一下吧。如写的不好，还请轻喷。
+
+JavaScript，我从年初开始学 JavaScript 的时候，它依靠原型链来实现继承的事情我一直都知道，而且因为工作中一直主要在用 es6，以至于对依据原型链实现继承的这回事一直都是处于一个非常模糊的状态。结果呢，就在前几天的一次技术交流上吃了大亏，被问的哑口无言…… 因">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> ES5 中的继承机制 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="ES5 中的继承机制"> ES5 中的继承机制 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2016-10-29T23:12:44+08:00" content="2016-10-29">
+              2016-10-29
+            </time>
+          </div>
+
+          
+            <div class="post-category" >
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><blockquote>
+<p>这本是一篇应该记录于 EverNote 的技术杂记，然因博客太久未更新了，暂且就拿它顶一下吧。如写的不好，还请轻喷。</p>
+</blockquote>
+<p>JavaScript，我从年初开始学 JavaScript 的时候，它依靠原型链来实现继承的事情我一直都知道，而且因为工作中一直主要在用 es6，以至于对依据原型链实现继承的这回事一直都是处于一个非常模糊的状态。结果呢，就在前几天的一次技术交流上吃了大亏，被问的哑口无言…… 因此特撰此文以明志。</p>
+<h2 id="使用辅助函数完成子类和父类之间原型链的连接"><a href="#使用辅助函数完成子类和父类之间原型链的连接" class="headerlink" title="使用辅助函数完成子类和父类之间原型链的连接"></a>使用辅助函数完成子类和父类之间原型链的连接</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherits</span> (<span class="params">Parent, Child</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> Temp = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  temp.prototype = parent.prototype</span><br><span class="line">  child.prototype = <span class="keyword">new</span> Temp()</span><br><span class="line">  child.prototype.constructor = child  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一种方法即就是通过使用中间量来隔开 parent 和 child。</p>
+<p><strong>具体步骤如下</strong></p>
+<ol>
+<li>创建中间量——一个空函数 ( 也可以理解为一个空类 )</li>
+<li>将空函数 Temp 的原型指向父类</li>
+<li>创建一个 Temp 的对象 ( 暂且叫它 temp )，此时 temp 则拥有了指向Parent 的原型 __proto__ 。此时再赋给 child.prototype，这样 child 就间接有了指向 Parent 的原型。</li>
+<li>因为 child 的原型经过了我们的特殊处理，因此需要我们修复一下它原型上的构造函数，如果不修复，也不会发生很严重的问题。</li>
+</ol>
+<p><strong>使用范例</strong><br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = props.name || <span class="string">'Unnamed'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PrimaryStudent</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  Student.call(<span class="keyword">this</span>, props)</span><br><span class="line">  <span class="keyword">this</span>.grade = props.grade || <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 实现原型继承链:</span></span><br><span class="line">inherits(PrimaryStudent, Student)</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用官方的-Object-create"><a href="#使用官方的-Object-create" class="headerlink" title="使用官方的 Object.create()"></a>使用官方的 Object.create()</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherits</span> (<span class="params">Parent, Child</span>) </span>&#123;</span><br><span class="line">  child.prototype = <span class="built_in">Object</span>.create(Parent.prototype)</span><br><span class="line">  child.prototype.constructor = Child  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里包装成方法，主要是图方便，实际应用中最好不要这么写… 上一种方式封装方法主要是为了屏蔽 Temp 辅助方法。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用辅助函数完成子类和父类之间原型链的连接"><span class="nav-text">使用辅助函数完成子类和父类之间原型链的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用官方的-Object-create"><span class="nav-text">使用官方的 Object.create()</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#JavaScript" rel="tag">#JavaScript</a>
+        
+          <a href="/tags#继承" rel="tag">#继承</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2016</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
