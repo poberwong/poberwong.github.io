@@ -44,24 +44,20 @@ $(function () {
 	})
 
 	function closeModal () {
-		 $("#closeModal").click();
+		sendsms()
+		$("#closeModal").click();
 	}
 
 	function sendsms () { // 签名模板不好申请啊
 		$.ajax({
 			type: "POST",
-			url: "https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=" + appid + "&random=1993",
+			url: "https://devccmg.dr-r.cn/v1/codes",
 			headers: {
             	"Content-Type": "application/json"
         	},
 			data: JSON.stringify({
-				tel: {nationcode: "86", mobile: "17600108288"},
-	            type: 0,
-	            msg: "【腾讯云平台】您的验证码是：5203",
-	            sig: calculateSignature(appkey, 1993, getCurrentTime(), "17600108288") + "",
-	            time: getCurrentTime(),
-	            extend: "",
-	            ext: ""
+				phone: "17600108288",
+				type: "mobile_login"
 			})
 		}).done(function () {
 			alert("congratulations!!!")
@@ -89,12 +85,11 @@ $(function () {
 	    return Math.floor(Date.now()/1000);
 	}
 
-
 	/* start the counter */
 
 	var together = new Date();
 	together.setFullYear(2017, 9, 7);
-	together.setHours(19);
+	together.setHours(16);
 	together.setMinutes(0);
 	together.setSeconds(0);
 	together.setMilliseconds(0);
@@ -231,7 +226,7 @@ function startButterflyAnimation() {
 						  escapeClose: false,
 						  clickClose: false,
 						  showClose: false
-						});
+						})
 					}
 			    }, rand);
 			}());

@@ -12,6 +12,13 @@ body {
 	text-align: center;
 }
 
+.desc {
+	margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #aaa;
+}
+
 #ex1 p {
 	font-size: 25px;
 }
