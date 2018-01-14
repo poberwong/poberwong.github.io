@@ -34,21 +34,21 @@ Festival festivals = [];
 
 /* When I was single... */
 while (u === null) {
-    // I pretend to ignore these days 
+    // I pretend to ignore these days.
     for (let f in festivals) {
         i.ignoreFestival(f);
     }
     // I put my hands in my pocket and hang out alone.
     i.holdHands(i) &amp;&amp; i.hangOut(i);
-    // when I met u
-    if(i.met(u)) {
-        u = new Girl(&quot;HuiMin&quot;)
-    }
 }
 
+// when I met u.
+if(i.met(u)) {
+    u = new Girl(&quot;HuiMin&quot;)
+}
 i.isHesitated = false
 while (u.like(i) &amp;&amp; i.like(u) &amp;&amp; !i.isHesitated) {
-    // We&#39;d watch bad movies together and laugh hard    
+    // We&#39;d watch bad movies together and laugh hard.    
     i.watchMoviesWith(u);
     // I hold your hand in my pocket and hang out together.
     i.holdHands(u) &amp;&amp; i.hangOut(u);
@@ -60,7 +60,7 @@ while (u.like(i) &amp;&amp; i.like(u) &amp;&amp; !i.isHesitated) {
     }
 }
 // I know I let u down.
-// Somedays flied away, I get to know I can't be without u and miss u every day
+// Somedays flied away, I get to know I can't be without u and miss u every day.
 i.isHesitated = false &amp;&amp; i.miss(u)
 // I'm sorry, will u be back and become my girlfriend ?
 </code></pre>
@@ -70,7 +70,7 @@ i.isHesitated = false &amp;&amp; i.miss(u)
         <canvas id="garden"></canvas><br>
         <div id="words">
             <div id="messages">
-                We've been acquainted with each other for
+                We've been acquainted with each other for.
                 <div id="elapseClock"></div>
             </div>
             <div id="hope">

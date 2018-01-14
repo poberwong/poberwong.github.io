@@ -23,7 +23,7 @@ $(function () {
 	/* start the animation */
 	setTimeout(function () {
 		startHeartAnimation();
-	}, 30000);
+	}, 45000);
 
 	$("#noButton").hover(function () {
 		$("#noButton").text("OK").addClass("okButton").removeClass("noButton")
