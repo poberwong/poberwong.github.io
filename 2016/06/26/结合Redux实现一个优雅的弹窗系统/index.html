@@ -192,7 +192,7 @@
 <li>将所需要展示的整个View以message字段的方式通过ActionCreator传递给Reducer，而在Reducer里则以一个数组的形式来管理，这也是为了提高所展示视图灵活性的一个方案。</li>
 <li>在视图的渲染展示上，还是出现了不小的问题，可以详细讲解一下解决方案</li>
 </ol>
-<h3 id="ActionCreator部分逻辑"><a href="#ActionCreator部分逻辑" class="headerlink" title="ActionCreator部分逻辑"></a>ActionCreator部分逻辑</h3> <figure class="highlight ada"><table><tr><td class="code"><pre><div class="line">let promptCounter = <span class="number">0</span></div><div class="line">export <span class="keyword">function</span> <span class="title">showPrompt</span> (payload) &#123;</div><div class="line">  const promptMessage = React.cloneElement(payload.message, &#123;key: promptCounter++, duration: payload.duration&#125;)</div><div class="line">  <span class="keyword">return</span> <span class="type">&#123;</span></div><div class="line">    <span class="keyword">type</span>: SHOW_PROMPT,</div><div class="line">    promptMessage: promptMessage</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">export <span class="keyword">function</span> <span class="title">hidePrompt</span> (message) &#123;</div><div class="line">  <span class="keyword">return</span> <span class="type">&#123;</span></div><div class="line">    <span class="keyword">type</span>: HIDE_PROMPT,</div><div class="line">    promptMessage: message</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ActionCreator部分逻辑"><a href="#ActionCreator部分逻辑" class="headerlink" title="ActionCreator部分逻辑"></a>ActionCreator部分逻辑</h3> <figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> promptCounter = <span class="number">0</span></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">showPrompt</span> (<span class="params">payload</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> promptMessage = React.cloneElement(payload.message, &#123;<span class="attr">key</span>: promptCounter++, <span class="attr">duration</span>: payload.duration&#125;)</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: SHOW_PROMPT,</div><div class="line">    <span class="attr">promptMessage</span>: promptMessage</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">hidePrompt</span> (<span class="params">message</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">type</span>: HIDE_PROMPT,</div><div class="line">    <span class="attr">promptMessage</span>: message</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>可以看到，这里我们给传进来的message提示框组件通过<code>cloneElement</code>方法给组件key属性加了一个随调用次数自增长的变量值，如果在渲染时再根据遍历所得的index来进行赋值会造成随着数组的变化，元素的key值不断变化。而因为React的diff算法对数组的更新策略是针对unique key值的，如果数组元素没有key值，一来会有系统warning，二来如果某个元素发生变化，会导致系统重绘整个数组。</li>
 <li><code>cloneElement</code>方法中可以看到我们又加了一个duration属性，主要是用来在UI显示层容易拿到这个参数来控制弹框的显示，后文会详细讲到。</li>
@@ -330,7 +330,7 @@
     <span>Copyright</span>
     
     &copy;  2015-
-    <span itemprop="copyrightYear">2017</span>
+    <span itemprop="copyrightYear">2019</span>
     <span class="author" itemprop="copyrightHolder">Pober Wong</span>
   </div>
 
