@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong" />
+
+
+
+
+<meta name="keywords" content="JavaScript,ReactX," />
+
+
+<meta name="description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
+实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
+
+在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用 Promise 封装一个控制并发量的请求库">
+<meta property="og:url" content="http://poberwong.com/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
+实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
+
+在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta property="og:updated_time" content="2019-03-23T06:27:03.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何使用 Promise 封装一个控制并发量的请求库">
+<meta name="twitter:description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
+实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
+
+在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 如何使用 Promise 封装一个控制并发量的请求库 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="如何使用 Promise 封装一个控制并发量的请求库"> 如何使用 Promise 封装一个控制并发量的请求库 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time  datetime="2018-09-11T17:13:35+08:00" content="2018-09-11">
+              2018-09-11
+            </time>
+          </div>
+
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。<br>这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。</p>
+<h2 id="实现一"><a href="#实现一" class="headerlink" title="实现一"></a>实现一</h2><p>第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：</p>
+<ol>
+<li>在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Promise 呢？</li>
+<li>被缓存的 Promise，肯定是不能直接返回 Proimse 了，那怎么办呢？API 接口返回不了东西了。</li>
+</ol>
+<h3 id="先看实现"><a href="#先看实现" class="headerlink" title="先看实现"></a>先看实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> LIMIT = <span class="number">5</span></div><div class="line"><span class="keyword">const</span> cacheQueue = []</div><div class="line"><span class="keyword">let</span> count = <span class="number">0</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span> (<span class="params">params</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> fetch(params)</div><div class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</div><div class="line">      finishReq()</div><div class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res)</div><div class="line">    &#125;)</div><div class="line">    .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</div><div class="line">      finishReq()</div><div class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">finishReq</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  count--</div><div class="line">  <span class="keyword">let</span> nextReq = cacheQueue.shift()</div><div class="line">  nextQueue &amp;&amp; nextReq()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">limitedRequest</span> (<span class="params">params</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span>(count &gt; LIMIT) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="function">(<span class="params"><span class="keyword">new</span> <span class="built_in">Promise</span>((resolve</span>) =&gt;</span> &#123;</div><div class="line">      cacheQueue.push(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        count++</div><div class="line">        resolve(request(params))</div><div class="line">      &#125;)</div><div class="line">    &#125;)).then(<span class="function"><span class="params">req</span> =&gt;</span> req)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    count++</div><div class="line">    <span class="keyword">let</span> curReq = request(params)</div><div class="line">    <span class="keyword">return</span> curReq</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>我们先将 fetch 做了基础改动，在 resolve 和 reject 两种情况下分别挂上了请求结束的函数，同时还原了 fetch 应有的返回值。</li>
+<li>核心实现函数 limitedRequest：count 为当前的并发量，当当前并发量大于最大并发量时，返回一个特殊的长期处于一个 pending 状态的 Promise，我们可以在这个 Promise 里将该 Promise 的 resolve 触发函数用一个 匿名函数包裹起来，并在函数体内调用 resolve，向下一级传递一个真正的 Promise（这里就是我们封装好的 request）。接下来将该匿名函数存入我们的缓存队列中。然后在我们要返回的 Promise 后记得将该 Promise 通过 then 函数转化为我们需要的真正用来请求的 Promise，即 <code>then(req =&gt; req)</code>。由此，我们被缓存的请求返回了一个被 pending 的 Promise，只有在匿名函数被调用的时候才会执行真实的 then 函数。</li>
+<li><code>finishReq</code>： 每次有请求完成会调用该函数，纠正并发量，该函数会从缓存队列中出队取得我们缓存的匿名函数并执行（触发 pending 状态的 Promise）（别忘记及时更新 count 值）</li>
+</ol>
+<p>这种做法主要利用了 resolve 可以被外界引用，从而达到一个能延后触发并正常返回 Proimse 的效果。</p>
+<h2 id="相对优雅的方式"><a href="#相对优雅的方式" class="headerlink" title="相对优雅的方式"></a>相对优雅的方式</h2><p><em>By <a href="https://github.com/z372183629" target="_blank" rel="external">+0 Lee</a></em></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">params</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123; <span class="comment">// 将该 promise 的状态代理到真实 promise 上。可以保证未激活的 Promise 同样可以拿到结果 </span></div><div class="line">    <span class="keyword">const</span> task = createTask(request, resolve, reject, params)</div><div class="line">    <span class="keyword">if</span> (count &gt;= LIMIT) &#123;</div><div class="line">      cacheQueue.push(task)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      task()</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createTask</span> (<span class="params">caller, resolve, reject, params</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    caller(params)</div><div class="line">      .then(<span class="function"><span class="params">res</span> =&gt;</span> resolve(res))</div><div class="line">      .then(<span class="function"><span class="params">err</span> =&gt;</span> reject(err))</div><div class="line">      .finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        count--</div><div class="line">        <span class="keyword">if</span> (cacheQueue.length) &#123;</div><div class="line">          <span class="keyword">let</span> task = cacheQueue.shift()</div><div class="line">          task()</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">    count++</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式较为优雅  </p>
+<ol>
+<li>request 即是对外 API，我们还是返回了一个 Promise，不过把该 Promise 的状态代理到了每一个 task 上，这样只有当 task 被执行的时候对应的 Promise 代码才能被压栈执行。我们只需要在并发量没有超过限制时直接执行我们的 task，否则将该 task（是一个能执行 请求代码的函数）缓存起来  </li>
+<li><code>createTask</code> 是核心函数，这里可以接收对应的请求函数，如 fetch，然后在返回的函数中（task 执行才会被执行）将传进来的 resolve 和 reject 传递给真实的请求函数，最后在该请求结束的时候 finally 中取缓存任务并执行，更新并发量。</li>
+</ol>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现一"><span class="nav-text">实现一</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先看实现"><span class="nav-text">先看实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相对优雅的方式"><span class="nav-text">相对优雅的方式</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#JavaScript" rel="tag">#JavaScript</a>
+        
+          <a href="/tags#ReactX" rel="tag">#ReactX</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation" />
+    </div>
+    </style>
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright" >
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

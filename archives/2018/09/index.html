@@ -50,7 +50,7 @@
 <meta name="description" content="Pober Wong">
 <meta property="og:type" content="website">
 <meta property="og:title" content="波波的小窝">
-<meta property="og:url" content="http://poberwong.com/archives/2016/10/index.html">
+<meta property="og:url" content="http://poberwong.com/archives/2018/09/index.html">
 <meta property="og:site_name" content="波波的小窝">
 <meta property="og:description" content="Pober Wong">
 <meta name="twitter:card" content="summary">
@@ -161,23 +161,23 @@
 
 
   <div class="title-wrap" style="background: url() center / cover">
-    <h2 class="title"><a href="/2016/10/29/ES5-中的继承机制/">ES5 中的继承机制</a></h2>
+    <h2 class="title"><a href="/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/">如何使用 Promise 封装一个控制并发量的请求库</a></h2>
   </div>
 
   <div class="post-cont">
     <span class="post-time">
       发表于
-      <time datetime="2016-10-29T23:12:44+08:00" content="2016-10-29">
-        2016-10-29
+      <time datetime="2018-09-11T17:13:35+08:00" content="2018-09-11">
+        2018-09-11
       </time>
     </span>
     <div class="text">
-      <a href="/2016/10/29/ES5-中的继承机制/">
+      <a href="/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/">
         
-        
-这本是一篇应该记录于 EverNote 的技术杂记，然因博客太久未更新了，暂且就拿它顶一下吧。如写的不好，还请轻喷。
+        机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
+实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
 
-JavaScript，我从年初开始学 JavaScript 的时候，它依靠原型链来实现继承的事情我一直都知道，而且因为工作中一直主要在用 es6，以至于对依据原型链实现继承的这回事一直都是处于一个非常模糊的状态。结果呢，就在前几天的一次技术交流上吃了大亏，被问的哑口无言…… 因
+在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom
         ...
       </a>
     </div>
@@ -186,23 +186,8 @@ JavaScript，我从年初开始学 JavaScript 的时候，它依靠原型链来�
   <div class="bottom-bar">
 
     
-      <span class="post-category" >
-        &nbsp; 分类于
-        
-          <span itemprop="about" itemscope>
-            <a href="/categories#ReactX" itemprop="url" rel="index">
-              <span itemprop="name">ReactX</span>
-            </a>
-          </span>
 
-          
-          
-
-        
-      </span>
-    
-
-    <a class="read-more-btn" target="_blank" href="/2016/10/29/ES5-中的继承机制/" itemprop="url">
+    <a class="read-more-btn" target="_blank" href="/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/" itemprop="url">
       more...
     </a>
   </div>

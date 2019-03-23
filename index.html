@@ -161,6 +161,46 @@
 
 
   <div class="title-wrap" style="background: url() center / cover">
+    <h2 class="title"><a href="/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/">如何使用 Promise 封装一个控制并发量的请求库</a></h2>
+  </div>
+
+  <div class="post-cont">
+    <span class="post-time">
+      发表于
+      <time datetime="2018-09-11T17:13:35+08:00" content="2018-09-11">
+        2018-09-11
+      </time>
+    </span>
+    <div class="text">
+      <a href="/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/">
+        
+        机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
+实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
+
+在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom
+        ...
+      </a>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+
+    
+
+    <a class="read-more-btn" target="_blank" href="/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/" itemprop="url">
+      more...
+    </a>
+  </div>
+</div>
+
+      
+        
+
+
+<div class="post-item without-bgimage">
+
+
+  <div class="title-wrap" style="background: url() center / cover">
     <h2 class="title"><a href="/2016/10/29/ES5-中的继承机制/">ES5 中的继承机制</a></h2>
   </div>
 
@@ -651,61 +691,6 @@ React可以用ES5或ES6完美书写。
 </div>
 
       
-        
-
-
-<div class="post-item without-bgimage">
-
-
-  <div class="title-wrap" style="background: url() center / cover">
-    <h2 class="title"><a href="/2016/08/10/肝糖元的思考/">肝糖原的思考</a></h2>
-  </div>
-
-  <div class="post-cont">
-    <span class="post-time">
-      发表于
-      <time datetime="2016-08-10T02:40:46+08:00" content="2016-08-10">
-        2016-08-10
-      </time>
-    </span>
-    <div class="text">
-      <a href="/2016/08/10/肝糖元的思考/">
-        
-        今天的我，好像一条狗啊！
-中午没什么胃口，饭没吃好，导致下午三点多就开始饿肚子……
-终于熬到晚上下班了，拖着饥肠辘辘的躯体行走在北京朝阳的街道上，心里想着今天会不会是最后一次过单身狗节，不知不觉路过一个又一个的街区，总算是到了以往坐公交车回家的十字路口。
-这里是自己曾经亲自目睹了两起车祸的现场，一次血洒红尘，清洁师傅正在费力地用水冲洗地面。另一次就是自己正在目睹的，在过绿灯的时，看到一个二十来岁穿
-        ...
-      </a>
-    </div>
-  </div>
-
-  <div class="bottom-bar">
-
-    
-      <span class="post-category" >
-        &nbsp; 分类于
-        
-          <span itemprop="about" itemscope>
-            <a href="/categories#随笔" itemprop="url" rel="index">
-              <span itemprop="name">随笔</span>
-            </a>
-          </span>
-
-          
-          
-
-        
-      </span>
-    
-
-    <a class="read-more-btn" target="_blank" href="/2016/08/10/肝糖元的思考/" itemprop="url">
-      more...
-    </a>
-  </div>
-</div>
-
-      
     </div>
     
   <nav class="pagination">
@@ -724,6 +709,10 @@ React可以用ES5或ES6完美书写。
     
       <a href="/tags#回顾">回顾</a>
     
+      <a href="/tags#算法">算法</a>
+    
+      <a href="/tags#被遗弃">被遗弃</a>
+    
       <a href="/tags#React">React</a>
     
       <a href="/tags#React-Native">React-Native</a>
@@ -731,10 +720,6 @@ React可以用ES5或ES6完美书写。
       <a href="/tags#翻译">翻译</a>
     
       <a href="/tags#ES6">ES6</a>
-    
-      <a href="/tags#算法">算法</a>
-    
-      <a href="/tags#被遗弃">被遗弃</a>
     
       <a href="/tags#JavaScript">JavaScript</a>
     
@@ -752,15 +737,17 @@ React可以用ES5或ES6完美书写。
     
       <a href="/tags#闲言碎语">闲言碎语</a>
     
-      <a href="/tags#历史">历史</a>
-    
-      <a href="/tags#文化传统">文化传统</a>
-    
       <a href="/tags#English">English</a>
     
       <a href="/tags#Interpretation">Interpretation</a>
     
+      <a href="/tags#历史">历史</a>
+    
+      <a href="/tags#文化传统">文化传统</a>
+    
       <a href="/tags#瞎扯淡">瞎扯淡</a>
+    
+      <a href="/tags#ReactX">ReactX</a>
     
       <a href="/tags#梦想">梦想</a>
     
@@ -792,11 +779,11 @@ React可以用ES5或ES6完美书写。
     
       <a href="/tags#科学上网">科学上网</a>
     
-      <a href="/tags#大学">大学</a>
-    
       <a href="/tags#2016">2016</a>
     
       <a href="/tags#改变">改变</a>
+    
+      <a href="/tags#大学">大学</a>
     
       <a href="/tags#同桌">同桌</a>
     
