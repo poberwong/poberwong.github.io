@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,40 +39,33 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="React,React-Native,翻译,ES6,ES5," />
+<meta name="keywords" content="React,React-Native,翻译,ES6,ES5,">
 
 
-<meta name="description" content="原文链接
-写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。
-React可以用ES5或ES6完美书写。
-使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta name="description" content="原文链接 写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。 React可以用ES5或ES6完美书写。 使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta name="keywords" content="React,React-Native,翻译,ES6,ES5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React ES5 (createClass) 还是 ES6 (class)? (译)">
 <meta property="og:url" content="http://poberwong.com/2016/08/21/React ES5 (createClass) 还是 ES6 (class) (译)/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="原文链接
-写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。
-React可以用ES5或ES6完美书写。
-使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta property="og:description" content="原文链接 写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。 React可以用ES5或ES6完美书写。 使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-11T04:13:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React ES5 (createClass) 还是 ES6 (class)? (译)">
-<meta name="twitter:description" content="原文链接
-写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。
-React可以用ES5或ES6完美书写。
-使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
+<meta name="twitter:description" content="原文链接 写React的时候，你是应该用React.createClass语法还是ES6的class语法呢？或者都不？这篇文章将会解释一些二者之间的差异来帮助你做选择。 React可以用ES5或ES6完美书写。 使用JSX意味着你将通过Babel将JSX通过“build”转化为React.createElement调用。很多人利用这个特点在Babel的编译列表中添加一些es2015的语法以此来让E">
 
 
 
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -80,7 +73,7 @@ React可以用ES5或ES6完美书写。
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -126,13 +119,13 @@ React可以用ES5或ES6完美书写。
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2016-08-21T23:12:09+08:00" content="2016-08-21">
+            <time datetime="2016-08-21T23:12:09+08:00" content="2016-08-21">
               2016-08-21
             </time>
           </div>
 
           
-            <div class="post-category" >
+            <div class="post-category">
               
                 <span>
                   <a href="/categories#ReactX" itemprop="url" rel="index">
@@ -303,9 +296,9 @@ React可以用ES5或ES6完美书写。
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -327,7 +320,7 @@ React可以用ES5或ES6完美书写。
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-

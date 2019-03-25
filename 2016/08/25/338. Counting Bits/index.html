@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,31 +39,27 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="算法,被遗弃," />
+<meta name="keywords" content="算法,被遗弃,">
 
 
-<meta name="description" content="题目
-Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1’s in their binary representation and return them as an array.
-Example: For num = 5 yo">
+<meta name="description" content="题目 Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1’s in their binary representation and return them as an array. Example: For num = 5 yo">
+<meta name="keywords" content="算法,被遗弃">
 <meta property="og:type" content="article">
 <meta property="og:title" content="338. Counting Bits">
 <meta property="og:url" content="http://poberwong.com/2016/08/25/338. Counting Bits/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="题目
-Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1’s in their binary representation and return them as an array.
-Example: For num = 5 yo">
+<meta property="og:description" content="题目 Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1’s in their binary representation and return them as an array. Example: For num = 5 yo">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-afed8a78597a1d88.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2016-10-11T04:10:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="338. Counting Bits">
-<meta name="twitter:description" content="题目
-Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1’s in their binary representation and return them as an array.
-Example: For num = 5 yo">
+<meta name="twitter:description" content="题目 Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1’s in their binary representation and return them as an array. Example: For num = 5 yo">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-afed8a78597a1d88.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -71,7 +67,7 @@ Example: For num = 5 yo">
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -79,7 +75,7 @@ Example: For num = 5 yo">
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -125,13 +121,13 @@ Example: For num = 5 yo">
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2016-08-25T00:17:09+08:00" content="2016-08-25">
+            <time datetime="2016-08-25T00:17:09+08:00" content="2016-08-25">
               2016-08-25
             </time>
           </div>
 
           
-            <div class="post-category" >
+            <div class="post-category">
               
                 <span>
                   <a href="/categories#LeetCode OJ" itemprop="url" rel="index">
@@ -226,7 +222,7 @@ Example: For num = 5 yo">
 <li>或者也可以对数字的奇偶性切入判断</li>
 </ol>
 <h2 id="官方建议解法一"><a href="#官方建议解法一" class="headerlink" title="官方建议解法一"></a>官方建议解法一</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析:"></a>分析:</h3><p>  第二条中讲到对数字进行分组，我们先通过js程序将0～32之间的数字的二进制值打印一下，分析一下结构规律：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="number">0</span>:      <span class="number">0000</span>    <span class="number">0001</span>   </div><div class="line"><span class="number">2</span>:      <span class="number">0010</span>    <span class="number">0011</span></div><div class="line"><span class="number">4</span>:      <span class="number">0100</span>    <span class="number">0101</span>     <span class="number">0110</span>     <span class="number">0111</span></div><div class="line"><span class="number">8</span>:      <span class="number">1000</span>    <span class="number">1001</span>     <span class="number">1010</span>     <span class="number">1011</span>    <span class="number">1100</span>    <span class="number">1101</span>    <span class="number">1110</span>    <span class="number">1111</span></div><div class="line"><span class="number">16</span>:    <span class="number">10000.</span>..</div></pre></td></tr></table></figure></p>
-<p>将数据按照2的次幂分组后，发现每逢二的次幂，该行的数据全部跟前边若干行的数据有关，具体如下：<br><img src="http://upload-images.jianshu.io/upload_images/442688-afed8a78597a1d88.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>将数据按照2的次幂分组后，发现每逢二的次幂，该行的数据全部跟前边若干行的数据有关，具体如下：<br><img src="http://upload-images.jianshu.io/upload_images/442688-afed8a78597a1d88.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>总结上图规律：</p>
 <ol>
 <li>每行开头的值都是2的次幂，这意味着发生了总位数的增加。因为固定二进制位数能表示的范围是0～2^n－1。在最高位加了1后，后半部分(当前行)值的增长本质上是对前半部分的复制，也就是说抛开增长的最高位，后边的几位数盒前半部分值是完全相同的。</li>
@@ -329,9 +325,9 @@ Example: For num = 5 yo">
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -353,7 +349,7 @@ Example: For num = 5 yo">
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-

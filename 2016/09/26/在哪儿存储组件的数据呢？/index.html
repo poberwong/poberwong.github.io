@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,50 +39,28 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="React,React-Native," />
+<meta name="keywords" content="React,React-Native,">
 
 
-<meta name="description" content="原文链接: Where to Hold React Component Data: state, store, static, and this
-
-
-随着React和Redux的出现，出现了一些常见问题：
-
-在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？
-
-但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。
-我们来重温一下它们中">
+<meta name="description" content="原文链接: Where to Hold React Component Data: state, store, static, and this   随着React和Redux的出现，出现了一些常见问题：  在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？  但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。 我们来重温一下它们中">
+<meta name="keywords" content="React,React-Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在哪儿存储组件的数据呢？state, store, static还是this (译)">
 <meta property="og:url" content="http://poberwong.com/2016/09/26/在哪儿存储组件的数据呢？/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="原文链接: Where to Hold React Component Data: state, store, static, and this
-
-
-随着React和Redux的出现，出现了一些常见问题：
-
-在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？
-
-但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。
-我们来重温一下它们中">
+<meta property="og:description" content="原文链接: Where to Hold React Component Data: state, store, static, and this   随着React和Redux的出现，出现了一些常见问题：  在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？  但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。 我们来重温一下它们中">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*jXzqMnnrXfePvfVglIYm5Q.jpeg">
 <meta property="og:updated_time" content="2016-10-11T03:05:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在哪儿存储组件的数据呢？state, store, static还是this (译)">
-<meta name="twitter:description" content="原文链接: Where to Hold React Component Data: state, store, static, and this
-
-
-随着React和Redux的出现，出现了一些常见问题：
-
-在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？
-
-但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。
-我们来重温一下它们中">
+<meta name="twitter:description" content="原文链接: Where to Hold React Component Data: state, store, static, and this   随着React和Redux的出现，出现了一些常见问题：  在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？  但这个问题确实是太简单了，因为在组件中还有其他两种方式用以存储数据：static和this。 我们来重温一下它们中">
 <meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png">
 
 
@@ -90,7 +68,7 @@
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -98,7 +76,7 @@
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -144,13 +122,13 @@
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2016-09-26T12:34:21+08:00" content="2016-09-26">
+            <time datetime="2016-09-26T12:34:21+08:00" content="2016-09-26">
               2016-09-26
             </time>
           </div>
 
           
-            <div class="post-category" >
+            <div class="post-category">
               
                 <span>
                   <a href="/categories#ReactX" itemprop="url" rel="index">
@@ -214,7 +192,7 @@
     <div class="content markdown-body"><blockquote>
 <p><em>原文链接:</em> <a href="https://medium.freecodecamp.com/where-do-i-belong-a-guide-to-saving-react-component-data-in-state-store-static-and-this-c49b335e2a00#.2celv5qfh" target="_blank" rel="external"><em>Where to Hold React Component Data: state, store, static, and this</em></a></p>
 </blockquote>
-<p><img src="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png" alt=""></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*kt9otqHk14BZIMNruiG0BA.png" alt></p>
 <p>随着<a href="https://facebook.github.io/react/" target="_blank" rel="external">React</a>和<a href="https://github.com/reactjs/redux" target="_blank" rel="external">Redux</a>的出现，出现了一些常见问题：</p>
 <blockquote>
 <p>在Redux的store中我该存些什么，在本地化存储中又该存哪些东西呢？</p>
@@ -232,7 +210,7 @@
 <p><strong>小结: </strong> 在本地state中存储UI状态以及临时数据(例如表单的输入)。</p>
 <h2 id="Redux-存储"><a href="#Redux-存储" class="headerlink" title="Redux 存储"></a>Redux 存储</h2><p>一段时间后，每个人都开始推崇<a href="https://www.youtube.com/watch?v=i__969noyAM" target="_blank" rel="external">单向数据流</a>的理念，我们有了Redux。</p>
 <p>使用Redux， 我们又一个全聚德store。这个store的生命周期在你的应用中级别最高并且能够向每一个子组件传递数据。你可以使用<a href="https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options" target="_blank" rel="external"><strong>connect</strong>和<strong>mapStateToProps</strong>来在某个组件中连接全局的store</a>。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*jXzqMnnrXfePvfVglIYm5Q.jpeg" alt=""></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*jXzqMnnrXfePvfVglIYm5Q.jpeg" alt></p>
 <p>首先，人们把所有东西都存入Redux的<strong>store</strong>中。用户，实体，表单，套接字… 所有你说的上来的。(这几个词可译可不译 ——译者注)</p>
 <p>以下是一个相同但使用Redux的计数器应用。需要注意的很重要的一点是<strong>counter</strong>现在在connect函数(用来将counter的值从全局的<strong>store</strong>传递到当前组件的<strong>props</strong>中)中使用mapStateToProps后是来自于<strong>this.props.counter</strong>。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></div><div class="line"><span class="keyword">import</span> Actions <span class="keyword">from</span> <span class="string">'./Actions.js'</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props)</div><div class="line">    <span class="keyword">this</span>.addOne = <span class="keyword">this</span>.addOne.bind(<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line">  addOne() &#123;</div><div class="line">    <span class="keyword">this</span>.props.dispatch(Actions.addOne())</div><div class="line">  &#125;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">        <span class="tag">&lt;<span class="name">button</span></span></div><div class="line">          <span class="attr">onClick</span>=<span class="string">&#123;</span> <span class="attr">this.addOne</span> &#125;&gt;</div><div class="line">          Increment</div><div class="line">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">        &#123; this.props.counter &#125;</div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> mapStateToProps = <span class="function"><span class="params">store</span> =&gt;</span> &#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">counter</span>: store.counter</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps)(App)</div></pre></td></tr></table></figure></p>
 <p>现在当你点击按钮的时候，一个action会被分发并缺全局的store会被更新。数据在我们本地组件之外被处理并回传了进来。</p>
@@ -334,9 +312,9 @@
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -358,7 +336,7 @@
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-

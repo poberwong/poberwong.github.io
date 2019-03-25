@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,40 +39,33 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="翻译,Lambda,Java 8," />
+<meta name="keywords" content="翻译,Lambda,Java 8,">
 
 
-<meta name="description" content="英文官方文档
-概述目的本文主要是来介绍Java SE 8里的Lambda表达式。
-阅读耗时大约1小时
-介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta name="description" content="英文官方文档 概述目的本文主要是来介绍Java SE 8里的Lambda表达式。 阅读耗时大约1小时 介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta name="keywords" content="翻译,Lambda,Java 8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lambda for Java 8（译）">
 <meta property="og:url" content="http://poberwong.com/2015/12/09/Lambda for Java 8（译）/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="英文官方文档
-概述目的本文主要是来介绍Java SE 8里的Lambda表达式。
-阅读耗时大约1小时
-介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta property="og:description" content="英文官方文档 概述目的本文主要是来介绍Java SE 8里的Lambda表达式。 阅读耗时大约1小时 介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-11T03:34:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lambda for Java 8（译）">
-<meta name="twitter:description" content="英文官方文档
-概述目的本文主要是来介绍Java SE 8里的Lambda表达式。
-阅读耗时大约1小时
-介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
+<meta name="twitter:description" content="英文官方文档 概述目的本文主要是来介绍Java SE 8里的Lambda表达式。 阅读耗时大约1小时 介绍：Lambda 表达式是Java SE8中的新特性。它提供了一种清晰而简洁的方式来表示接口方法。Lambda表达式也提高了集合库的一些循环，过滤以及从集合中取数据的能力。另外，也提高了多核芯环境下程序的并发能力。这些Oracle 例子(OBE)提供了关于Java SE 8的Lambda表达式的">
 
 
 
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -80,7 +73,7 @@
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -126,13 +119,13 @@
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2015-12-09T20:13:23+08:00" content="2015-12-09">
+            <time datetime="2015-12-09T20:13:23+08:00" content="2015-12-09">
               2015-12-09
             </time>
           </div>
 
           
-            <div class="post-category" >
+            <div class="post-category">
               
                 <span>
                   <a href="/categories#Android" itemprop="url" rel="index">
@@ -594,7 +587,7 @@ import java.util.function.Predicate;
          &quot;Phone: &quot; + this.getPhone() + &quot;\\n&quot; +
          &quot;Address: &quot; + this.getAddress());
 </code></pre><p>   }<br><figure class="highlight markdown"><table><tr><td class="code"><pre><div class="line">这里为每一种打印名字的风格都写了一个方法。</div><div class="line"></div><div class="line"><span class="strong">**函数式接口**</span></div><div class="line"></div><div class="line">函数式接口对这个问题很有用。以以下方式只需要写一个方法就够了</div><div class="line"><span class="code">`public R apply(T t)&#123; &#125;`</span></div><div class="line">它使用了一个范型T和返回范型值R。在这个例子中，是Person类和返回一个字符串值。一个可修改的打印信息的方法可以这么写：</div><div class="line"></div><div class="line"><span class="emphasis">*Person.java*</span></div></pre></td></tr></table></figure></p>
-<p>public String printCustom(Function <person, string=""> f){<br>       return f.apply(this);<br> }<br><figure class="highlight autohotkey"><table><tr><td class="code"><pre><div class="line">变得更加简单了。一个函数传递给了这个方法并且返回了一个字符串。`apply`方法可以通过Lambda表达式来决定什么样的Person信息会被返回。</div><div class="line"></div><div class="line">那么具体函数怎么定义呢？以下是一段调用之前方法的测试代码。</div><div class="line"></div><div class="line">**NameTestNew.java**</div></pre></td></tr></table></figure></person,></p>
+<p>public String printCustom(Function <person, string> f){<br>       return f.apply(this);<br> }<br><figure class="highlight autohotkey"><table><tr><td class="code"><pre><div class="line">变得更加简单了。一个函数传递给了这个方法并且返回了一个字符串。`apply`方法可以通过Lambda表达式来决定什么样的Person信息会被返回。</div><div class="line"></div><div class="line">那么具体函数怎么定义呢？以下是一段调用之前方法的测试代码。</div><div class="line"></div><div class="line">**NameTestNew.java**</div></pre></td></tr></table></figure></person,></p>
 <p>public class NameTestNew {</p>
 <p>   public static void main(String[] args) {</p>
 <pre><code>System.out.println(&quot;\\n==== NameTestNew02 ===&quot;);
@@ -664,7 +657,7 @@ for (Person person:list1){
    </em></p>
 <ul>
 <li><p>@author MikeW<br>*/<br>public class SearchCriteria {</p>
-<p>private final Map<string, predicate<person="">&gt; searchMap = new HashMap&lt;&gt;();</string,></p>
+<p>private final Map<string, predicate<person>&gt; searchMap = new HashMap&lt;&gt;();</string,></p>
 <p>private SearchCriteria() {<br>super();<br>initSearchMap();<br>}</p>
 <p>private void initSearchMap() {<br>Predicate<person> allDrivers = p -&gt; p.getAge() &gt;= 16;<br>Predicate<person> allDraftees = p -&gt; p.getAge() &gt;= 18 &amp;&amp; p.getAge() &lt;= 25 &amp;&amp; p.getGender() == Gender.MALE;<br>Predicate<person> allPilots = p -&gt; p.getAge() &gt;= 23 &amp;&amp; p.getAge() &lt;= 65;</person></person></person></p>
 <p>searchMap.put(“allDrivers”, allDrivers);<br>searchMap.put(“allDraftees”, allDraftees);<br>searchMap.put(“allPilots”, allPilots);</p>
@@ -865,9 +858,9 @@ System.out.println(&quot;Average Age: &quot; + averageAge.getAsDouble());
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -889,7 +882,7 @@ System.out.println(&quot;Average Age: &quot; + averageAge.getAsDouble());
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-

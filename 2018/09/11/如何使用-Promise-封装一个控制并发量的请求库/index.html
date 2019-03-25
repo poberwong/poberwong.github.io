@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,40 +39,33 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="JavaScript,ReactX," />
+<meta name="keywords" content="JavaScript,ReactX,">
 
 
-<meta name="description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
-实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
-
-在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta name="description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。 实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：  在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta name="keywords" content="JavaScript,ReactX">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何使用 Promise 封装一个控制并发量的请求库">
 <meta property="og:url" content="http://poberwong.com/2018/09/11/如何使用-Promise-封装一个控制并发量的请求库/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
-实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
-
-在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta property="og:description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。 实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：  在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-03-23T06:27:03.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用 Promise 封装一个控制并发量的请求库">
-<meta name="twitter:description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。
-实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：
-
-在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
+<meta name="twitter:description" content="机缘巧合，碰到了一个控制并发量为 5 的需求（类似于微信小程序里一次只能同时上传十张图片的限制）。这里我们不讨论 Promise 对非 Promise 请求的封装，先假定它返回的是一个 Promise，先以 fetch 为例吧。 实现一第一反应想到的是肯定需要将 5 个之后的请求全部缓存起来，但遇到两个问题：  在前五个中存在 resolve 或者 reject 状态时，怎么触发缓存中的 Prom">
 
 
 
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -80,7 +73,7 @@
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -126,7 +119,7 @@
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2018-09-11T17:13:35+08:00" content="2018-09-11">
+            <time datetime="2018-09-11T17:13:35+08:00" content="2018-09-11">
               2018-09-11
             </time>
           </div>
@@ -269,9 +262,9 @@
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -293,7 +286,7 @@
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,26 +39,22 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="Docker,Shadowsocks,科学上网," />
+<meta name="keywords" content="Docker,Shadowsocks,科学上网,">
 
 
-<meta name="description" content="前言
-前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。
-
-在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta name="description" content="前言 前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。  在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta name="keywords" content="Docker,Shadowsocks,科学上网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Docker的shadowsocks容器最佳实践">
 <meta property="og:url" content="http://poberwong.com/2016/09/12/基于Docker的shadowsocks容器最佳实践/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="前言
-前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。
-
-在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta property="og:description" content="前言 前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。  在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/005zU9b3gw1f8v0jobtoqj30yg0e7wfl.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/005zU9b3gw1f8v0joek30j30yg0pf0v7.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/005zU9b3gw1f8v0jobj7fj30lo0ckaaf.jpg">
@@ -68,10 +64,7 @@
 <meta property="og:updated_time" content="2016-10-17T01:44:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Docker的shadowsocks容器最佳实践">
-<meta name="twitter:description" content="前言
-前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。
-
-在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
+<meta name="twitter:description" content="前言 前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。  在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005zU9b3gw1f8v0jobtoqj30yg0e7wfl.jpg">
 
 
@@ -79,7 +72,7 @@
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -87,7 +80,7 @@
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -133,13 +126,13 @@
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2016-09-12T00:29:49+08:00" content="2016-09-12">
+            <time datetime="2016-09-12T00:29:49+08:00" content="2016-09-12">
               2016-09-12
             </time>
           </div>
 
           
-            <div class="post-category" >
+            <div class="post-category">
               
                 <span>
                   <a href="/categories#后端" itemprop="url" rel="index">
@@ -204,7 +197,7 @@
 <p>前些日子，因为搞了点Docker入门的知识，再加上作为一名移动+web前端工程师对后端的渴望，还有一直受限于使用他人的VPN/Shadowsocks的痛苦，遂买下了服务器亲手操刀Docker以及Shadowsocks的实践。</p>
 </blockquote>
 <p>在我搭建起整个服务并且投入使用，公诸于世后被一些老司机朋友说“Shadowsocks只不过是一个跑在Vps上的一个socks5服务而已，没必要用Docker”。听完这个我脸都黑了，宝宝买vps专门是用来倒腾服务器后端的，Shadowsocks本来就是为了实践docker而玩的嘛～</p>
-<h2 id="购买Vps"><a href="#购买Vps" class="headerlink" title="购买Vps"></a>购买Vps</h2><h3 id="DO介绍"><a href="#DO介绍" class="headerlink" title="DO介绍"></a>DO介绍</h3><p>作为一名长期患有选择困难症的选手来讲，做这样的选择简直就是煎熬，就目前来讲，我选择了<a href="https://m.do.co/c/2761941015a8" target="_blank" rel="external">DigitalOcean</a>，以下是DO( 这里下文中的DO专指DigitalOcean )的价位截图：<br><img src="http://ww1.sinaimg.cn/large/005zU9b3gw1f8v0jobtoqj30yg0e7wfl.jpg" alt=""></p>
+<h2 id="购买Vps"><a href="#购买Vps" class="headerlink" title="购买Vps"></a>购买Vps</h2><h3 id="DO介绍"><a href="#DO介绍" class="headerlink" title="DO介绍"></a>DO介绍</h3><p>作为一名长期患有选择困难症的选手来讲，做这样的选择简直就是煎熬，就目前来讲，我选择了<a href="https://m.do.co/c/2761941015a8" target="_blank" rel="external">DigitalOcean</a>，以下是DO( 这里下文中的DO专指DigitalOcean )的价位截图：<br><img src="http://ww1.sinaimg.cn/large/005zU9b3gw1f8v0jobtoqj30yg0e7wfl.jpg" alt></p>
 <p>值得一提的是DO是按量付费的，在一个DO账户中可以有多个Droplets(即一个服务器，我也搞不清楚为什么要用小水滴Droplets这个词，可能是和DigitalOcean数据海洋对应吧～)，多个Droplets并行收费。<br><strong><em>DO的按量付费规则是：即用即扣费，删除服务器(Droplets)则扣费停止</em></strong></p>
 <h3 id="我的选择"><a href="#我的选择" class="headerlink" title="我的选择"></a>我的选择</h3><ul>
 <li><p>放弃搬瓦工<br>最开始我买的并非DO，而是更加实惠2美刀的搬瓦工，跟每月5美刀的DO比起来看起来好多了，然而事实并非如此。搬瓦工是一个基于OpenVZ的虚拟容器，暂且把它理解为Docker上的一个容器吧！直接搭建Shadowsocks服务也还行，但是想要在这么一个容器上再跑Docker，就会因为无法升级Linux内核(docker要求环境的Linux内核必须为3.0以上)而无法启动docker。因为OpenVZ和Docker一样，容器与宿主机共用内核，因此容器作为寄生者肯定是没有升级内核的权限的，这也是我放弃搬瓦工的原因，2.x的Kernel内核我就呵呵了….</p>
@@ -214,7 +207,7 @@
 <li><p>DO注意事项</p>
 <ul>
 <li>DO起跳套餐是5美金每月，虽然是按量收费，但也别为了5美刀而耗费自己额外的精力，而且1T的流量肯定是管饱的。</li>
-<li>每一名DO用户的在成功邀请一名新用户后，邀请者和被邀请者均有一定的奖励～ 在个人的Settings页面即可找到邀请入口，邮箱和连接分享均可。<br><img src="http://ww3.sinaimg.cn/large/005zU9b3gw1f8v0joek30j30yg0pf0v7.jpg" alt=""></li>
+<li>每一名DO用户的在成功邀请一名新用户后，邀请者和被邀请者均有一定的奖励～ 在个人的Settings页面即可找到邀请入口，邮箱和连接分享均可。<br><img src="http://ww3.sinaimg.cn/large/005zU9b3gw1f8v0joek30j30yg0pf0v7.jpg" alt></li>
 <li>DO也有让人头疼的地方，在注册并绑定信用卡后，还需要经过一个用户审核的阶段，我想这也是为了防止恶意注册账户领取奖励吧～ 在注册完毕后，网站会提示他们会在2小时内完成人工审核，我当时是等了大概不到一个小时吧，毕竟美帝那时候已经是晚上了，理解万岁～ 在收到用户信息验证后让我回复持有身份证或护照的照片时，因为暂时不方便就给回复了学生证、身份证等信息后居然通过了，点赞！！！</li>
 </ul>
 </li>
@@ -228,7 +221,7 @@
 <p>完整的安装流程见<a href="https://docs.docker.com/engine/installation/linux/ubuntulinux/" target="_blank" rel="external">Docker官网</a></p>
 </blockquote>
 <ol>
-<li><p>查看你的Linux内核版本<br><code>uname -a</code>命令<br><img src="http://ww4.sinaimg.cn/large/005zU9b3gw1f8v0jobj7fj30lo0ckaaf.jpg" alt=""><br>Docker的Linux安装环境要求：</p>
+<li><p>查看你的Linux内核版本<br><code>uname -a</code>命令<br><img src="http://ww4.sinaimg.cn/large/005zU9b3gw1f8v0jobj7fj30lo0ckaaf.jpg" alt><br>Docker的Linux安装环境要求：</p>
 <ul>
 <li>64位的操作系统</li>
 <li>Linux内核必须大于3.1</li>
@@ -270,8 +263,8 @@
 <p>至此docker就已经安装好了。为方便起见，我省去了部分步骤以及重启过程，就目前来讲还是OK的。</p>
 <h2 id="在Docker上跑起Shadowsocks容器"><a href="#在Docker上跑起Shadowsocks容器" class="headerlink" title="在Docker上跑起Shadowsocks容器"></a>在Docker上跑起Shadowsocks容器</h2><ol>
 <li>启动docker服务<br><code>service docker start</code></li>
-<li><p>然后像brew一样使用search命令来搜一下官方源DockerHub 上都有哪些shadowsocks镜像 <code>docker search shadowsocks</code><br><img src="http://ww2.sinaimg.cn/large/005zU9b3gw1f8v0jop20wj30nc0bvjwx.jpg" alt=""></p>
-<p>在以上源中，可以很容易看到排在第一位的镜像很受欢迎，<br><img src="http://ww3.sinaimg.cn/large/005zU9b3gw1f8v0jocuadj30yg0ctgmt.jpg" alt=""></p>
+<li><p>然后像brew一样使用search命令来搜一下官方源DockerHub 上都有哪些shadowsocks镜像 <code>docker search shadowsocks</code><br><img src="http://ww2.sinaimg.cn/large/005zU9b3gw1f8v0jop20wj30nc0bvjwx.jpg" alt></p>
+<p>在以上源中，可以很容易看到排在第一位的镜像很受欢迎，<br><img src="http://ww3.sinaimg.cn/large/005zU9b3gw1f8v0jocuadj30yg0ctgmt.jpg" alt></p>
 <p>被下载数更是遥遥领先呀～</p>
 </li>
 <li><p>下载镜像并启动容器</p>
@@ -279,7 +272,7 @@
 <li><code>docker pull oddrationale/docker-shadowsocks</code> 拖取DockerHub上的镜像到本地</li>
 <li><p><code>docker run -d -p 2008:1993 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1993 -k 0000 -m aes-256-cfb</code><br>在启动镜像时，有一点就是要求 宿主机映射到docker容器上的端口必须要和shadowsocks上的设置的端口一致，换句话说就是冒号后边的端口号和最后的端口必须要保证一致。因为想要外界能够访问容器内部应用，就需要给从宿主机通过-p参数给宿主机和容器之间的端口形成一对一的映射来访问，而容器内则需要保证shadowsocks的端口和被映射端口一致即可。</p>
 </li>
-<li><p>此时<code>docker ps</code> 即可看到已经跑起来的shadowsocks容器，如：<br><img src="http://ww2.sinaimg.cn/large/005zU9b3gw1f8v0jodgjej30ye03tq65.jpg" alt=""></p>
+<li><p>此时<code>docker ps</code> 即可看到已经跑起来的shadowsocks容器，如：<br><img src="http://ww2.sinaimg.cn/large/005zU9b3gw1f8v0jodgjej30ye03tq65.jpg" alt></p>
 <p>我这里因为示范所以多跑了几个容器。</p>
 </li>
 </ul>
@@ -369,9 +362,9 @@
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -393,7 +386,7 @@
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-

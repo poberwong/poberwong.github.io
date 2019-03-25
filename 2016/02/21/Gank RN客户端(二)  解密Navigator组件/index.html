@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- content-Type -->
 <meta charset="utf-8">
 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="language" content="en">
 <meta name="robots" content="all">
 
@@ -18,8 +18,8 @@
 <meta content="email=no" name="format-detection">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -39,31 +39,27 @@
 
 
 
-<meta name="description" content="Pober Wong" />
+<meta name="description" content="Pober Wong">
 
 
 
 
-<meta name="keywords" content="React-Native,Gank,Navigator," />
+<meta name="keywords" content="React-Native,Gank,Navigator,">
 
 
-<meta name="description" content="在ReactNative开发中，目前为止，活动页面之间的跳转使用Navigator来实现。但是在实际使用中却有着不为人知的秘密……  
-
-Navigator allow you to manage the navigation in your app between various “scenes” (another word for screens). They manage a route s">
+<meta name="description" content="在ReactNative开发中，目前为止，活动页面之间的跳转使用Navigator来实现。但是在实际使用中却有着不为人知的秘密……    Navigator allow you to manage the navigation in your app between various “scenes” (another word for screens). They manage a route s">
+<meta name="keywords" content="React-Native,Gank,Navigator">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gank RN客户端(二)  解密Navigator组件">
 <meta property="og:url" content="http://poberwong.com/2016/02/21/Gank RN客户端(二)  解密Navigator组件/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="在ReactNative开发中，目前为止，活动页面之间的跳转使用Navigator来实现。但是在实际使用中却有着不为人知的秘密……  
-
-Navigator allow you to manage the navigation in your app between various “scenes” (another word for screens). They manage a route s">
+<meta property="og:description" content="在ReactNative开发中，目前为止，活动页面之间的跳转使用Navigator来实现。但是在实际使用中却有着不为人知的秘密……    Navigator allow you to manage the navigation in your app between various “scenes” (another word for screens). They manage a route s">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-dcdef56d64046c76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2016-10-11T03:31:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gank RN客户端(二)  解密Navigator组件">
-<meta name="twitter:description" content="在ReactNative开发中，目前为止，活动页面之间的跳转使用Navigator来实现。但是在实际使用中却有着不为人知的秘密……  
-
-Navigator allow you to manage the navigation in your app between various “scenes” (another word for screens). They manage a route s">
+<meta name="twitter:description" content="在ReactNative开发中，目前为止，活动页面之间的跳转使用Navigator来实现。但是在实际使用中却有着不为人知的秘密……    Navigator allow you to manage the navigation in your app between various “scenes” (another word for screens). They manage a route s">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-dcdef56d64046c76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -71,7 +67,7 @@ Navigator allow you to manage the navigation in your app between various “scen
 
 
 
-  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1" />
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
 
 
 
@@ -79,7 +75,7 @@ Navigator allow you to manage the navigation in your app between various “scen
 
 
 <link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1"/>
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
 
 
 <script>
@@ -125,13 +121,13 @@ Navigator allow you to manage the navigation in your app between various “scen
         <div class="post-meta">
           <div class="post-time">
             发表于
-            <time  datetime="2016-02-21T19:30:43+08:00" content="2016-02-21">
+            <time datetime="2016-02-21T19:30:43+08:00" content="2016-02-21">
               2016-02-21
             </time>
           </div>
 
           
-            <div class="post-category" >
+            <div class="post-category">
               
                 <span>
                   <a href="/categories#ReactX" itemprop="url" rel="index">
@@ -270,7 +266,7 @@ Navigator allow you to manage the navigation in your app between various “scen
 这里是HelloWorld的核心代码，我们使用了一个按钮，然后上边显示了我们在上一个界面中传入的</code>geeker<code>变量，值当然就是伦家的名字</code>pober<code>啦...点击之后，我们很简单地调用了navigator的</code>pop()`方法。</p>
 </li>
 </ol>
-<p><code>HelloWorld</code>页面截图:<br><img src="http://upload-images.jianshu.io/upload_images/442688-dcdef56d64046c76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><code>HelloWorld</code>页面截图:<br><img src="http://upload-images.jianshu.io/upload_images/442688-dcdef56d64046c76.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><blockquote>
 <p>路漫漫其修远兮，吾将上下而求索</p>
 </blockquote>
@@ -351,9 +347,9 @@ Navigator allow you to manage the navigation in your app between various “scen
     </label>
     <input type="checkbox" name="donation" id="donation">
     <div class="img-box">
-      <img src="/images/pay.ali.png" alt="donation" />
+      <img src="/images/pay.ali.png" alt="donation">
     </div>
-    </style>
+    
   </div>
 
 
@@ -375,7 +371,7 @@ Navigator allow you to manage the navigation in your app between various “scen
     </main>
 
     <footer class="footer clearfix">
-  <div class="copyright" >
+  <div class="copyright">
     <span>Copyright</span>
     
     &copy;  2015-
