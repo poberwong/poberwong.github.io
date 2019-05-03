@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="CSS,Flex,">
+
+
+<meta name="description" content="场外音：今天因为写一个用了很多次的布局而加班到10点才回家…  这里我先抛出问题： 图中用红框圈出来的部分视图指定高度，而宽度在不设置值的情况下默认是撑满屏幕的( Tips: flexDirection 的 cross 方向在不指定 size 的情况下是 match_parent 的 )，‘用药禁忌’ 是可点区域。Notice：这部分要求通过传递组件的形式描述布局，因此我们需要的是一个完整单一的">
+<meta name="keywords" content="CSS,Flex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native 中 flex 布局之指点迷津">
+<meta property="og:url" content="http://poberwong.com/2016/12/09/React-Native-中-flex-布局之指点迷津/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="场外音：今天因为写一个用了很多次的布局而加班到10点才回家…  这里我先抛出问题： 图中用红框圈出来的部分视图指定高度，而宽度在不设置值的情况下默认是撑满屏幕的( Tips: flexDirection 的 cross 方向在不指定 size 的情况下是 match_parent 的 )，‘用药禁忌’ 是可点区域。Notice：这部分要求通过传递组件的形式描述布局，因此我们需要的是一个完整单一的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-df13187035e097d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-85151fe036380c28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-9e8da03f8ef45458.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T12:00:47.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native 中 flex 布局之指点迷津">
+<meta name="twitter:description" content="场外音：今天因为写一个用了很多次的布局而加班到10点才回家…  这里我先抛出问题： 图中用红框圈出来的部分视图指定高度，而宽度在不设置值的情况下默认是撑满屏幕的( Tips: flexDirection 的 cross 方向在不指定 size 的情况下是 match_parent 的 )，‘用药禁忌’ 是可点区域。Notice：这部分要求通过传递组件的形式描述布局，因此我们需要的是一个完整单一的">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-df13187035e097d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> React Native 中 flex 布局之指点迷津 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="React Native 中 flex 布局之指点迷津"> React Native 中 flex 布局之指点迷津 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2016-12-09T13:30:49+08:00" content="2016-12-09">
+              2016-12-09
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><blockquote>
+<p>场外音：<br>今天因为写一个用了很多次的布局而加班到10点才回家…</p>
+</blockquote>
+<p>这里我先抛出问题：<br><img src="http://upload-images.jianshu.io/upload_images/442688-df13187035e097d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Interesting"></p>
+<p>图中用红框圈出来的部分视图指定高度，而宽度在不设置值的情况下默认是撑满屏幕的( Tips: <code>flexDirection</code> 的 cross 方向在不指定 size 的情况下是 match_parent 的 )，‘用药禁忌’ 是可点区域。<br><strong><em>Notice</em></strong>：这部分要求通过传递组件的形式描述布局，因此我们需要的是一个完整单一的组件，这也是为了约束题目。</p>
+<p>请给出你所能想到的所有布局方案.</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>首先，可以很轻易看出以下几点：  </p>
+<ul>
+<li>布局在竖直方向上是垂直居中  </li>
+<li>两个 Item 是呈左右两端分布，并存在适当边距  </li>
+<li>右侧的点击区域可大可小</li>
+</ul>
+<h2 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h2><p><img src="http://upload-images.jianshu.io/upload_images/442688-85151fe036380c28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="适用于右侧点击区域比较灵活的"></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;View style=&#123;&#123;<span class="attr">flex</span>: <span class="number">1</span>, <span class="attr">alignItems</span>: <span class="string">'center'</span>, <span class="attr">flexDirection</span>: <span class="string">'row'</span>&#125;&#125;&gt;</span><br><span class="line">&#123;leftView&#125; </span><br><span class="line">&lt;View style=&#123;&#123;<span class="attr">flex</span>: <span class="number">1</span>&#125;&#125; /&gt;</span><br><span class="line">&#123;rightView&#125;</span><br><span class="line">&lt;<span class="regexp">/View&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这种方案比较简单：  </p>
+<ol>
+<li>让父布局呈水平布局，且子元素纵向上居中，这样所有子元素不再满高，而是被压缩在中间以自适应的形式存在  </li>
+<li>leftView、rightView 在不指定宽高的情况下是自适应的子布局的，因此在中间加了辅助元素 flex: 1 后这两个布局会被挤到父布局两侧，接下来就可以直接在这两个布局上控制左右边距即可达到目标。  </li>
+<li>然后就可以使用 TouchableXXX 的 hitSlop 属性来扩展点击区域大小</li>
+</ol>
+<h2 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h2><p><img src="http://upload-images.jianshu.io/upload_images/442688-9e8da03f8ef45458.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这是一种较为简单明了的布局思路"></p>
+<p>这种方案也是我在 <a href="https://github.com/poberwong/react-native-navigationbar" target="_blank" rel="noopener">react-native-navigationbar</a> 中用到的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> leftChildrenView = (</span><br><span class="line">    <span class="comment">// 子布局默认 cross 对齐方式是 auto，也可以对 alignSelf 使用</span></span><br><span class="line">    <span class="comment">// flex-start、flex-end、center 等值进行 cross 方向上的调节、</span></span><br><span class="line">    <span class="comment">// 再配合 margin 外边距微调即可</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rightChildrenView = (</span><br><span class="line">  same <span class="keyword">as</span> leftView</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&lt;View style=&#123;&#123;<span class="attr">flex</span>: <span class="number">1</span>, <span class="attr">flexDirection</span>: <span class="string">'row'</span>&#125;&#125;&gt;</span><br><span class="line">  &lt;View style=&#123;&#123;<span class="attr">flex</span>: <span class="number">1</span>, <span class="attr">justifyContent</span>: <span class="string">'center'</span>&#125;&#125;&gt;</span><br><span class="line">    &#123;leftChildrenView&#125;</span><br><span class="line">  &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">  &lt;View style=&#123;&#123;flex: 4&#125;&#125; /</span>&gt;</span><br><span class="line">  &lt;View style=&#123;&#123;<span class="attr">flex</span>: <span class="number">1</span>, <span class="attr">justifyContent</span>: <span class="string">'center'</span>&#125;&#125;&gt;</span><br><span class="line">    &#123;rightChildrenView&#125;</span><br><span class="line">  &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>View&gt;</span><br></pre></td></tr></table></figure>
+<p><em>解析</em><br>整体思路如下：  </p>
+<ol>
+<li>最外层水平布局并使用 flex 撑满父容器  </li>
+<li>内容使用 flex 值进行等份划分，中间4份，两侧一份。此时布局是垂直撑满屏幕的，别问我为什么，前边有讲  </li>
+<li>通过 step 2 你可以得到左右各一份等宽并满高的视图，这样在给左右护法加了 flex 方向的居中后，就可以很轻易得配合 alignSelf 以及 margin 等 style 进行水平方向上的微调  </li>
+<li>这种情况下右侧的点击区域是撑满自己的宽高的</li>
+</ol>
+<p><em>so much for this ……</em></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析"><span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案一"><span class="nav-text">方案一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案二"><span class="nav-text">方案二</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#CSS" rel="tag">#CSS</a>
+        
+          <a href="/tags#Flex" rel="tag">#Flex</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
