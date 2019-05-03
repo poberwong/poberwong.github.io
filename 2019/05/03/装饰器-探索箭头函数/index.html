@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="JavaScript,语言基础,">
+
+
+<meta name="description" content="装饰器介绍初识装饰器，还是在 babel-preset-stage-0 提案法则中被支持，学过 Java 的想必能联想到注解。正如大家所知，装饰器修饰类是最简单的写法，直接按照高阶函数的方式来书写处理函数即可，关于对类体内部字段和方法的修饰，就没有那么简单了。关于装饰器的更多介绍和使用方式，见阮老师的 ES6 文档。 问题起始这篇文章的启发源自对防抖函数的封装探索，防抖函数的实现原理（deboun">
+<meta name="keywords" content="JavaScript,语言基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="装饰器-探索箭头函数">
+<meta property="og:url" content="http://poberwong.com/2019/05/03/装饰器-探索箭头函数/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="装饰器介绍初识装饰器，还是在 babel-preset-stage-0 提案法则中被支持，学过 Java 的想必能联想到注解。正如大家所知，装饰器修饰类是最简单的写法，直接按照高阶函数的方式来书写处理函数即可，关于对类体内部字段和方法的修饰，就没有那么简单了。关于装饰器的更多介绍和使用方式，见阮老师的 ES6 文档。 问题起始这篇文章的启发源自对防抖函数的封装探索，防抖函数的实现原理（deboun">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/442688-36b7e7eb61f0cc09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T06:39:31.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="装饰器-探索箭头函数">
+<meta name="twitter:description" content="装饰器介绍初识装饰器，还是在 babel-preset-stage-0 提案法则中被支持，学过 Java 的想必能联想到注解。正如大家所知，装饰器修饰类是最简单的写法，直接按照高阶函数的方式来书写处理函数即可，关于对类体内部字段和方法的修饰，就没有那么简单了。关于装饰器的更多介绍和使用方式，见阮老师的 ES6 文档。 问题起始这篇文章的启发源自对防抖函数的封装探索，防抖函数的实现原理（deboun">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/442688-36b7e7eb61f0cc09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 装饰器-探索箭头函数 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="装饰器-探索箭头函数"> 装饰器-探索箭头函数 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2019-05-03T14:38:05+08:00" content="2019-05-03">
+              2019-05-03
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#JavaScript" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="装饰器介绍"><a href="#装饰器介绍" class="headerlink" title="装饰器介绍"></a>装饰器介绍</h2><p>初识装饰器，还是在 babel-preset-stage-0 提案法则中被支持，学过 Java 的想必能联想到<a href="https://en.wikipedia.org/wiki/Java_annotation" target="_blank" rel="noopener">注解</a>。正如大家所知，装饰器修饰类是最简单的写法，直接按照高阶函数的方式来书写处理函数即可，关于对类体内部字段和方法的修饰，就没有那么简单了。关于装饰器的更多介绍和使用方式，见阮老师的 <a href="http://es6.ruanyifeng.com/#docs/decorator#Trait" target="_blank" rel="noopener">ES6 文档</a>。</p>
+<h2 id="问题起始"><a href="#问题起始" class="headerlink" title="问题起始"></a>问题起始</h2><p>这篇文章的启发源自对防抖函数的封装探索，防抖函数的实现原理（debounce）无可厚非，使用告诫函数对防抖函数的二次处理时最容易也是防抖实现的核心：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">      clearTimeout(timer)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> argumentsCopy = <span class="built_in">arguments</span></span><br><span class="line">    timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      func.apply(<span class="keyword">this</span>, argumentsCopy)</span><br><span class="line">      timer = <span class="literal">null</span></span><br><span class="line">    &#125;, <span class="number">300</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现思路很简单也很主流，使用闭包的方式使返回的函数在每次调用的时候都能够访问到外层声明的 timer，以此来实现每一个 debounce 都能够拥有自己的计时器。我们还可以加一层闭包来传入 <code>duration</code> 参数或者直接跟到 func 后面，使用方式也很简单，直接讲函数扔给 debounce，然后就当事情从未发生过一样使用。</p>
+<p>那么问题来了，高阶函数太不方便了，我们都使用过 mobx，他们对 action 的实现就非常的简便，直接模仿对类的修饰，直接使用装饰器就可以搞定，而且最重要的是，还支持箭头函数。需求来了，得想办法实现呀~~~</p>
+<h2 id="使用装饰器改造-debounce"><a href="#使用装饰器改造-debounce" class="headerlink" title="使用装饰器改造 debounce"></a>使用装饰器改造 debounce</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">target, name, descriptor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">let</span> oldValue = descriptor.value</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ...descriptor,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">        clearTimeout(timer)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">let</span> argumentsCopy = <span class="built_in">arguments</span></span><br><span class="line">      timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        oldValue.apply(<span class="keyword">this</span>, argumentsCopy)</span><br><span class="line">        timer = <span class="literal">null</span></span><br><span class="line">      &#125;, <span class="number">300</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>装饰器写法很简单，它接受三个参数：</p>
+<ol>
+<li>target：当前类的原型</li>
+<li>name：当前方法的名字</li>
+<li>descriptor：承载着装饰的内容<br>descriptor.value 就是被修饰的方法，官方大致的思路很明确，就是利用常规的 hook 方法，对 value 进行 hook 改造，达到装饰的目的。<br>使用的时候只需要：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  @debounce</span><br><span class="line">  click () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"点击间隔不超过 300 ms，连续点击只会触发最后一次哦)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="事情没那么简单"><a href="#事情没那么简单" class="headerlink" title="事情没那么简单"></a>事情没那么简单</h2><p>我们发现，因为我们在开发中经常使用给 this 实例（注意不是原型）上声明箭头函数的方式来以最便捷的方式绑定上下文 this 的时候，发现装饰器完全没有用, 让人挠头的时刻来了。</p>
+<p>经过各种调研，发现官方对尖头函数的支持根本没有做具体说明，只讲了对类、类内函数、属性的修饰，箭头函数怎么办呢？转换思维后发现，箭头函数本身也是以属性的方式存在于类体内，于是乎又开始调研装饰属性的用法：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// decorator 外部可以包装一个函数，函数可以带参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Decorator</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里是真正的 decorator</span></span><br><span class="line"><span class="comment">     * @target 装饰的属性所述的类的原型，注意，不是实例后的类。如果装饰的是 Car 的某个属性，这个 target 的值就是 Car.prototype</span></span><br><span class="line"><span class="comment">     * @name 装饰的属性的 key</span></span><br><span class="line"><span class="comment">     * @descriptor 装饰的对象的描述对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, name, descriptor</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 以此可以获取实例化的时候此属性的默认值</span></span><br><span class="line">        <span class="keyword">let</span> v = descriptor.initializer &amp;&amp; descriptor.initializer.call(<span class="keyword">this</span>);</span><br><span class="line">        <span class="comment">// 返回一个新的描述对象，或者直接修改 descriptor 也可以</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            enumerable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            <span class="keyword">get</span>: function() &#123;</span><br><span class="line">                <span class="keyword">return</span> v;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="keyword">set</span>: function(c) &#123;</span><br><span class="line">                v = c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">__ 引自 https:<span class="comment">//juejin.im/post/59f1c484f265da431c6f8940</span></span><br></pre></td></tr></table></figure></p>
+<p>以下是关于装饰器的一些规则：</p>
+<blockquote>
+<ol>
+<li>通过 <code>descriptor.value</code> 的修改直接给改成不同的值，适用于方法的装饰器。</li>
+<li>通过 <code>descriptor.get</code> 或 <code>descriptor.set</code> 修改逻辑，适用于访问器的装饰器。</li>
+<li>通过 <code>descriptor.initializer</code> 修改属性值，适用于属性的装饰器。</li>
+<li>修改 <code>configurable</code>、<code>writable</code>、<code>enumerable</code> 控制属性本身的特性，常见的就是修改为只读</li>
+</ol>
+</blockquote>
+<p>以上是我所调研到关于属性装饰的一种方式，同下面常规 hack 访问器的方式相同，我们使同样使用了以上第二种 hack 访问器的方式来解决问题，先通过执行调用 <code>initializer</code> 来获取属性默认值（此时是不存在 value 的），然后配合 getter 和 setter 来装饰这个属性本身。</p>
+<p>这里需要注意的是，最好把 <code>v</code> 的取值放到 get 函数里，这样在调用 <code>call</code> 函数的时候才能绑定到正确的运行时 this，而非编译时的 this（装饰器是编译时对代码的一种更改，因此它的调用者相当于浏览器中的 window，React 中则是和严格模式一致，为 <code>undefined</code>）。<br>因此，相对正确装饰属性的操作如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// decorator 外部可以包装一个函数，函数可以带参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Decorator</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, name, descriptor</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 返回一个新的描述对象，或者直接修改 descriptor 也可以</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            enumerable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            <span class="keyword">get</span>: function() &#123;</span><br><span class="line">              <span class="comment">// 以此可以获取实例化的时候此属性的默认值</span></span><br><span class="line">                <span class="keyword">let</span> v = descriptor.initializer &amp;&amp; descriptor.initializer.call(<span class="keyword">this</span>);</span><br><span class="line">                <span class="keyword">return</span> v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们再来看看常规操作对象属性的 getter 和 setter 的案例：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  为一个对象的属性变动添加监听事件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindData</span>(<span class="params">target, event</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> target) &#123;</span><br><span class="line">		<span class="keyword">if</span>(target.hasOwnProperty(key)) &#123;</span><br><span class="line">			(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 使用 let 同样代替立即执行函数，同样可以避免 var 缺乏块作用域带来的生命周期污染</span></span><br><span class="line">				<span class="keyword">var</span> v = target[key]; <span class="comment">// 取值</span></span><br><span class="line">				<span class="built_in">Object</span>.defineProperty(target, key, &#123;</span><br><span class="line">					<span class="keyword">get</span>: function() &#123;</span><br><span class="line">						<span class="keyword">return</span> v;</span><br><span class="line">					&#125;,</span><br><span class="line">					<span class="keyword">set</span>: function(_value) &#123;</span><br><span class="line">						v = _value;</span><br><span class="line">						event.call(<span class="keyword">this</span>)</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;)()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一般在 hack set 或 get 方法的时候，都是成对定义这两个属性的，以便保全最基本的 get 和 set 功能。这里可以看出，我们在对属性操作的时候，发现装饰器方法的签名和 <code>defineProperty</code> 一致。<br>主要是通过修改一个属性的描述器来修改属性本身，这个和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">Object.defineProperty</a> Api 一致。</p>
+<blockquote>
+<p>拓展<br> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  value: 属性的值，默认为 <span class="literal">undefined</span>,</span><br><span class="line">  writable: 属性是否可写，默认值为 <span class="literal">true</span>,</span><br><span class="line">  configurable: 属性是否可配置，默认值为 <span class="literal">true</span>,</span><br><span class="line">  enumerable: 属性是否可以在 <span class="keyword">for</span>-<span class="keyword">in</span> 中或 <span class="built_in">Object</span>.keys 被枚举出来, 默认值为 <span class="literal">true</span>,</span><br><span class="line">  <span class="keyword">get</span>: 一旦目标对象访问该属性，就会调用这个方法，并返回改方法的运算结果，默认为 undefined,</span><br><span class="line">  <span class="keyword">set</span>: 一旦目标对象访问该属性，就会调用这个方法，默认为 undefined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>需要注意的是，在 MDN 文档中，其中几个为 <code>true</code> 的值均为 <code>false</code>, 这并不矛盾，文档中所描述的是在一个 Object 中，一个属性被定义之后的默认值，可以使用 <code>Object.getOwnPropertyDescriptor(object, key)</code> 来查看描述器中的值，而本文中介绍的是，使用 <code>defineProperty</code> 和复写 descriptor 时不给予值时的默认值，因此在修改 descriptor 的时候一定要尽可能覆盖到这三个属性。</p>
+</blockquote>
+<h2 id="装饰属性的另一种方式"><a href="#装饰属性的另一种方式" class="headerlink" title="装饰属性的另一种方式"></a>装饰属性的另一种方式</h2><p>通过 <code>descriptor.initializer</code> 修改属性值，适用于属性的装饰器。<br>很简单，就是通过重写 <code>initializer</code> 函数来重新计算：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// decorator 外部可以包装一个函数，函数可以带参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Decorator</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, name, descriptor</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 返回一个新的描述对象，或者直接修改 descriptor 也可以</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            enumerable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span>,</span><br><span class="line">            initializer: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">              <span class="comment">// 以此可以获取实例化的时候此属性的默认值</span></span><br><span class="line">                <span class="keyword">let</span> v = descriptor.initializer &amp;&amp; descriptor.initializer.call(<span class="keyword">this</span>);</span><br><span class="line">                <span class="keyword">return</span> v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将对应的属性替换为我们的箭头函数，debounce 函数就变成如下了：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> niceDebounce = <span class="function"><span class="keyword">function</span> (<span class="params">params = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, name, descriptor</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">const</span> &#123; delay = <span class="number">300</span>, immediate = <span class="literal">false</span> &#125; = params</span><br><span class="line"></span><br><span class="line">    <span class="comment">// high order function</span></span><br><span class="line">    <span class="keyword">if</span> (!descriptor || (<span class="built_in">arguments</span>.length === <span class="number">1</span> &amp;&amp; <span class="keyword">typeof</span> target === <span class="string">'function'</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> createDebounce(target)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createDebounce</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (immediate &amp;&amp; !timer) &#123;</span><br><span class="line">          fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">          clearTimeout(timer)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> argumentsCopy = <span class="built_in">arguments</span></span><br><span class="line">        <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line"></span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (!immediate) &#123;</span><br><span class="line">            fn.apply(that, argumentsCopy)</span><br><span class="line">          &#125;</span><br><span class="line">          timer = <span class="literal">null</span></span><br><span class="line">        &#125;, delay)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修饰类内的箭头函数</span></span><br><span class="line">    <span class="keyword">if</span> (descriptor.initializer) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        enumerable: <span class="literal">false</span>,</span><br><span class="line">        configurable: <span class="literal">true</span>,</span><br><span class="line">        <span class="keyword">get</span>: function () &#123;</span><br><span class="line">          <span class="keyword">return</span> createDebounce(descriptor.initializer.call(<span class="keyword">this</span>))</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> descriptor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="修饰箭头函数"><a href="#修饰箭头函数" class="headerlink" title="修饰箭头函数"></a>修饰箭头函数</h3><p>这里我们示范了使用 get 访问器来处理修饰箭头函数的问题，不能同时和处理数据属性的选项同时设置，比如 writable。同样我们也可以将它原地换成 initializer 就可以了，同时要添加 writable 选项，否则该属性（此处为箭头函数）就再也不可更改了。<br>需要注意的是：</p>
+<ol>
+<li>作为 getter，它是属性每次访问都会被执行的函数</li>
+<li>initializer 作为初始化的函数，它只会在创建装饰器的时候会初始化执行一次，将属性值设置为该函数的返回值</li>
+</ol>
+<p>getter 的缺点就是会反复创建新的函数，只需要注意保持 debounce 函数的等幂性就好了。</p>
+<p><strong>小疑问：这里为什么使用 <code>createDebounce(descriptor.initializer()).bind(this)</code> 就不行呢？</strong><br>经调研，不论是 第一种还是第二种方式，我们这样绑定的 this 在 decorator 中都是组件，也就是属性的调用者——组件实例，而在 fn 也就是我们的箭头函数在被执行的过程中 this 就变成了 descriptor 本身，费解 …<br>换而言之，就是在修饰类的属性方面，只有通过 descriptor.initializer.call() 获取属性值的时候，才能将我们想要的 this 绑定到返回值中，而拿着没有绑定 this 上下文的属性值却无法再次绑定 this。答案只能隐藏在 initializer 这个函数中 …</p>
+<p><strong>关于 initializer</strong><br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">initializer:  ƒ initializer() &#123;</span><br><span class="line">    <span class="keyword">var</span> _this4 = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">clearUntreated, item, index</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'clickContact'</span>, _this4);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>经过打印，我们的箭头函数<br><code>() =&gt; {console.log(&#39;clickContact&#39;, this)}</code><br>decorator 作为 babel-stage-0 的特性，在解释前经过 babel 转译，我们的 initializer 变成了如上的 es5 函数。其实，这和 babel 转译箭头函数是一致的:</p>
+<p><a href="https://babeljs.io/repl#?babili=false&amp;browsers=&amp;build=&amp;builtIns=false&amp;spec=false&amp;loose=false&amp;code_lz=GYVwdgxgLglg9mABDMNYEMA2MBeBTAJ0QAoBKRAbwCgBIAvKEApMxAXgD5KrFe-IEAZziY8AOkxwA5sQDkEbBADWAYQRR00WQBpEUABYxBpHnwC-VM0A&amp;debug=false&amp;forceAllTransforms=false&amp;shippedProposals=false&amp;circleciRepo=&amp;evaluate=true&amp;fileSize=false&amp;timeTravel=false&amp;sourceType=module&amp;lineWrap=true&amp;presets=es2015&amp;prettier=false&amp;targets=&amp;version=6.26.0&amp;envVersion=" target="_blank" rel="noopener"><img src="https://upload-images.jianshu.io/upload_images/442688-36b7e7eb61f0cc09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></a><br>因此，我们可以判断的是，我们的箭头函数在被 decorator 处理的时候，被安排到了 initializer 这个 function 中，而作为箭头函数的定义时 this 特性，它在解释运行之前，被 babel 转译成了这个样子，因而在后续解释执行的时候，this 永远地被安排成了 initializer 的运行时上下文了，这也就可以理解为什么只有在执行 <code>descriptor。initializer.call(this)</code> 才会绑定到正确的 this，此时不绑定，返回的 fn （这里是闭包）永远持有着取值时的 descriptor 上下文。</p>
+<p><strong>接下来我们看看 bind 为何不行</strong><br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">initializer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this of first bind'</span>, _this);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this of second bind'</span>, <span class="keyword">this</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;).bind(&#123;<span class="attr">a</span>: <span class="string">"outer this"</span>&#125;)().bind(&#123;<span class="attr">b</span>: <span class="string">"inner this"</span>&#125;)();</span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="keyword">this</span> <span class="keyword">of</span> first bind: &#123;<span class="attr">a</span>: <span class="string">"outer this"</span>&#125;</span><br><span class="line"><span class="keyword">this</span> <span class="keyword">of</span> second bind: &#123;<span class="attr">b</span>: <span class="string">"inner this"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们将 babel 转译后的代码，并调用 bind 之后，似乎明白了什么 ……</p>
+<ol>
+<li>babel 的转译，将所有语法糖、ES6、7 特性转为了 ES5 代码，这样，我们箭头函数（作为定义时指定 this ，其实是被 babel 在转译时指定了 this）的 this 已经确定了下来，被修改为了 _this</li>
+<li>bind 之后的 this，是生成的 ES5 函数里的运行时 this，此时这个 this 与我们无关（因为我们硬代码里的 this 全都被替换掉了）</li>
+</ol>
+<p><strong>*可以得出一个小结论</strong>：使用箭头函数指定定义时 this 后，就已经无法再去使用 bind 重新指定 this 了。*<br>其实是可以的，只是 bind 作为 v8 引擎的 API，是在解释执行的时候运行的。而我们在定义函数时所使用的所有 this 会被 babel 转译为箭头函数所在的上下文（这里就完全取决于外部了（可以是运行时，也可以是定义时），不由箭头函数本身决定了），而引擎在执行 bind 函数的时候，才会给转译后的 function 的 this 重定向，这是没有意义的。</p>
+<h3 id="修饰类内函数"><a href="#修饰类内函数" class="headerlink" title="修饰类内函数"></a>修饰类内函数</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 修饰类内函数</span></span><br><span class="line"><span class="keyword">if</span>(descriptor.value) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: createDebounce(descriptor.value)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为 value 是 descriptor 的数据属性，因此会在构建类体的时候执行且被执行一次，此时 value 的值就是我们使用 <code>descriptor.value</code> 创建好的 debounce 函数。进一步，我们在运行过程中使用组件实例 this 调用 debounce 函数的时候，由于是利用了 function 的运行时上下文特性，自然能够在 debounce 中获取到正确的 this 上下文，此时再通过 <code>fn.apply</code> 或者 <code>fn.call</code> 这样的语言 API 来重新给 fn 绑定正确的上下文 this。（需要注意的是，由于装饰器是在 class 构建的过程中进行操作的，因此在执行 createDebounce 的时候，其 scope 内的上下文为 undefined）</p>
+<p><strong>进一步思考问题</strong><br>我们在上面介绍箭头函数的时候发现，返回的 debounce 函数内部根本不需要重新给 fn 绑定 this。而这里却不可以，返回的 debounce 严重依赖调用它的 this，而此时我们讨论的是类内函数，它需要正确的运行时上下文呀！<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 修饰类内函数</span></span><br><span class="line"><span class="keyword">if</span>(descriptor.value) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> createDebounce(descriptor.value.bind(<span class="keyword">this</span>)(...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了能让 debounce 中的 fn 执行时拥有正确的 this，我们只好在 value 的定义上，利用函数主动创造运行时环境，但由于 value 的值本身就应该是 debounce 函数，因此我们在这里重写为 function，相当于是用该 function 去替换 debounce 函数。为了保持一致性，应该被要求 value 方法的运行结果和改动之前完全一致（也就是 debounce 的执行结果），所以我们在返回值里创建好 debounce 后一定不要忘记执行。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一路下来，对装饰器、箭头函数、普通函数的 this 的使用和定义有了更加全面的理解，『门儿清』不易啊 …</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器介绍"><span class="nav-text">装饰器介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题起始"><span class="nav-text">问题起始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用装饰器改造-debounce"><span class="nav-text">使用装饰器改造 debounce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事情没那么简单"><span class="nav-text">事情没那么简单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰属性的另一种方式"><span class="nav-text">装饰属性的另一种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰箭头函数"><span class="nav-text">修饰箭头函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰类内函数"><span class="nav-text">修饰类内函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#JavaScript" rel="tag">#JavaScript</a>
+        
+          <a href="/tags#语言基础" rel="tag">#语言基础</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

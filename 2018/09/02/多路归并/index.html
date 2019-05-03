@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="数据结构,排序,">
+
+
+<meta name="description" content="大概一年以前，接到同学面试头条之后讨论的请求，说是要在八分钟内手写出二路归并源码，我也没含糊，大概在八分钟内交出了源码，并且在 10 分钟内完成了边界调试，最终跑通了代码。只可惜最终同学因为没能现场写出这道决定性的题目被刷了下来。 二路归并/* * time complexity = O(n) */function twoWayMerge (arr1, arr2) &amp;#123;	if (!arr1">
+<meta name="keywords" content="数据结构,排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多路归并">
+<meta property="og:url" content="http://poberwong.com/2018/09/02/多路归并/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="大概一年以前，接到同学面试头条之后讨论的请求，说是要在八分钟内手写出二路归并源码，我也没含糊，大概在八分钟内交出了源码，并且在 10 分钟内完成了边界调试，最终跑通了代码。只可惜最终同学因为没能现场写出这道决定性的题目被刷了下来。 二路归并/* * time complexity = O(n) */function twoWayMerge (arr1, arr2) &amp;#123;	if (!arr1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-03T06:36:51.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多路归并">
+<meta name="twitter:description" content="大概一年以前，接到同学面试头条之后讨论的请求，说是要在八分钟内手写出二路归并源码，我也没含糊，大概在八分钟内交出了源码，并且在 10 分钟内完成了边界调试，最终跑通了代码。只可惜最终同学因为没能现场写出这道决定性的题目被刷了下来。 二路归并/* * time complexity = O(n) */function twoWayMerge (arr1, arr2) &amp;#123;	if (!arr1">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 多路归并 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="多路归并"> 多路归并 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2018-09-02T23:42:38+08:00" content="2018-09-02">
+              2018-09-02
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#数据结构与算法" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><em>大概一年以前，接到同学面试<strong>头条</strong>之后讨论的请求，说是要在八分钟内手写出二路归并源码，我也没含糊，大概在八分钟内交出了源码，并且在 10 分钟内完成了边界调试，最终跑通了代码。只可惜最终同学因为没能现场写出这道决定性的题目被刷了下来。</em></p>
+<h2 id="二路归并"><a href="#二路归并" class="headerlink" title="二路归并"></a>二路归并</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * time complexity = O(n)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">twoWayMerge</span> (<span class="params">arr1, arr2</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!arr1 || !arr2) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">'illegal params'</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (arr1.length === <span class="number">0</span> || arr2.length === <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> arr1.concat(arr2)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> result = []</span><br><span class="line">	<span class="keyword">let</span> i = <span class="number">0</span>, j = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (i &lt; arr1.length &amp;&amp; j &lt; arr2.length) &#123;</span><br><span class="line">		<span class="keyword">if</span>(arr1[i] &lt;= arr2[j]) &#123;</span><br><span class="line">			result.push(arr1[i])</span><br><span class="line">			i++</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			result.push(arr2[j])</span><br><span class="line">			j++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (i &gt; arr1.length - <span class="number">1</span>) &#123;</span><br><span class="line">		result.push(...arr2.slice(j))</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		result.push(...arr1.slice(i))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * time complexity = O(n*(k-1))</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiWaysMerge</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> args.reduce(twoWayMerge)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">multiWaysMerge([<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>], [<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>], [<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>], [<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>], [<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>], [<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>使用 reduce 函数很容易得将多路归并反复进行两两归并来实现。然而真的只能限制在平方级别的时间复杂度了嘛？换个思路，不以二路归并为核心子函数，尝试使用另外一种思路，把多路归并按照二路归并的方式来思考，二路归并是同步对比两路的同位置元素，小的放入结果数组，并指向下一个元素，反复之直到两个数组有一个遍历结束。我们可以把对比两路换成对比 k 路，接下来的思路和二路归并完全一致，不过由于不再是两个数的对比，在一个序列中寻找最值用循环的话需要 O(k)，这样时间复杂度还是落在了 O(nk) 上。不过我们依然有了优化的切入点（<strong>寻找最值</strong>）。<br><a href="https://www.jianshu.com/p/77d672b681f5" target="_blank" rel="noopener">关于胜者树，败者树</a></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二路归并"><span class="nav-text">二路归并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-text">思考</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#数据结构" rel="tag">#数据结构</a>
+        
+          <a href="/tags#排序" rel="tag">#排序</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

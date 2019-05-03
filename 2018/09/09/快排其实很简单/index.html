@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="数据结构,排序,">
+
+
+<meta name="description" content="大学时期，老师只讲了课本上快排的一种实现方式，当时学的云里雾里，最近调研一下知乎上的一些实现方式，总结归纳了一下，发现还是非常简单的，只要清晰了具体概念，实现方式就可以随意发挥了（至于可读性，简易性当然各有千秋）。 什么是快排  从数列中挑出一个元素，称为“基准”（pivot）， 重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（相同的数可以到任何一边）。在这个分">
+<meta name="keywords" content="数据结构,排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快排其实很简单">
+<meta property="og:url" content="http://poberwong.com/2018/09/09/快排其实很简单/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="大学时期，老师只讲了课本上快排的一种实现方式，当时学的云里雾里，最近调研一下知乎上的一些实现方式，总结归纳了一下，发现还是非常简单的，只要清晰了具体概念，实现方式就可以随意发挥了（至于可读性，简易性当然各有千秋）。 什么是快排  从数列中挑出一个元素，称为“基准”（pivot）， 重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（相同的数可以到任何一边）。在这个分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/442688-0fea49275a80346b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T06:34:02.293Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="快排其实很简单">
+<meta name="twitter:description" content="大学时期，老师只讲了课本上快排的一种实现方式，当时学的云里雾里，最近调研一下知乎上的一些实现方式，总结归纳了一下，发现还是非常简单的，只要清晰了具体概念，实现方式就可以随意发挥了（至于可读性，简易性当然各有千秋）。 什么是快排  从数列中挑出一个元素，称为“基准”（pivot）， 重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（相同的数可以到任何一边）。在这个分">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/442688-0fea49275a80346b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 快排其实很简单 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="快排其实很简单"> 快排其实很简单 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2018-09-09T22:36:12+08:00" content="2018-09-09">
+              2018-09-09
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#数据结构与算法" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>大学时期，老师只讲了课本上快排的一种实现方式，当时学的云里雾里，最近调研一下知乎上的一些实现方式，总结归纳了一下，发现还是非常简单的，只要清晰了具体概念，实现方式就可以随意发挥了（至于可读性，简易性当然各有千秋）。</p>
+<h2 id="什么是快排"><a href="#什么是快排" class="headerlink" title="什么是快排"></a>什么是快排</h2><blockquote>
+<ol>
+<li>从数列中挑出一个元素，称为“基准”（pivot），</li>
+<li>重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（相同的数可以到任何一边）。在这个分区结束之后，该基准就处于数列的中间位置。这个称为<strong>分区（partition）</strong>操作。</li>
+<li><a href="https://zh.wikipedia.org/wiki/%E9%80%92%E5%BD%92" title="递归" target="_blank" rel="noopener">递归</a>地（recursively）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+</ol>
+</blockquote>
+<p><strong>换种说法</strong></p>
+<blockquote>
+<ol>
+<li>随意找个对比基准</li>
+<li>将所有小于 <strong>基准</strong> 的元素放到它前面，大于它的放到后面，这样该基准的位置即为它的最终位置（不然呢？）</li>
+<li>递归地切分基准左右两侧的子列表，重复 1</li>
+</ol>
+</blockquote>
+<p>有木有感觉清晰了很多~<br>再看一下执行中递归的结构树：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/442688-0fea49275a80346b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="quickSort.png"></p>
+<p>从图中可以看出，排序是自上而下的，快排的排序操作应当是在递进的过程中, 整个过程中，除了叶子每一个元素都是基准元素。</p>
+<h2 id="Code-Time"><a href="#Code-Time" class="headerlink" title="Code Time"></a>Code Time</h2><h3 id="错误的示例"><a href="#错误的示例" class="headerlink" title="错误的示例"></a>错误的示例</h3><p>这里只要写好最核心的一步（对树单层中基准位置的调整）函数，再配合基本的递归结构，就 OK 了。在知乎上找了一个比较清晰的一种实现方式：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 作为递归的入口</span></span><br><span class="line"><span class="comment"> * @left 当前函数帧中输入数组的起始点</span></span><br><span class="line"><span class="comment"> * @right 当前函数帧中输入数组的终点</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr, left, right</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> i = correctPivot(arr, left, right)</span><br><span class="line">  <span class="keyword">if</span>(curPivot &gt; i) quickSort(arr, left, i)</span><br><span class="line">  <span class="keyword">if</span>(curPivot &lt; i) quickSort(arr, i + <span class="number">1</span>, right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">correctPivot</span>(<span class="params">arr, i, j</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> mid = arr[<span class="built_in">Math</span>.floor((i + j)/<span class="number">2</span>)]</span><br><span class="line">  <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">    <span class="keyword">while</span>(arr[i] &lt; mid) i++</span><br><span class="line">    <span class="keyword">while</span>(arr[j] &gt; mid) j--</span><br><span class="line">    <span class="keyword">if</span>(i&lt;=j) &#123;</span><br><span class="line">      swap(arr, i, j) <span class="comment">// 交换 i 和 j 位置上的元素，很简单，用辅助变量 tmp</span></span><br><span class="line">      i++, j--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将原代码拆分为了如上函数，经过模拟分析，发现这个核心函数就是错的，它以 i 和 j 最终汇合的地点为新的切分点，而不是当前基准点的位置，因此基准很可能依旧在待排序的子数组中，这样在接下来的层级中，依旧还需要对老的基准进行对比（移动不会，因为已经是到最终的位置了），这样无形间增加了时间复杂度，完全违背了利用分治来分解问题的初衷，而且还可能因为条件判断异常导致栈溢出。</p>
+<h3 id="《数据结构》课本上的解法"><a href="#《数据结构》课本上的解法" class="headerlink" title="《数据结构》课本上的解法"></a>《数据结构》课本上的解法</h3><p>因为我是计科科班出身，因此有必要晒一下被教育部认可的排序算法：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr, first, end</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(first &gt;= end) <span class="keyword">return</span> <span class="comment">// 递归到叶子节点</span></span><br><span class="line">   </span><br><span class="line">  <span class="keyword">const</span> pivot = correctPivot(arr, first, end)</span><br><span class="line">  quickSort(arr, first, pivot - <span class="number">1</span>)</span><br><span class="line">  quickSort(arr, pivot + <span class="number">1</span>, end)  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">correctPivot</span>(<span class="params">arr, first, end</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(first &lt; end) &#123;</span><br><span class="line">    <span class="keyword">while</span>(first &lt; end &amp;&amp; arr[first] &lt;= arr[end]) end-- <span class="comment">// 右侧扫描</span></span><br><span class="line">    <span class="keyword">if</span>(first &lt; end) &#123;</span><br><span class="line">      swap(arr, fist, end)</span><br><span class="line">      first++</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(first &lt; end &amp;&amp; arr[first] &lt;= arr[end]) first++ <span class="comment">// 左侧扫描</span></span><br><span class="line">    <span class="keyword">if</span>(first &lt; end) &#123;</span><br><span class="line">      swap(arr, fist, end)</span><br><span class="line">      end--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> first</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在已知 <code>corretPivot</code> 函数返回的是基准最终的位置，因此我们只需要不断操作最终得到它的 index 即可。</p>
+<p><strong>解析 correctPivot</strong></p>
+<ol>
+<li>由于在移动 first 和 end 的时候，二者重合之际即是基准的最终位置</li>
+<li>这里我们是默认以第一个元素为基准，扫描基准右侧，让 end 向左一直移动到比基准小的元素的位置，然后交换基准与该元素的位置，此时该元素已经确定在基准左侧，所以不再处于对比范围（因为我们只是在找基准的位置，无需关心基准以外元素的状态，只需记住小于基准的一定都要在左侧，大于之的在另一侧），故 first 后移</li>
+<li>开始扫描（基准的）左侧，一直移动到比基准大的位置（表示该数应处于基准的右侧），交换之，end 前移。</li>
+<li>重复 2、3 步骤</li>
+</ol>
+<p>其实在每次扫描时，都能够让基准处于 first 或者 end 的位置上，比如扫描完右侧，那么基准必然是会在 end 的位置，反之依然。这里对一侧可以简单的理解为基准的另一侧。在交换之前，每次在移动游标（first 或者 end） 的时候，都是在顺序地排除比基准都大（小）的元素，缩小对比范围，每次的比较范围都是 first~end，直到 <code>first === end</code> 时，表示它两侧都是比它小或大的元素。</p>
+<h3 id="《算法导论》"><a href="#《算法导论》" class="headerlink" title="《算法导论》"></a>《算法导论》</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">correctPivot</span>(<span class="params">arr, l, r</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> m = l - <span class="number">1</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = l; i &lt;= r; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] &lt; arr[r]) &#123;</span><br><span class="line">      swap(++m, i)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(m+<span class="number">1</span>, r)</span><br><span class="line">  <span class="keyword">return</span> m + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有木有太简单了，只用了一次循环就搞定了基准的位置。</p>
+<p><strong>解析</strong><br>先确定一件事，就是 m + 1 才是基准的最终位置，而我们每一次执行函数都是以最后一个元素为基准的。</p>
+<ol>
+<li>前移 m</li>
+<li>从前向后遍历整个数组（这里指的是 l ~ r 范围内的部分）, 如果发现该元素小于基准，则后移 m，并将当前元素和 m 位置上的元素交换。（这里相当于是把小于基准的所有元素都插入到 m 的位置）</li>
+<li>循环结束，m 的位置为最后一个比基准小的元素。</li>
+<li>将基准移动到 m + 1 的位置，结束。</li>
+</ol>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是快排"><span class="nav-text">什么是快排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Time"><span class="nav-text">Code Time</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误的示例"><span class="nav-text">错误的示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#《数据结构》课本上的解法"><span class="nav-text">《数据结构》课本上的解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#《算法导论》"><span class="nav-text">《算法导论》</span></a></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#数据结构" rel="tag">#数据结构</a>
+        
+          <a href="/tags#排序" rel="tag">#排序</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

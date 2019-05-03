@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="数据结构,排序,">
+
+
+<meta name="description" content="本来是要探究多路归并的最优解的，却无意间碰到了归并排序，那就深入了解一下吧。 先来了解一下什么是 分治法。 大体思路  将集合看作是 n 个长度为 1 的有序子表 两两归并，得到 n/2 个长度为 2 的子表   叶子结点即是数据的初态，根节点为排序之后的结果。由于分治法的实现应用常常以递归的形式出现，结合递归也是操作树结构最经典方式，由此可见递归没跑了。 递归一般由两个步骤组成：   递进过程">
+<meta name="keywords" content="数据结构,排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="归并排序">
+<meta property="og:url" content="http://poberwong.com/2018/09/09/归并排序/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="本来是要探究多路归并的最优解的，却无意间碰到了归并排序，那就深入了解一下吧。 先来了解一下什么是 分治法。 大体思路  将集合看作是 n 个长度为 1 的有序子表 两两归并，得到 n/2 个长度为 2 的子表   叶子结点即是数据的初态，根节点为排序之后的结果。由于分治法的实现应用常常以递归的形式出现，结合递归也是操作树结构最经典方式，由此可见递归没跑了。 递归一般由两个步骤组成：   递进过程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-50e33db629b6377d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2019-05-03T06:35:20.293Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="归并排序">
+<meta name="twitter:description" content="本来是要探究多路归并的最优解的，却无意间碰到了归并排序，那就深入了解一下吧。 先来了解一下什么是 分治法。 大体思路  将集合看作是 n 个长度为 1 的有序子表 两两归并，得到 n/2 个长度为 2 的子表   叶子结点即是数据的初态，根节点为排序之后的结果。由于分治法的实现应用常常以递归的形式出现，结合递归也是操作树结构最经典方式，由此可见递归没跑了。 递归一般由两个步骤组成：   递进过程">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-50e33db629b6377d.gif?imageMogr2/auto-orient/strip">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 归并排序 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="归并排序"> 归并排序 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2018-09-09T21:51:27+08:00" content="2018-09-09">
+              2018-09-09
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#数据结构与算法" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>本来是要探究多路归并的最优解的，却无意间碰到了归并排序，那就深入了解一下吧。</p>
+<p>先来了解一下什么是 <a href="https://zh.wikipedia.org/wiki/%E5%88%86%E6%B2%BB%E6%B3%95" target="_blank" rel="noopener">分治法</a>。</p>
+<h2 id="大体思路"><a href="#大体思路" class="headerlink" title="大体思路"></a>大体思路</h2><blockquote>
+<ol>
+<li>将集合看作是 n 个长度为 1 的有序子表</li>
+<li>两两归并，得到 n/2 个长度为 2 的子表</li>
+</ol>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-50e33db629b6377d.gif?imageMogr2/auto-orient/strip" alt="image"><br>叶子结点即是数据的初态，根节点为排序之后的结果。由于分治法的实现应用常常以递归的形式出现，结合递归也是操作树结构最经典方式，由此可见递归没跑了。</p>
+<p>递归一般由两个步骤组成：</p>
+<blockquote>
+<ol>
+<li>递进过程</li>
+<li>回归过程  </li>
+</ol>
+</blockquote>
+<p>由于我们的排序是自下而上进行归并排序的，可以得出对原数据的切分，应该是处于递进的过程，也就是整个递归栈被构建的过程。而核心排序应该是位于调用栈里每一个函数帧在弹栈时，对上一帧后续代码的执行中。这里应该再来一张图来描述递进的过程中将每一个数据切分到叶子节点上的示例。<br><em>温馨提示：大脑中应当正确地模拟栈的整个操作，有注意理解函数的执行过程</em></p>
+<h2 id="Code-Time"><a href="#Code-Time" class="headerlink" title="Code Time"></a>Code Time</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span>(<span class="params">arr, first, last</span>) </span>&#123; <span class="comment">// 构建递归结构</span></span><br><span class="line">  <span class="keyword">if</span>(last - first &lt; <span class="number">1</span>) &#123; <span class="comment">// 递进结束，已经到叶子节点，开始弹栈回归</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> middle = <span class="built_in">Math</span>.floor((first + last) / <span class="number">2</span>)</span><br><span class="line">  mergeSort(arr, first, middle) <span class="comment">// 开始构建递归树</span></span><br><span class="line">  mergeSort(arr, middle + <span class="number">1</span>, last)</span><br><span class="line">  </span><br><span class="line">  sortCurArr(arr, first, last, middle) <span class="comment">// 当前节点的子树执行完毕弹栈后，开始排序当前 first~last 的子数组</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对当前范围的元素开始排序</span></span><br><span class="line"><span class="comment"> * 由于是递归回归过程中调用的部分，因此可以得出 middle 左右两侧的数据都是有序的，</span></span><br><span class="line"><span class="comment"> * 因为插入排序对于相对有序的数据集来说效率是最高的，因此我们采用了改进后的插入排序</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sortCurArr</span>(<span class="params">arr, first, last, middle</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> tmp <span class="comment">// 插入排序的辅助变量</span></span><br><span class="line">  <span class="keyword">while</span>(middle &gt;= first &amp;&amp; middle + <span class="number">1</span>&lt;= last) &#123; <span class="comment">// 终止条件为</span></span><br><span class="line">    <span class="keyword">if</span>(arr[middle+<span class="number">1</span>] &lt;= arr[first]) &#123;</span><br><span class="line">      tmp = arr[middle + <span class="number">1</span>] <span class="comment">// 临时取出要插入的元素</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> i = middle; i &gt;= first; i--) &#123; <span class="comment">// 并将从要插入的位置开始到当前临界位置的元素一律后移，并插入</span></span><br><span class="line">        arr[i+<span class="number">1</span>] = arr[i]</span><br><span class="line">      &#125;</span><br><span class="line">      arr[first] = tmp</span><br><span class="line">      middle++</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      first++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>改进后的插入排序</strong>：<br>正常的插入排序是从数据集第二个元素开始向前方合适的位置插入，时间复杂度计算方式为阶乘，值为 O(n^2)。<br>这里不同的是，我们以 <code>middle</code> 之前的部分作为被插入的集合，之后的部分作为插入排序中无序的部分（实际上是有序的）。插入一次后，<code>middle++</code> 可以理解，优化的部分就在于对 <code>first</code> 的自增，由于我们知道后半部分实际上是有序的，因此在我们得知要插入的元素大于前方有序集合中的 <em>某元素</em> 时，可以推断出要插入的该元素后方的元素也同样大于前方有序的 <em>某元素</em>, 因此 <em>某元素</em> 及其之前的部分就可以从对比的范围中剔除掉了。</p>
+<h2 id="小谈"><a href="#小谈" class="headerlink" title="小谈"></a>小谈</h2><p>起初让我不解的部分是：一般回归中操作数据，都会以返回数据值的方式来与弹栈之后的栈顶函数进行通信连接，这里并没有取递归的结果，更没有返回，只是以 <code>return</code> 结束递进。后来发现，递进的过程中，每次都使用的是原数组，而 <code>sortCurArr</code> 则是直接操作原数组，调用栈里每一帧作用域中的输入数组 —— <em>有序子表</em> 都是以原数组加上 <code>first</code> 和 <code>last</code> 进行标记生成的虚拟数组，因此函数调用结束后，只是将原数组的局部进行了重排。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
+<li><a href="http://bubkoo.com/2014/01/15/sort-algorithm/merge-sort/" target="_blank" rel="noopener">常见排序算法 - 归并排序 (Merge Sort)</a></li>
+</ul>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大体思路"><span class="nav-text">大体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Time"><span class="nav-text">Code Time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小谈"><span class="nav-text">小谈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-text">参考：</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#数据结构" rel="tag">#数据结构</a>
+        
+          <a href="/tags#排序" rel="tag">#排序</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

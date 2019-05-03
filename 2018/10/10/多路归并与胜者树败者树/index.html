@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="数据结构,排序,">
+
+
+<meta name="description" content="多路归并从 O(nk) 到 O(nlogn) 的优化切入点为在每次寻找最值上。我们可以利用堆、胜者树败者树这种每次调整堆拿到最值，只需要 O(logn) 复杂度的结构，这样我们就把多路归并的问题转嫁到了取最值的问题。（这里使用最小值举例） 堆N 个数求最值，可以使用大根堆或者小根堆来实现，使用堆排序的核心子程序，在构建堆完毕之后，取根，使用下一个数替换，并重新调整堆，得出下一个最值，并反复之。注意">
+<meta name="keywords" content="数据结构,排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多路归并与胜者树败者树">
+<meta property="og:url" content="http://poberwong.com/2018/10/10/多路归并与胜者树败者树/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="多路归并从 O(nk) 到 O(nlogn) 的优化切入点为在每次寻找最值上。我们可以利用堆、胜者树败者树这种每次调整堆拿到最值，只需要 O(logn) 复杂度的结构，这样我们就把多路归并的问题转嫁到了取最值的问题。（这里使用最小值举例） 堆N 个数求最值，可以使用大根堆或者小根堆来实现，使用堆排序的核心子程序，在构建堆完毕之后，取根，使用下一个数替换，并重新调整堆，得出下一个最值，并反复之。注意">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/442688-c05c5c7aebdad905.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/442688-4716d133056671a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T06:29:35.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多路归并与胜者树败者树">
+<meta name="twitter:description" content="多路归并从 O(nk) 到 O(nlogn) 的优化切入点为在每次寻找最值上。我们可以利用堆、胜者树败者树这种每次调整堆拿到最值，只需要 O(logn) 复杂度的结构，这样我们就把多路归并的问题转嫁到了取最值的问题。（这里使用最小值举例） 堆N 个数求最值，可以使用大根堆或者小根堆来实现，使用堆排序的核心子程序，在构建堆完毕之后，取根，使用下一个数替换，并重新调整堆，得出下一个最值，并反复之。注意">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/442688-c05c5c7aebdad905.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 多路归并与胜者树败者树 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="多路归并与胜者树败者树"> 多路归并与胜者树败者树 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2018-10-10T11:45:22+08:00" content="2018-10-10">
+              2018-10-10
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#数据结构与算法" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>多路归并从 O(nk) 到 O(nlogn) 的优化切入点为在每次寻找最值上。我们可以利用堆、胜者树败者树这种每次调整堆拿到最值，只需要 O(logn) 复杂度的结构，这样我们就把多路归并的问题转嫁到了取最值的问题。（这里使用最小值举例）</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>N 个数求最值，可以使用大根堆或者小根堆来实现，使用堆排序的核心子程序，在构建堆完毕之后，取根，使用下一个数替换，并重新调整堆，得出下一个最值，并反复之。<br><strong>注意</strong><br>与堆排序不同的是，我们在提取出 k 路的第一个元素组成新的待筛选数据集合之后，应当使用一个新的等长的辅助数组来记录对应数据集的下标，因为带筛选数据集合代表着 k 路之间的相对顺序。我们需要使用辅助数组来进行建堆，这样辅助数组中的第一个元素的值即是最值，然后将对应下标的数据集的值换为对应 k 路的下一个值，并开始对新的根进行筛选调整堆即可。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对 index 所在的节点进行堆调整</span></span><br><span class="line"><span class="comment"> *（建堆的时候是一度和二度节点，取根后调整堆的时候则是根节点）</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">minHeapify</span>(<span class="params">arr, index, heapSize, dataArr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> iMin = index, iLeft = <span class="number">2</span> * index + <span class="number">1</span>, <span class="number">2</span> * (index + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">if</span>(iLeft &lt; heapSize &amp;&amp; dataArr[arr[index]] &gt; dataArr[arr[iLeft]]) &#123;</span><br><span class="line">    iMin = iLeft</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(iRight &lt; heapSize &amp;&amp; dataArr[arr[iMin]] &gt; dataArr[arr[iRight]]) &#123;</span><br><span class="line">    iMin = iRight</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(iMin !== index) &#123;</span><br><span class="line">    swap(arr, iMax, index)</span><br><span class="line">    minHeapify(arr, iMax, heapSize, dataArr)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  将初始的无序数组调整为小根堆</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildMinHeap</span>(<span class="params">arr, heapSize, dataArr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> iParent = <span class="built_in">Math</span>.floor((heapSize - <span class="number">1</span>) / <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = iParent; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    minHeapify(arr, i, heapSize, dataArr)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @ways 二维数组，存放多路数据</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">const</span> MAX = <span class="number">10000</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiWayMerge</span> (<span class="params">ways</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dataArr = ways.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> (&#123;<span class="attr">value</span>: item[<span class="number">0</span>], <span class="attr">index</span>: <span class="number">0</span>&#125;)) <span class="comment">// 通过记录 index 来追溯同路中前后两个节点</span></span><br><span class="line">  , heapArr = dataArr.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> index)</span><br><span class="line">  , res = []</span><br><span class="line">  , leftWaysCount = ways.length</span><br><span class="line">  buildMinHeap(heapArr, heapArr.length，dataArr)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; value, index &#125; = dataArr[heapArr[<span class="number">0</span>]]</span><br><span class="line">  <span class="keyword">while</span> (leftWaysCount &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    res.push(dataArr[heapArr[<span class="number">0</span>]].value)</span><br><span class="line">    <span class="keyword">if</span> (ways[heapArr[<span class="number">0</span>]][index + <span class="number">1</span>]) &#123;</span><br><span class="line">      dataArr[heapArr[<span class="number">0</span>]] = &#123;</span><br><span class="line">        value: ways[heapArr[<span class="number">0</span>]][++index]</span><br><span class="line">        index</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      dataArr[heapArr[<span class="number">0</span>]] = &#123;<span class="attr">value</span>: MAX&#125;</span><br><span class="line">      leftWaysCount --</span><br><span class="line">    &#125;</span><br><span class="line">    minHeapify(heapArr, <span class="number">0</span>, heapArr.length, dataArr)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res.concat(ways[heapArr[<span class="number">0</span>]].slice(index))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在调整堆的时候，只需要将比较对象换成数据集里的数据即可。</p>
+<h2 id="败者树"><a href="#败者树" class="headerlink" title="败者树"></a>败者树</h2><h3 id="何为败者树？"><a href="#何为败者树？" class="headerlink" title="何为败者树？"></a>何为败者树？</h3><p>首先使用一个和数据集等长大小的树，其中 0 用来存储冠军，其他节点用来存储失败者。大概流程是将叶子结点和父节点去秋名山 PK，失败者留下 <strong>车标</strong>（下标），胜利者继续向上 PK。每一个节点统统比较一次，来初始化树。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/442688-c05c5c7aebdad905.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 调整败者树</span><br><span class="line"> * @winner 数据叶子中冠军的位置, 每次冠军被该路中的新数据置换掉之后，需要更新败者树，从而得出心得优胜者</span><br><span class="line"> **/</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">adjustLt</span> <span class="params">(tree, dataArr, winner)</span> &#123;</span></span><br><span class="line">  <span class="keyword">let</span> parent = Math.<span class="built_in">floor</span>((tree.length + winner) / <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">while</span> (parent &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (tree[winner] &gt; tree[tree[parent]]) &#123; // winner 失败了</span><br><span class="line">      <span class="keyword">let</span> tmp = tree[parent]</span><br><span class="line">      tree[parent] = winner</span><br><span class="line">      winner = tmp</span><br><span class="line">    &#125;</span><br><span class="line">    parent = Math.<span class="built_in">floor</span>(parent / <span class="number">2</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  tree[<span class="number">0</span>] = winner</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * tree 长度为 dataArr 的长度，为 <span class="keyword">m</span></span><br><span class="line"> **/</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildLt</span> <span class="params">(tree, dataArr)</span> &#123;</span></span><br><span class="line">  tree = dataArr.<span class="keyword">map</span>((item, <span class="built_in">index</span>) =&gt; <span class="built_in">index</span>)</span><br><span class="line">  dataArr.<span class="keyword">map</span>((item, <span class="built_in">index</span>) =&gt; &#123;</span><br><span class="line">    adjustLt(tree, dataArr, <span class="built_in">index</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiWayMerge</span> <span class="params">(ways)</span> &#123;</span></span><br><span class="line">   const dataArr = ways.<span class="keyword">map</span>((item, <span class="built_in">index</span>) =&gt; (&#123;value: item[<span class="number">0</span>], <span class="built_in">index</span>: <span class="number">0</span>&#125;)) // 通过记录 <span class="built_in">index</span> 来追溯同路中前后两个节点</span><br><span class="line">    , tree = []</span><br><span class="line">    , <span class="keyword">res</span> = []</span><br><span class="line">    , leftWaysCount = ways.length</span><br><span class="line">  buildLt(tree, dataArr)</span><br><span class="line"></span><br><span class="line">  const &#123; value, <span class="built_in">index</span> &#125; = dataArr[tree[<span class="number">0</span>]]</span><br><span class="line">  <span class="keyword">while</span> (leftWaysCount &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">res</span>.push(value)</span><br><span class="line">    <span class="keyword">if</span> (ways[tree[<span class="number">0</span>]][++<span class="built_in">index</span>]) &#123;</span><br><span class="line">      dataArr[tree[<span class="number">0</span>]] = &#123;</span><br><span class="line">        value: ways[tree[<span class="number">0</span>]][<span class="built_in">index</span>]</span><br><span class="line">        <span class="built_in">index</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      dataArr[tree[<span class="number">0</span>]] = &#123;value: MAX&#125;</span><br><span class="line">      leftWaysCount --</span><br><span class="line">    &#125;</span><br><span class="line">    adjustLt(tree, dataArr, tree[<span class="number">0</span>])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">res</span>.concat(ways[tree[<span class="number">0</span>]].slice(<span class="built_in">index</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="胜者树"><a href="#胜者树" class="headerlink" title="胜者树"></a>胜者树</h2><h3 id="何为胜者树？"><a href="#何为胜者树？" class="headerlink" title="何为胜者树？"></a>何为胜者树？</h3><p>将数据集合作为叶子结点构建一颗完全二叉树，将叶子的值两两比较，优胜者记录于父节点中，依次往上，最终的胜出者即为最值。</p>
+<h3 id="在叶子结点发生变动之后，怎么重新调整呢？"><a href="#在叶子结点发生变动之后，怎么重新调整呢？" class="headerlink" title="在叶子结点发生变动之后，怎么重新调整呢？"></a>在叶子结点发生变动之后，怎么重新调整呢？</h3><p>类似于堆的筛选，我们只需要按照同样的策略，在新的叶子结点的位置一步步更新左或者右子树的一个分支，因为不论是胜者树还是败者树，叶子的更改不会影响到其他无关小组赛的结果。（用通俗的话讲，冠军的替补上场后，替补不论在初赛中赢还是输，新晋者都会对树的某分支产生印象，这里的影响有两种：替补依旧是冠军，替补不是冠军，有新的晋级者）</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/442688-4716d133056671a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">adjustWt</span> (<span class="params">tree, winner</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> parent = <span class="built_in">Math</span>.floor(winner / <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">let</span> brother = winner % <span class="number">2</span> ? winner + <span class="number">1</span> : winner - <span class="number">1</span></span><br><span class="line">    tree[parent] = tree[brother].value &gt; tree[winner].value ? tree[winner] : tree[brother]</span><br><span class="line">    <span class="keyword">if</span>(parent === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">    winner = parent</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tree 的大小为 dataArr 长度 - 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildWt</span> (<span class="params">tree, dataArr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> treeSize = dataArr.length - <span class="number">1</span></span><br><span class="line">  dataArr = dataArr.map(<span class="function">(<span class="params">value, index</span>) =&gt;</span> (&#123;value, index&#125;))</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = treeSize - <span class="number">2</span>; i &gt;= <span class="number">0</span> i--) &#123; </span><br><span class="line">    <span class="keyword">let</span> leftChild = <span class="number">2</span> * i + <span class="number">1</span>, rightChild = <span class="number">2</span> * (i + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">let</span> leftNode = leftChild &gt; treeSize - <span class="number">1</span> ? dataArr[leftChild - treeSize] : tree[leftChild]</span><br><span class="line">    <span class="keyword">let</span> rightNode = rightChild &gt; treeSize - <span class="number">1</span> ? dataArr[rightChild - treeSize] : tree[rightChild]</span><br><span class="line">    tree[i] = leftNode.value &gt; rightNode.value ? &#123;...rightNode&#125; : &#123;...leftNode&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  tree.push(...dataArr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆"><span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#败者树"><span class="nav-text">败者树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为败者树？"><span class="nav-text">何为败者树？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#胜者树"><span class="nav-text">胜者树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为胜者树？"><span class="nav-text">何为胜者树？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在叶子结点发生变动之后，怎么重新调整呢？"><span class="nav-text">在叶子结点发生变动之后，怎么重新调整呢？</span></a></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#数据结构" rel="tag">#数据结构</a>
+        
+          <a href="/tags#排序" rel="tag">#排序</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
