@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="高阶组件,反向继承,">
+
+
+<meta name="description" content="阅读这篇文章之前，可以先拜读一下这篇文章 React 进阶之高阶组件 了解一下高阶组件的概念及几种使用方式。 高阶函数科普引自 React 进阶之高阶组件 什么是高阶函数 我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.A higher-order component is a function that takes a compo">
+<meta name="keywords" content="高阶组件,反向继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高阶函数 - React 中反向继承的应用">
+<meta property="og:url" content="http://poberwong.com/2018/01/31/高阶函数-React-中反向继承的应用/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="阅读这篇文章之前，可以先拜读一下这篇文章 React 进阶之高阶组件 了解一下高阶组件的概念及几种使用方式。 高阶函数科普引自 React 进阶之高阶组件 什么是高阶函数 我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.A higher-order component is a function that takes a compo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-03T08:16:03.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高阶函数 - React 中反向继承的应用">
+<meta name="twitter:description" content="阅读这篇文章之前，可以先拜读一下这篇文章 React 进阶之高阶组件 了解一下高阶组件的概念及几种使用方式。 高阶函数科普引自 React 进阶之高阶组件 什么是高阶函数 我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.A higher-order component is a function that takes a compo">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 高阶函数 - React 中反向继承的应用 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="高阶函数 - React 中反向继承的应用"> 高阶函数 - React 中反向继承的应用 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2018-01-31T19:32:04+08:00" content="2018-01-31">
+              2018-01-31
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>阅读这篇文章之前，可以先拜读一下这篇文章 <a href="https://juejin.im/post/595243d96fb9a06bbd6f5ccd" target="_blank" rel="noopener">React 进阶之高阶组件</a> 了解一下高阶组件的概念及几种使用方式。</p>
+<h2 id="高阶函数科普"><a href="#高阶函数科普" class="headerlink" title="高阶函数科普"></a>高阶函数科普</h2><p><em>引自 <a href="https://juejin.im/post/595243d96fb9a06bbd6f5ccd" target="_blank" rel="noopener">React 进阶之高阶组件</a></em></p>
+<h3 id="什么是高阶函数"><a href="#什么是高阶函数" class="headerlink" title="什么是高阶函数"></a>什么是高阶函数</h3><blockquote>
+<p>我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.<br>A higher-order component is a function that takes a component and returns a new component.</p>
+</blockquote>
+<h3 id="什么是反向继承"><a href="#什么是反向继承" class="headerlink" title="什么是反向继承"></a>什么是反向继承</h3><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="comment">//IIHOC</span></span><br><span class="line"><span class="keyword">import</span> <span class="type">React</span> from <span class="symbol">'reac</span>t';</span><br><span class="line"></span><br><span class="line">const iiHoc = <span class="type">WrappedComponent</span> =&gt; <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      console.log(<span class="keyword">this</span>.state, <span class="symbol">'stat</span>e');</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">super</span>.render();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export <span class="keyword">default</span> iiHoc;</span><br></pre></td></tr></table></figure>
+<p>可以看到，上面的代码通过继承WrappedComponent，本来是一种嵌套的关系，结果II返回的组件却继承了WrappedComponent，这看起来是一种反转的关系。 通过继承WrappedComponent，除了一些静态方法，包括生命周期，state，各种function，我们都可以得到。</p>
+<h2 id="从理论到需求"><a href="#从理论到需求" class="headerlink" title="从理论到需求"></a>从理论到需求</h2><p><em>以下内容是我在项目中第二次使用到高阶函数，第一次在另一篇文章里—— <a href="https://baidu.com" target="_blank" rel="noopener">高阶函数-属性代理在多表单中的应用</a></em></p>
+<h3 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h3><p>本次实践是在 React Native 开发中使用 <code>react-navigation</code>  发生的。项目的路由管理大致是分为三个路由 —— 注册逻辑路由、主页面路由、首次注册配置路由，然后再顶层容器里通过登陆状态控制使用具体哪一个路由。</p>
+<p>在某一个路由的顶层容器中，代码如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> SCREENS = &#123;</span><br><span class="line"> LoginScreen,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本模块的数据逻辑：</span></span><br><span class="line"><span class="comment"> * 1. 凡是点下一步的页面数据才会被保存</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">@observer</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">    <span class="keyword">this</span>.setting = <span class="keyword">new</span> SettingStore()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  addProps = <span class="function">(<span class="params">SomeComponent</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">SomeComponent</span> </span>&#123;</span><br><span class="line">      render () &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">SomeComponent</span> &#123;<span class="attr">...this.props</span>&#125; /&gt;</span> // u can add more props here</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  getScreens () &#123;</span></span><br><span class="line"><span class="xml">    const screens = &#123;&#125;</span></span><br><span class="line"><span class="xml">    Object.keys(SCREENS).forEach(key =&gt; &#123;</span></span><br><span class="line"><span class="xml">      screens[key] = &#123;</span></span><br><span class="line"><span class="xml">        screen: this.addProps(SCREENS[key])</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">    &#125;)</span></span><br><span class="line"><span class="xml">    return screens</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  render () &#123;</span></span><br><span class="line"><span class="xml">    const Navigator = StackNavigator(</span></span><br><span class="line"><span class="xml">      this.getScreens(),</span></span><br><span class="line"><span class="xml">      &#123;</span></span><br><span class="line"><span class="xml">        initialRouteName: settingEntrance</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">    )</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    return ( // 直接包裹 Navigator 无法传递 store</span></span><br><span class="line">      &lt;Provider setting=&#123;this.setting&#125;&gt;</span><br><span class="line">        &lt;Navigator /&gt;</span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span></span><br><span class="line"><span class="xml">    )</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个页面的主要功能就是组织并生成子路由，这里需要做的主要是利用了 mobx-react 提供的 Provider 组件来向所有的子孙元素传递我们生成的局部全局 store。那么问题来了，我们如果想给所有子元素（注意不是子孙元素）添加任意的配置属性怎么办？</p>
+<p>在查了 <code>react-navigation</code> 文档之后，得到了这样一个属性，<code>screenProps</code>, 具体使用方法是<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;Navigator screenProps=&#123;...&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>大致意思是有了这个属性我们可以在任意一个页面中使用 <code>this.props.screenProps</code> 来在每个页面中访问该全局属性。按这样还是不够爽，这样所有的属性都需要使用 <code>this.props.screenProps.xxx</code> 来访问，我们想直接通过 <code>this.props.xxx</code> 来访问，此时就想到了高阶函数。</p>
+<h3 id="show-me-the-code"><a href="#show-me-the-code" class="headerlink" title="show me the code"></a>show me the code</h3><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">addProps = <span class="type">SomeComponent</span> =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">SomeComponent</span> </span>&#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">      <span class="keyword">return</span> &lt;<span class="type">SomeComponent</span> &#123;...<span class="keyword">this</span>.props&#125; /&gt; <span class="comment">// u can add more props here</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最为核心的就是以上代码了，我们可以在给 <code>StackNavigator</code> 设置页面参数（这里我是通过 <code>getScreens</code> 方法来生成的）加入页面 class 的时候，我们可以通过高阶组件生成一个新的组件。</p>
+<p>最开始版本的代码是这样的<br><figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">addProps = <span class="type">SomeComponent</span> =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">      <span class="keyword">return</span> &lt;<span class="type">SomeComponent</span> &#123;...<span class="keyword">this</span>.props&#125; /&gt; <span class="comment">// u can add more props here</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用的是属性代理模式，需要做的就两点：</p>
+<ol>
+<li>将高阶组件所收到的所有 props 照搬传递给 <code>SomeComponent</code> </li>
+<li>将我们想要添加的属性可以像如下方式添加<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">addProps = <span class="function"><span class="params">SomeComponent</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">SomeComponent</span> &#123;<span class="attr">...this.props</span>&#125; <span class="attr">xxx</span>=<span class="string">&#123;that.xxx&#125;/</span>&gt;</span> // u can add more props here</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>到这里，我以为万事大吉了，然而 …. 在渲染的时候，发现我设置的 NavigationBar 的标题怎么也渲染不出来，似乎所有页面中关于<br> navigationOptions 静态属性的设置都无法生效。</p>
+<h3 id="反向继承的救场"><a href="#反向继承的救场" class="headerlink" title="反向继承的救场"></a>反向继承的救场</h3><p>此时突然想到，属性代理本质上是返回了一个全新的 Component，此时原组件的静态属性、生命周期等一系列内容都被屏蔽，导致上层的高阶组件、对组件的操作都拿不到应有的内容。而反向继承恰好可以解决这个问题。<br>最终的代码将是这样的：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">addProps = <span class="function"><span class="params">SomeComponent</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">SomeComponent</span> </span>&#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">SomeComponent</span> &#123;<span class="attr">...this.props</span>&#125; <span class="attr">xxx</span>=<span class="string">&#123;that.xxx&#125;/</span>&gt;</span> // u can add more props here</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>此时需要注意的是，这里我们利用反向继承是为了保留 SomeCompoennt 所有的内容，同时为了满足我们注入 props 的目的，只好不再调用 super.render(),  此时我们借用了属性代理的方式返回了父类组件，因此还得手动传入 props （尴尬）。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>当然，如果你不想用官方提供的 navigationbar，不论是反向继承还是属性代理就已经无所谓了，此时只需要在 StackNavigator 配置文件里加上 headerMode: ‘none’ 隐藏默认导航栏即可。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#高阶函数科普"><span class="nav-text">高阶函数科普</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是高阶函数"><span class="nav-text">什么是高阶函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是反向继承"><span class="nav-text">什么是反向继承</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从理论到需求"><span class="nav-text">从理论到需求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用背景"><span class="nav-text">使用背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#show-me-the-code"><span class="nav-text">show me the code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向继承的救场"><span class="nav-text">反向继承的救场</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#高阶组件" rel="tag">#高阶组件</a>
+        
+          <a href="/tags#反向继承" rel="tag">#反向继承</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="高阶组件,属性代理,">
+
+
+<meta name="description" content="阅读这篇文章之前，可以先拜读一下这篇文章 React 进阶之高阶组件 了解一下高阶组件的概念及几种使用方式。 高阶函数科普引自 React 进阶之高阶组件 什么是高阶函数 我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.A higher-order component is a function that takes a compo">
+<meta name="keywords" content="高阶组件,属性代理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高阶函数 - 属性代理在多表单中的应用">
+<meta property="og:url" content="http://poberwong.com/2018/02/06/高阶函数-属性代理在多表单中的应用/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="阅读这篇文章之前，可以先拜读一下这篇文章 React 进阶之高阶组件 了解一下高阶组件的概念及几种使用方式。 高阶函数科普引自 React 进阶之高阶组件 什么是高阶函数 我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.A higher-order component is a function that takes a compo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-03T08:15:26.031Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高阶函数 - 属性代理在多表单中的应用">
+<meta name="twitter:description" content="阅读这篇文章之前，可以先拜读一下这篇文章 React 进阶之高阶组件 了解一下高阶组件的概念及几种使用方式。 高阶函数科普引自 React 进阶之高阶组件 什么是高阶函数 我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.A higher-order component is a function that takes a compo">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 高阶函数 - 属性代理在多表单中的应用 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="高阶函数 - 属性代理在多表单中的应用"> 高阶函数 - 属性代理在多表单中的应用 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2018-02-06T18:42:40+08:00" content="2018-02-06">
+              2018-02-06
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>阅读这篇文章之前，可以先拜读一下这篇文章 <a href="https://juejin.im/post/595243d96fb9a06bbd6f5ccd" target="_blank" rel="noopener">React 进阶之高阶组件</a> 了解一下高阶组件的概念及几种使用方式。</p>
+<h2 id="高阶函数科普"><a href="#高阶函数科普" class="headerlink" title="高阶函数科普"></a>高阶函数科普</h2><p><em>引自 <a href="https://juejin.im/post/595243d96fb9a06bbd6f5ccd" target="_blank" rel="noopener">React 进阶之高阶组件</a></em></p>
+<h3 id="什么是高阶函数"><a href="#什么是高阶函数" class="headerlink" title="什么是高阶函数"></a>什么是高阶函数</h3><blockquote>
+<p>我们都知道高阶函数是什么, 高阶组件其实是差不多的用法，只不过传入的参数变成了react组件，并返回一个新的组件.<br>A higher-order component is a function that takes a component and returns a new component.</p>
+</blockquote>
+<h3 id="什么是属性代理"><a href="#什么是属性代理" class="headerlink" title="什么是属性代理"></a>什么是属性代理</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> propsProxyHoc = <span class="function"><span class="params">WrappedComponent</span> =&gt;</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  handleClick() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'click'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span></span></span></span><br><span class="line"><span class="xml">      &#123;...this.props&#125;</span></span><br><span class="line"><span class="xml">      handleClick=&#123;this.handleClick&#125;</span></span><br><span class="line"><span class="xml">    /&gt;)</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>如上代码块，我们用高阶组件返回了一个全新的组件，此时该高阶组件可以拿到传进来的 props，然后再把 props 传给 render 渲染函数返回的组件。这也就是 props proxy（属性代理，和大多数方向的代理的概念类似），通俗的理解就是很直白的不同过任何继承的方式加工处理并返回的一种方式。</p>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>我是做 ReactJS 的时候，偶然帮同事写一个多表单项目的部分模块，发现当前已有的项目代码上，已经堆积了无数个表单页面以及对应 mobx store，在观察了每一个表单对应的页面结构、行为、以及每一个 store 的结构、甚至 API 都极其类似，不仅让人联想到了用高阶组件来重新组织所有表单结构，需要调研的大致就是以下几个问题：</p>
+<blockquote>
+<p><strong>1. 各个字段默认值的问题：如果所有表单都由同一个高阶组件处理，那么每个表单对应的字段是什么？是不是需要去每个子页面中再写一次？</strong><br>答： 其实就算是之前的写法，都不需要在 store 中罗列出所有的字段值，除非需要给对应字段添加默认值，而不添加的话，我们的组件在接收到 undefined 的时候，绝大多数组件都是可以正常运行的，个别我们自己写的组件只需要保证不会 crash 即可，这样我们就只需要在 store 中设置一个能够被监听变化的空对象——<code>observable.map({})</code><br><strong>2. 如果对应页面的部分字段需要默认值怎么办？</strong><br>答： 我们只需要在对应页面的构造函数中进行默认字段的添加即可。虽然在代码层面上看起来是很多个页面通过高阶组件使用了同一个 store，但实质上在内存层面看的话，它还是 N 多个页面各自有各自的 store 实例，因此我们不需要考虑多个页面之间的相互影响，只需要做两件事，在 store 中添加一个 <code>injectFields</code> 方法，在对应页面的构造函数中给我们的空对象注入需要默认值的字段即可。<br><strong>3. 每个页面提交、修改、获取数据的接口都不同，该怎么办呢？</strong><br>答：经过观察，每一个页面的接口都几乎一致，只是对应的 id 和 type 不同，我们只需要在进入该页面的时候，将对应的参数传入，这样在高阶组件中就可以获取到，从而调用对应的方法接口即可。</p>
+</blockquote>
+<h2 id="开始施工"><a href="#开始施工" class="headerlink" title="开始施工"></a>开始施工</h2><h3 id="具体思路及设结构"><a href="#具体思路及设结构" class="headerlink" title="具体思路及设结构"></a>具体思路及设结构</h3><ol>
+<li>我们可以让所有页面都使用同一个 mobx store，利用组件可以接收 undefined 的特点，在 mobx store 中使用一个 observable 空对象即可完成所有字段的初始化。</li>
+<li>设计高阶组件，职责主要有：<ol>
+<li>实例化 store 对象，然后在 render 中使用 Provider 注入即可</li>
+<li>统一管理页面行为，如 onSubmit、onSave 等</li>
+<li>部分相同的页面结构（如页头、页脚）可以接在高阶组件中</li>
+<li>在 props 中吸取从路由中传递过来的参数，可以用来在 onSubmit 或者 onSave 中调用接口的时候，拼接 API url，或者干脆将这些参数直接放到 store 的构造函数中进行实例化。</li>
+<li>用一些 state 状态量来控制按钮的状态</li>
+</ol>
+</li>
+<li>一些页面如果需要给组件设置默认字段时，我们只需要在对应页面的构造函数中添加即可。</li>
+</ol>
+<p><strong>整个结构的设计思路可能和继承父组件类似，在当初设计的时候，也曾经被困扰过，担心各个页面都去给我们的 “空对象” 注入字段时，会相互感染，后来从内存和继承的角度上分析了一下，我们的每一个页面都会被高阶组件重新组织，而高阶组件在生成页面实例的时候，还是会为每一个页面生成各自的实例，因此每一个页面还是拥有自己的 store，我们在访问新页面的时候，对应的 store 依旧是局部 store，生命周期依然和页面绑定，各自页面不存在共享一个高阶组件实例以及全局 store 的概念</strong></p>
+<h3 id="store-的设计"><a href="#store-的设计" class="headerlink" title="store 的设计"></a>store 的设计</h3><p>store 中基本没什么可讲的，大致结构如下：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">  @observable data = observable.map(&#123;...&#125;)</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">  injectFields (fields) &#123;</span><br><span class="line">    <span class="keyword">this</span>.data.merge(fields)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>data 就是我们核心的表单数据，初始值里可以放表单共有的一些字段  </li>
+<li>构造函数里可以放有关表单的一些独特的信息，如表单的类型、id 等信息，这些信息可以来源于路由，也可以来源于一些全局的配置信息。</li>
+<li><code>injectFields</code> 可以是我们在构建具体页面 Component 的时候，在构造函数里，通过该方法，给 data 里注入一些必要的默认字段，这里的 <code>merge</code> 方法是 MobX 提供的合并对象的方法</li>
+<li>接下来就是一些表单验证处理的方法，以及，一些 API 相关的请求，需要注意的是，如果你的 data 中包含一层以上的对象结构，需要使用由 MobX 直接导出的 toJS 方法而非 data 对象提供的 toJS 方法，前者是一个深转化为 JS 对象，而后者则是浅转化，具体参考对象的 deep and shallow copy。</li>
+</ol>
+<h3 id="高阶组件的设计"><a href="#高阶组件的设计" class="headerlink" title="高阶组件的设计"></a>高阶组件的设计</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> WrapperedComponent =&gt; <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">    <span class="keyword">this</span>.store = <span class="keyword">new</span> Store(...)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render () &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;Provider formStore=&#123;<span class="keyword">this</span>.store&#125;&gt;</span><br><span class="line">          <span class="comment">// 这里你可以加入一些页面结构，统一样式</span></span><br><span class="line">          <span class="comment">// 甚至可以是表单的提交和取消动作</span></span><br><span class="line">          &lt;WrapperedComponent &#123;...this.props&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Provider&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125; </span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这里是给高阶组件赋予了一些页面结构相关的职能，如果各页面提交、取消等动作结构上有很大的差异，我们则可以将对应的 UI 部分放到对应页面的实现中，然后通过属性注入的方式，将我们统一的 action 注入到 <code>WrapperedComponent</code> 中。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>直觉告诉我，可能文章并没有写完，我现在应该是处于一个消息不对等的状态，导致很多对读者来说非常有必要的细节我觉得没必要讲，所以有什么疑问请大家在评论里直接留言讨论～</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#高阶函数科普"><span class="nav-text">高阶函数科普</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是高阶函数"><span class="nav-text">什么是高阶函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是属性代理"><span class="nav-text">什么是属性代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始施工"><span class="nav-text">开始施工</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#具体思路及设结构"><span class="nav-text">具体思路及设结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store-的设计"><span class="nav-text">store 的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶组件的设计"><span class="nav-text">高阶组件的设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-text">结语</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#高阶组件" rel="tag">#高阶组件</a>
+        
+          <a href="/tags#属性代理" rel="tag">#属性代理</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

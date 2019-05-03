@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="timeline,">
+
+
+<meta name="description" content="我算是 CSS 初级使用者，在项目中遇到一些比较有意思的效果图时，就先会去 Codepen 中找一些类似的案例参考分析，然后再去细读其中用到的一些 CSS 样式和写法，以此来完成目标效果，譬如下图:  对此设计图共有以下两点说明：  每一个条目信息具有两种状态和各自的样式 —— 激活与未激活 (finished or unfinished) 为了保留 HTML 的基本结构，我们在这里采取的是列表(">
+<meta name="keywords" content="timeline">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 css 实现一个 timeline">
+<meta property="og:url" content="http://poberwong.com/2017/01/31/使用-css-实现一个-timeline/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="我算是 CSS 初级使用者，在项目中遇到一些比较有意思的效果图时，就先会去 Codepen 中找一些类似的案例参考分析，然后再去细读其中用到的一些 CSS 样式和写法，以此来完成目标效果，譬如下图:  对此设计图共有以下两点说明：  每一个条目信息具有两种状态和各自的样式 —— 激活与未激活 (finished or unfinished) 为了保留 HTML 的基本结构，我们在这里采取的是列表(">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-bdf991f9ed9b2eea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-71ad9de715cb820d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T08:56:23.047Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 css 实现一个 timeline">
+<meta name="twitter:description" content="我算是 CSS 初级使用者，在项目中遇到一些比较有意思的效果图时，就先会去 Codepen 中找一些类似的案例参考分析，然后再去细读其中用到的一些 CSS 样式和写法，以此来完成目标效果，譬如下图:  对此设计图共有以下两点说明：  每一个条目信息具有两种状态和各自的样式 —— 激活与未激活 (finished or unfinished) 为了保留 HTML 的基本结构，我们在这里采取的是列表(">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-bdf991f9ed9b2eea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 使用 css 实现一个 timeline </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="使用 css 实现一个 timeline"> 使用 css 实现一个 timeline </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-01-31T16:35:24+08:00" content="2017-01-31">
+              2017-01-31
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#CSS" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p>我算是 CSS 初级使用者，在项目中遇到一些比较有意思的效果图时，就先会去 Codepen 中找一些类似的案例参考分析，然后再去细读其中用到的一些 CSS 样式和写法，以此来完成目标效果，譬如下图:<br><img src="http://upload-images.jianshu.io/upload_images/442688-bdf991f9ed9b2eea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<blockquote>
+<p>对此设计图共有以下两点说明：</p>
+<ol>
+<li>每一个条目信息具有两种状态和各自的样式 —— 激活与未激活 (finished or unfinished)</li>
+<li>为了保留 HTML 的基本结构，我们在这里采取的是列表(有序无序都可以)</li>
+<li>每一个小圆点和连接线都有两种状态，并且小圆点需要居中，在第一个和最后一个分别没有上半部分线条和下半部分线条</li>
+</ol>
+</blockquote>
+<p>目前实现效果可以在 <a href="http://codepen.io/poberwong/pen/egyOMm" target="_blank" rel="noopener">My Codepen</a> 预览。</p>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>在实现上，完全通过 HTML 和 CSS 来实现，没有使用一行的 JS 逻辑代码。主要是用了一些伪类和 CSS 属性来实现。</p>
+<p><strong>HTML 部分</strong><br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">'time-line'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'timeline-stone is-completed'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'list-content'</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'title'</span>&gt;</span>HeloWorld<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">'time'</span>&gt;</span>1993.08.03<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'timeline-stone is-completed'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'list-content'</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'title'</span>&gt;</span>HeloWorld<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'timeline-stone'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'list-content'</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'title'</span>&gt;</span>HeloWorld<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这部分没什么讲的，主要是一些 <code>&lt;ul&gt;</code> 无序列表和子项 <code>&lt;li&gt;</code> 以及各自的 css 样式组成的基本结构。这里只是使用 <code>&lt;div&gt;</code> 作为条目内容做结构，内部使用了 flex-box 盒子模型来做了 title 和 time 的左右布局。</p>
+<p><strong>CSS 部分(核心)</strong><br><em>为了方便起见，直接将重用多次的几个值作为变量放到头部。</em><br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">$purpleBText: #7d5ae7;</span><br><span class="line">$darkText: #666666;</span><br><span class="line">$lightText: #999999;</span><br><span class="line">$darkLine: #eaeaea;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.time-line</span> &#123;</span><br><span class="line">  list-style: none; // 不显示列表默认样式(即就是左侧的小黑点或数字)</span><br><span class="line">  <span class="selector-tag">margin</span>: 0;</span><br><span class="line">  <span class="selector-tag">position</span>: <span class="selector-tag">relative</span>;</span><br><span class="line">  <span class="selector-tag">top</span>: <span class="selector-tag">-18px</span>;</span><br><span class="line">  </span><br><span class="line">   // 列表项内容</span><br><span class="line">  <span class="selector-class">.list-content</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">12px</span> <span class="number">10px</span> <span class="number">12px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">bottom</span>: -<span class="number">18px</span>;</span><br><span class="line"></span><br><span class="line">    .title &#123;</span><br><span class="line">      <span class="selector-tag">flex-grow</span>: 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.time</span> &#123;</span><br><span class="line">      <span class="attribute">font-weight</span>: <span class="number">200</span>;</span><br><span class="line">      <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">      <span class="attribute">color</span>: $lightText;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.timeline-stone</span> &#123;</span><br><span class="line">    <span class="attribute">border-left</span>: $darkLine <span class="number">1px</span> solid;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">23px</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">200</span>;</span><br><span class="line">    <span class="attribute">color</span>: $darkText;</span><br><span class="line"></span><br><span class="line">    &amp;::before &#123;</span><br><span class="line">      content: '';</span><br><span class="line">      <span class="selector-tag">width</span>: 5<span class="selector-tag">px</span>;</span><br><span class="line">      <span class="selector-tag">height</span>: 5<span class="selector-tag">px</span>;</span><br><span class="line">      background-color: $darkLine;</span><br><span class="line">      <span class="selector-tag">border-radius</span>: 50%;</span><br><span class="line">      <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">      <span class="selector-tag">bottom</span>: 0;</span><br><span class="line">      <span class="selector-tag">left</span>: <span class="selector-tag">-3px</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-class">.is-completed</span> &#123;</span><br><span class="line">      <span class="attribute">border-left-color</span>: $purpleBText;</span><br><span class="line">      <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">      <span class="attribute">color</span>: $purpleBText;</span><br><span class="line">      <span class="attribute">font-weight</span>: <span class="number">600</span>;</span><br><span class="line"></span><br><span class="line">      &amp;:first-child &#123;</span><br><span class="line">        <span class="selector-tag">border-left</span>: <span class="selector-tag">transparent</span> 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &amp;<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">11px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">11px</span>;</span><br><span class="line">        <span class="attribute">background-color</span>: $purpleBText;</span><br><span class="line">        <span class="attribute">opacity</span>: <span class="number">0.4</span>;</span><br><span class="line">        <span class="attribute">left</span>: -<span class="number">6px</span>;</span><br><span class="line">        <span class="attribute">bottom</span>: -<span class="number">5px</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &amp;<span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">        <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">7px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">7px</span>;</span><br><span class="line">        <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">        <span class="attribute">position</span>: absolute;</span><br><span class="line">        <span class="attribute">background-color</span>: $purpleBText;</span><br><span class="line">        <span class="attribute">left</span>: -<span class="number">4px</span>;</span><br><span class="line">        <span class="attribute">bottom</span>: -<span class="number">3px</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-71ad9de715cb820d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><p><strong>圆点居中</strong><br>图中绿色的表示<code>&lt;li&gt;</code> 每一个子项，而红色则表示条目内容区。可以看到，这里的实现方式是在 <code>list-content</code>内容区采用相对布局将自身向下移动一半列表项高度，将圆点以绝对布局的方式定位到 <code>&lt;li&gt;</code> 的底部。</p>
+</li>
+<li><p><strong>圆点的绘制</strong><br>这里的圆点均采用 pseudo-class 伪类的方式来添加元素，只需要将 content 设置为空串即可代替常规的 HTML 结点。<br>共有如下两种状态：</p>
+<ul>
+<li>unfinished:  就是一个小灰点，只需要在 <code>timeline-stone</code> 样式上给<code>&lt;li&gt;</code> 加 before 伪类即可。</li>
+<li>finished：在 <code>is-completed</code> 样式中，使用 before 和 after 搭配绝对布局的方式来绘制已激活状态的小圆点。</li>
+</ul>
+</li>
+<li><p><strong>小竖线</strong><br>小竖线同样和小圆点一样都具有两种状态，而它的渲染我们采取了使用小圆点所在的<code>&lt;li&gt;</code>元素的左边框作为时间线，并且通过 first-child 或者 last-child 这两个伪类来实现对第一个或者最后一个边框样式的控制。</p>
+</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p><strong><em>绝对布局</em></strong><br>只会在相对布局的容器元素中生效，也就是说会以相对布局的父元素为参考系进行绝对定位，且与文档流完全无关，相当于浮在参考系的其他子元素之上，但是在定位未指定(这里指 top，right， bottom，left 四个属性) 且可能会影响其布局(尤其是 top 和 left)的属性没有给值时默认以文档流的位置布局，不过并不占用文档位置</p>
+<p><strong><em>react-native 中的绝对布局</em></strong><br>相比 CSS 中标准的绝对布局，RN 中的绝地布局相对简单一些。绝对布局的元素的参考系直接就是父元素(默认 position 就是 relative)，并且声明在普通元素之后的话，会在层级上覆盖前面的元素，反之则会被覆盖。CSS 中则一贯让绝对布局的元素在 z 轴上最高，如有需要可以通过 z-index 来控制它们的层叠关系。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路"><span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-text">后记</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#timeline" rel="tag">#timeline</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

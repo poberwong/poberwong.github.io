@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="翻译,人工智能,机器学习,">
+
+
+<meta name="description" content="原文 这是由一位长期从事科技新闻记者 Michael Copeland 关于解释深度学习的基本原理系列文章的第一部分。 人工智能就是未来，像是科幻小说。人工智能已经是我们日常生活中的一部分。以上这些陈述都是真的，当然这都取决于你所说的是什么意义上的人工智能。 例如，当 Google 深度学习程序 AlphaGo 在今年年初的全球大赛上打败了韩国围棋大师 Lee (李世乭——译者注), 人工智能、机">
+<meta name="keywords" content="翻译,人工智能,机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能、机器学习和深度学习之间的区别(译)">
+<meta property="og:url" content="http://poberwong.com/2017/06/08/人工智能、机器学习和深度学习之间的区别-译/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文 这是由一位长期从事科技新闻记者 Michael Copeland 关于解释深度学习的基本原理系列文章的第一部分。 人工智能就是未来，像是科幻小说。人工智能已经是我们日常生活中的一部分。以上这些陈述都是真的，当然这都取决于你所说的是什么意义上的人工智能。 例如，当 Google 深度学习程序 AlphaGo 在今年年初的全球大赛上打败了韩国围棋大师 Lee (李世乭——译者注), 人工智能、机">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-230d7fdf352a2676.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-f22cf410dd47dd34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-2b6437e41febff20.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-8c4c47a2abb8cd96.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-d3bca9a831ba9681.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T11:30:07.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="人工智能、机器学习和深度学习之间的区别(译)">
+<meta name="twitter:description" content="原文 这是由一位长期从事科技新闻记者 Michael Copeland 关于解释深度学习的基本原理系列文章的第一部分。 人工智能就是未来，像是科幻小说。人工智能已经是我们日常生活中的一部分。以上这些陈述都是真的，当然这都取决于你所说的是什么意义上的人工智能。 例如，当 Google 深度学习程序 AlphaGo 在今年年初的全球大赛上打败了韩国围棋大师 Lee (李世乭——译者注), 人工智能、机">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-230d7fdf352a2676.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 人工智能、机器学习和深度学习之间的区别(译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="人工智能、机器学习和深度学习之间的区别(译)"> 人工智能、机器学习和深度学习之间的区别(译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-06-08T00:37:01+08:00" content="2017-06-08">
+              2017-06-08
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#随笔" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/" target="_blank" rel="noopener"><em>原文</em></a><br><img src="http://upload-images.jianshu.io/upload_images/442688-230d7fdf352a2676.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>这是由一位长期从事科技新闻记者 <em>Michael Copeland</em> 关于解释深度学习的基本原理系列文章的第一部分。</p>
+<p>人工智能就是未来，像是科幻小说。人工智能已经是我们日常生活中的一部分。以上这些陈述都是真的，当然这都取决于你所说的是什么意义上的人工智能。</p>
+<p>例如，当 Google 深度学习程序 AlphaGo 在今年年初的全球大赛上打败了韩国围棋大师 Lee (李世乭——译者注), 人工智能、机器学习以及深度学习都被用于多媒体来描述深度学习是如何赢下比赛的。并且这三部分也解释了为什么 AlphaGo 彻底打败了李世乭。但它们并不是一回事。</p>
+<p>思考它们之间关系最简单的方式就是把它们都设想为一个同心圆。AI —— 最大的那个圆，机器学习次之，最后才是如今驱动人工智能迅速发展的深度学习。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-f22cf410dd47dd34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="由萧条到繁荣"><a href="#由萧条到繁荣" class="headerlink" title="由萧条到繁荣"></a>由萧条到繁荣</h2><p>人工智能已经是因为一小部分计算机科学家们聚集在举办于 1956 年的达特茅斯学术会议上并由此诞生了人工智能领域。在后来的几十年里，人工智能已经接二连三的被视作我们文明光明未来的钥匙，然而却因为一些粗鄙的观点而被扔到技术垃圾堆里。坦率的讲，直到 2012 年它才算是新生。</p>
+<p>在过去的一些年里，尤其是从 2015 年开始人工智能已经开始爆发式发展了。它们大部分都和 GPU 的性能有关，以此以更加廉价、强大、快速的提升并行计算能力。它也和同时连续操作近乎无限存储以及大批量各种格式的数据 —— 图片、文本、数据处理、遍历数据、只要是你能说的上来的格式有关。</p>
+<p>我们现在来过一下计算机科学家是如何从 2012 年开始将一个非常萧条的能够解放应用于亿万人应用的事物一步步推向繁盛。</p>
+<h2 id="人工智能-——-由机器来展示人类的智慧"><a href="#人工智能-——-由机器来展示人类的智慧" class="headerlink" title="人工智能 —— 由机器来展示人类的智慧"></a>人工智能 —— 由机器来展示人类的智慧</h2><p><img src="http://upload-images.jianshu.io/upload_images/442688-2b6437e41febff20.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><em>注: 那些下棋的计算机程序都是早期人工智能的案例，在二十世纪五十年代就引发了轰动。</em></p>
+<p>回到 1956 年夏天的那个会议，那些满怀梦想的 AI 先驱门打算用当时的电脑做一个能够和人类拥有相同智力特性的复杂机器。 这也是我们所普遍认为的 AI 的概念 —— 拥有我们所有感官(甚至更多)以及像我们一样能够思考的极好的机器。你已经在很多电影里看到类似于我们的朋友 —— “C-3PO”、敌人——终结者。AI 机器已经以非常合理的缘由普遍的出现在电影、科幻小说里。我们目前还无法达成、但至少目前是。</p>
+<p>我们目前所能投身到 “狭义上的 AI” 技术上的仅仅是让一些具体的任务做的比我们人类更好一些。狭义 AI 的例子如像 Pinterest、Facebook 的人脸识别类似的图片的分类服务。</p>
+<p>这些都是实践中的狭义 AI。这些技术已经展现出人类的部分智力特性了。然而？ 这些智能源自哪里呢？让我们来到下一个圆——机器学习。</p>
+<h2 id="机器学习-——-实现人工智能的一个途径"><a href="#机器学习-——-实现人工智能的一个途径" class="headerlink" title="机器学习 —— 实现人工智能的一个途径"></a>机器学习 —— 实现人工智能的一个途径</h2><p><img src="http://upload-images.jianshu.io/upload_images/442688-8c4c47a2abb8cd96.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><em>干掉垃圾邮件：机器学习可以让你的邮箱在相对程度上避免垃圾邮件的骚扰</em></p>
+<p><a href="http://www.nvidia.com/object/machine-learning.html" target="_blank" rel="noopener">机器学习</a> 基本上就是利用算法来锻炼它分析数据，并不断学习，然后预测或决定世界上将来要发生的事。而非手动去写一些常规的程序来完成一些特定的任务，机器就这样使用大量的数据来被训练并且对应的算法给予了它做任务的能力。</p>
+<p>机器学习直接启蒙于早期 AI 人群的思想。含有决策树学习的算法在这些年里才慢慢出现，其中有归纳逻辑编程。集群、强化学习和贝叶斯网络等。众所周知，没有人能够实现终极 AI，甚至狭义上的 AI 都主要是一些早期 AI 的学习方法。</p>
+<p>原来，多年以来机器学习最好的应用领域之一就是<a href="http://www.nvidia.com/object/imaging_comp_vision.html" target="_blank" rel="noopener">计算机视觉</a>，即使它仍然需要大量的手写代码来更好地完成任务。人们可能参与并手写一些类似于边界条件检测器来让程序能够检测一个对象的起点和终点；形状检测器来检测它是否拥有八条边；一个分级器可以识别 “S-T-O-P” 这样的字符串。通过这些手写的代码分级器它们可以开发出能够识别一张图片并且 “学习” 去决策它是否是一个停止记号。</p>
+<p>很棒，但依旧令人费解。尤其是在雾天当一个信号完全看不见时，或者一棵树挡住了信号的一部分时。这也是计算机视觉和图像识别没有能够接近甚至看齐人类的原因，它太脆弱且容易出错。</p>
+<p>时间和正确的学习算法可以改变了一切。</p>
+<h2 id="深度学习-——-实现机器学习的一种技术"><a href="#深度学习-——-实现机器学习的一种技术" class="headerlink" title="深度学习 —— 实现机器学习的一种技术"></a>深度学习 —— 实现机器学习的一种技术</h2><p><img src="http://upload-images.jianshu.io/upload_images/442688-d3bca9a831ba9681.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><em>一群猫：从 YouTube 视频中捕获猫的图片是深度学习的一个突破性展示。</em></p>
+<p>另外一种源自早期机器学习的算法，人工神经网络出现于过去的几十年里。神经网络的灵感来源于我们对自己大脑生理的理解 —— 神经元之间的连接。但是，又不像我生理大脑中任意神经元都可以在一定距离上连接到其他神经元，这些人造神经网络有相互分离的层级、连接以及数据传输的方向。</p>
+<p>你可以拍一张照片，然后将它剪切为一系列的碎片然后将它们输入到神经网络的第一层。在第一层的人工神经元里，数据将会被传递到第二层。第二层的神经元将会做对应的任务，以此类推，直到最后一层并输出结果。</p>
+<p>每一个神经元都会对所输入的内容分配权重 —— 其大小于任务被执行的结果有关。最终的输出结果取决于这些权重的总和。现在回想一下我们前面提到的终止标记，终止标记图片的属性就是切碎它并由神经元来检测是否是八边形、消防大红色、特定的字母或者说是交通标记的大小等。神经网络的任务就是去完成它是否是一个停止标记。它提出了一个非常学术性的基于权重的概念—— “概率向量”。在我们的案例中，系统有 86% 的信心认为它是一个停止标记，7% 的把握认为它是一个限速标记，5% 的把握认为它是一个挂在树上的风筝等等。网络建筑学可以告诉神经网络它是对的还是错的。</p>
+<p>甚至这个例子本身就非常超前，因为直到现在的神经网络的水平，它依旧为 AI 研究社区的一道难题。这个问题甚至在 AI 早期就已经困扰他们了，甚至在智能方向停滞不前。问题即使甚至最基础的神经玩过都是非常高密集的运算，它甚至都不是一个可行的方案。 目前，在多伦多大学由 Geoffrey Hinton 组织的一个小团队一直在坚持做，最终在超级计算机上并行运行了一些列算法来证明这些概念，但直到 <a href="http://www.nvidia.com/object/what-is-gpu-computing.html" target="_blank" rel="noopener">GPU</a> 部署后那些实验才成功。</p>
+<p>如果我们再次回到停止标记那个例子中，神经网络被训练的越来越协调虽然它得出了一些错误的答案，这也是一些很好的契机。它需要的是训练，它需要的是看到成千上万，甚至百万的图片直到神经元的输入变得更加协调以至于每次都能够得出正确的答案 —— 是否有雾、晴天或雨天。就是在这种情况下，神经网络教会自己停止标记是什么样子；或者 Facebook 你妈妈的面孔；或者一只猫（吴恩达 2012 年在 Google 做的一个实验）</p>
+<p>吴恩达的突破性进展就是做出了这些神经网络，并且做的非常大，升级了每一层和对应的神经元，然后通过这个系统运行巨量的数据来训练它。在和这个例子中，从 YouTube 上获取到了 一千万张图片。吴恩达深度研究了这些能够描述每一层神经网络的深度学习。</p>
+<p>今天，机器的通过深度学习的图片识别技术在一些复杂的情景下已经比人类做的更好了，并且能够从猫识别到血液里的癌细胞标记以及 MRI 扫描到的肿瘤。Google 的 AlphaGo 通过不断的与自己下棋来调节它的神经网络。</p>
+<h2 id="多亏了深度学习，人工智能拥有一个光明的未来"><a href="#多亏了深度学习，人工智能拥有一个光明的未来" class="headerlink" title="多亏了深度学习，人工智能拥有一个光明的未来"></a>多亏了深度学习，人工智能拥有一个光明的未来</h2><p><a href="https://developer.nvidia.com/deep-learning" target="_blank" rel="noopener">深度学习</a> 已经能够通过 AI 领域额外的东西做出一些可实用的应用。深度学习能够为各种各样的机器提供辅助作用，譬如<a href="http://www.nvidia.com/object/drive-px.html" target="_blank" rel="noopener">无人驾驶汽车</a>, 更好的医疗护理，甚至更好的影片推荐，都将会实现。AI 就是现在甚至未来。有了深度学习的帮助，AI 甚至能够达到科幻小说的那种我们期望已久的状态。你也有一个 C-3PO，你也可以有你的终结者。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#由萧条到繁荣"><span class="nav-text">由萧条到繁荣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#人工智能-——-由机器来展示人类的智慧"><span class="nav-text">人工智能 —— 由机器来展示人类的智慧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习-——-实现人工智能的一个途径"><span class="nav-text">机器学习 —— 实现人工智能的一个途径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度学习-——-实现机器学习的一种技术"><span class="nav-text">深度学习 —— 实现机器学习的一种技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多亏了深度学习，人工智能拥有一个光明的未来"><span class="nav-text">多亏了深度学习，人工智能拥有一个光明的未来</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#人工智能" rel="tag">#人工智能</a>
+        
+          <a href="/tags#机器学习" rel="tag">#机器学习</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

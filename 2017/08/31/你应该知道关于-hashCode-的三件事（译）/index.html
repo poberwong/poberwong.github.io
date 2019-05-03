@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="翻译,Android,Java,">
+
+
+<meta name="description" content="原文地址  在 Java 中，每一个对象都有一个非常容易理解的 hashCode 方法但仍有很多时候会被忘记或是误用。以下是需要牢记于心并以此避免一些常见的坑的三件事。 一个对象的哈希值允许算法和数据结构把对象也放到格子里。就像是。打印机把所有的 “A” 类型放到 “A” 的格子里。之后它只需要在这个格子里找 “A”。这个简易的系统让它在寻找该类型时比在一个无序的抽屉里搜索要快很多。这也是基于">
+<meta name="keywords" content="翻译,Android,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你应该知道关于 hashCode() 的三件事（译）">
+<meta property="og:url" content="http://poberwong.com/2017/08/31/你应该知道关于-hashCode-的三件事（译）/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文地址  在 Java 中，每一个对象都有一个非常容易理解的 hashCode 方法但仍有很多时候会被忘记或是误用。以下是需要牢记于心并以此避免一些常见的坑的三件事。 一个对象的哈希值允许算法和数据结构把对象也放到格子里。就像是。打印机把所有的 “A” 类型放到 “A” 的格子里。之后它只需要在这个格子里找 “A”。这个简易的系统让它在寻找该类型时比在一个无序的抽屉里搜索要快很多。这也是基于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-54f2dfe63eb780dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-c6b7af0ce489f692.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-2e74da169ff013f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-af7bbd3f2a8138b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-d53456edb318b60d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T08:37:48.861Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你应该知道关于 hashCode() 的三件事（译）">
+<meta name="twitter:description" content="原文地址  在 Java 中，每一个对象都有一个非常容易理解的 hashCode 方法但仍有很多时候会被忘记或是误用。以下是需要牢记于心并以此避免一些常见的坑的三件事。 一个对象的哈希值允许算法和数据结构把对象也放到格子里。就像是。打印机把所有的 “A” 类型放到 “A” 的格子里。之后它只需要在这个格子里找 “A”。这个简易的系统让它在寻找该类型时比在一个无序的抽屉里搜索要快很多。这也是基于">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-54f2dfe63eb780dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 你应该知道关于 hashCode() 的三件事（译） </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="你应该知道关于 hashCode() 的三件事（译）"> 你应该知道关于 hashCode() 的三件事（译） </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-08-31T22:50:21+08:00" content="2017-08-31">
+              2017-08-31
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#Java" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><blockquote>
+<p><a href="https://eclipsesource.com/blogs/2012/09/04/the-3-things-you-should-know-about-hashcode/" target="_blank" rel="noopener">原文地址</a></p>
+</blockquote>
+<p>在 Java 中，每一个对象都有一个非常容易理解的 hashCode 方法但仍有很多时候会被忘记或是误用。以下是需要牢记于心并以此避免一些常见的坑的三件事。</p>
+<p>一个对象的哈希值允许算法和数据结构把对象也放到格子里。就像是。打印机把所有的 “A” 类型放到 “A” 的格子里。之后它只需要在这个格子里找 “A”。这个简易的系统让它在寻找该类型时比在一个无序的抽屉里搜索要快很多。这也是基于 hash 的集合的灵感来源，类似于 HashMap 和 HashSet。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-54f2dfe63eb780dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>对于那些用了基于 hash 值的集合以及基于 hash codes 的其他算法的类能够正常执行，所有 hashCode 方法的实现都应该遵循一个简单的约定。</p>
+<h2 id="hashCode-的约定"><a href="#hashCode-的约定" class="headerlink" title="hashCode 的约定"></a>hashCode 的约定</h2><p>hashCode 方法的 JavaDoc 文档里有对该约定的描述，大致能够说明这个约定。</p>
+<p><strong>在同一个进程中，相等的两个对象一定拥有同一个哈希值</strong></p>
+<p>注意这并不是在暗示以下两个错误的概念</p>
+<ul>
+<li>不等的对象一定拥有不同的哈希值 - <strong>错！</strong></li>
+<li>拥有相同哈希值的对象不一定相等 - <strong>错！</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-c6b7af0ce489f692.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>约定允许不等的两个对象拥有相同的哈希值。例如上图中 “A” 和 “µ” 两个对象。在数学上，从对象到哈希值的映射不一定要单映射或是双映射。这很明显是因为不同对象的数量通常要比可能出现的所有的哈希值要多(2^32).</p>
+<p><strong>Edit</strong> 在早起的版本中，我错误地以为哈希值的映射一定是单映射，并且一定不是双映射（明显是错的）。多谢 <em><a href="https://eclipsesource.com/blogs/2012/09/04/the-3-things-you-should-know-about-hashcode/#comment-18243" target="_blank" rel="noopener">Lucian</a></em> 的指正。</p>
+<p>这个约定直接引出了第一个规则：</p>
+<h2 id="1-只要你覆写了-equals，一定要覆写-hashCode"><a href="#1-只要你覆写了-equals，一定要覆写-hashCode" class="headerlink" title="1. 只要你覆写了 equals，一定要覆写 hashCode"></a>1. 只要你覆写了 equals，一定要覆写 hashCode</h2><p>如果你没这么做，你将会被有问题的对象搞死。为什么呢？一个对象的 <em>hasCode</em> 方法必须使用同一个字段来作为它的对比依据。在覆写 <em>equals</em> 方法之后，你声明了一些对象和另一些对象相等，但是原生的 <em>hashCode</em> 方法认为所有的对象都是不同的。因此你将会得到一些哈希值不同但相等的对象。例如，在一个 <em>HashMap</em> 调用 <em>contains()</em> 方法，即使你把对象加进去了，也会返回 false。（这里指的应该是已经加入一个 object 了，但是在调用 contains 的时候，使用的是另一个你认为相等[equals 返回 true] 的对象——译者注）</p>
+<p>如何写出一个好的 hashCode 方法已经超出了本文的范围，这点在 Joshua Bloch 的一本非常受欢迎的书 <a href="http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683" target="_blank" rel="noopener">Effective Java</a> 里有非常完美的讲解，一本开发者不能错过的书籍。</p>
+<p>[在你的项目中需要一些专业的建议？我们的 <a href="http://eclipsesource.com/en/services/developer-support/" target="_blank" rel="noopener">开发者支持</a> 可以帮你解决问题。| 或者在这本书<a href="http://eclipsesource.com/technology/software-craftsmanship/" target="_blank" rel="noopener">软件工艺</a> 中学习如何写出整洁的代码]</p>
+<p>出于安全起见，Eclipse IDE 将 <em>equals</em> 和 <em>hashCode</em> 作为成对的选项出现：Source &gt; Generate hashCode() and equals()……</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-2e74da169ff013f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>出于自我保护，你可以设置 Eclipse 来检测是否违反这个规则并且在 classes 上做出错误提示。很不幸，这个选项默认是 “Ignore” 的：<em>Preferences &gt; Java &gt; Compiler &gt; Errors/Warnings</em>。然后在搜索中使用 “hashCode” 进行快速查找：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-af7bbd3f2a8138b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><strong>更新</strong> <em><a href="http://code.google.com/p/equalsverifier/" target="_blank" rel="noopener">equalsverifier</a></em> 用来检测 hashCode 和 equals 的这个约定很不错，你应该考虑在你的单元测试中使用。</p>
+<h2 id="哈希碰撞"><a href="#哈希碰撞" class="headerlink" title="哈希碰撞"></a>哈希碰撞</h2><p>两个不同的对象拥有同一个哈希值。我们称之为碰撞。一个碰撞并不严重，这仅仅意味着在一个单桶中拥有多个对象，因此 HashMap 查询需要查对比多次才能找到正确的对象。大量的碰撞会降低系统性能，但并不会产生错误的结果。</p>
+<p>但如果你在一个对象上唯一的判断依据上搞错了哈希值，譬如使用它作为 Map 中的一个 key，你有时候还是会取到一个错误的对象。因为即使碰撞不常见，但仍是不可避免的。譬如字符串 “Aa” 和 “BB” 就会产生相同的哈希值：2112。因此：</p>
+<h2 id="2-不要将哈希值作为-Map-的-key"><a href="#2-不要将哈希值作为-Map-的-key" class="headerlink" title="2. 不要将哈希值作为 Map 的 key"></a>2. 不要将哈希值作为 Map 的 key</h2><p>不像打印机的打印例子，在 Java 中共有 4,294,967,296 个格子（2^32 个整型值）。拥有 40 亿个坑位，碰撞看起来极不可能？<br>结果证明并不是。令人意外的是数学上的碰撞：想象一下一个房间里的 23 个人，你如何来估算出他们之中两个同生日的男性的概率呢？挺低的，因为一年里有 365 天？实际上，概率大概是 50%！因为如果有 50 个人的话，这将是一个绝对事件。这个现象被称作 <a href="http://en.wikipedia.org/wiki/Birthday_paradox" target="_blank" rel="noopener">生日悖论</a>。转换为哈希值，这将意味着如果存在 77136 个不同的对象，将在你的 <em>hashCode</em> 方法中有 100% 的概率出现碰撞。它们将均匀地分布到每一个桶中（桶类似于上文中的格子，也就是整型值——译者注）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-d53456edb318b60d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p><a href="http://www.cs.cmu.edu/~enron/" target="_blank" rel="noopener">Enron email dataset</a> 包含 520924 条邮件，计算邮件内容字符串的哈希值。我发现有 50 对（也可能是三个一组）的不同邮件拥有相同的哈希值。对于 50 万个字符串，这已经是个不错的结果了。但是：如果你拥有更多的数据，碰撞仍会发生。如果你使用哈希值作为key，你将无法立即发现错误，但仍有少部分人会拿到错误的邮件。</p>
+<h2 id="哈希值可以被修改"><a href="#哈希值可以被修改" class="headerlink" title="哈希值可以被修改"></a>哈希值可以被修改</h2><p>最后，<em>hashCode</em> 约定中有一个比较重要的细节堪称意外：哈希值在不同的执行过程中不能保证计算出相同的值。以下是 Java 文档  </p>
+<p><em>在 Java 应用的运行中，对同一个对象上执行该方法多次时，hashCode 方法始终会返回同一个整型数，在对象的 equals 对比中并未提供相关信息，该整型数在同一个程序的多次执行时不需要保持不变。</em></p>
+<p>这并不常见，实际上，一些类库的类中经常会明确写一些特定的算法用以计算哈希值（譬如 String）。对于这些类，哈希值总是相同的。但当大部分 <em>hashCode</em> 的实现都提供了一个稳定的值，此时坚决不能信赖它。因为<a href="http://martin.kleppmann.com/2012/06/18/java-hashcode-unsafe-for-distributed-systems.html" target="_blank" rel="noopener">这篇文章</a> 指出，在不同的进程中一些 Java 库竟然会返回不同的哈希值而且因此会是人们陷入迷惑。Google 的<a href="http://code.google.com/p/protobuf/" target="_blank" rel="noopener">协议缓冲</a>就是个例子。</p>
+<p>以此，你不应该在分布式应用中使用哈希值。一个远程的对象可能拥有不同于本地的哈希值，即使它们完全相等。</p>
+<h2 id="3-在分布式应用中不要使用-hashCode"><a href="#3-在分布式应用中不要使用-hashCode" class="headerlink" title="3. 在分布式应用中不要使用 hashCode"></a>3. 在分布式应用中不要使用 hashCode</h2><p>此外，你应该意识到 <em>hashCode</em> 方法的实现可能会从一个版本更迭到另一个。因此你的代码不应该依赖于一些特定的哈希值。例如，你不应该使用哈希值来持久化状态。下次你运行程序，同一个对象的哈希值就可能不同。</p>
+<p>最好的建议是: <strong>完全不要用 hashCode</strong>, 除非你在写一些基于哈希的算法。</p>
+<h3 id="另一个选择：SHA1"><a href="#另一个选择：SHA1" class="headerlink" title="另一个选择：SHA1"></a>另一个选择：SHA1</h3><p>正如你所知，密文的哈希值类似于 SHA1 有时候用来唯一标识对象（Git 就这样）。这也是不安全的？不，SHA1 使用 160 位的 key，这使得碰撞不可能发生。即使是巨量的对象，在这个空间里在你程序运行中发生碰撞的概率远低于流行砸到你的电脑。<a href="http://preshing.com/20110504/hash-collision-probabilities" target="_blank" rel="noopener">这篇文章</a> 很好的讲述了碰撞的可能性。</p>
+<p>关于哈希值还有很多要讲的，但这几个看起来是最重要的几点。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hashCode-的约定"><span class="nav-text">hashCode 的约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-只要你覆写了-equals，一定要覆写-hashCode"><span class="nav-text">1. 只要你覆写了 equals，一定要覆写 hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希碰撞"><span class="nav-text">哈希碰撞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-不要将哈希值作为-Map-的-key"><span class="nav-text">2. 不要将哈希值作为 Map 的 key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希值可以被修改"><span class="nav-text">哈希值可以被修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-在分布式应用中不要使用-hashCode"><span class="nav-text">3. 在分布式应用中不要使用 hashCode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#另一个选择：SHA1"><span class="nav-text">另一个选择：SHA1</span></a></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#Android" rel="tag">#Android</a>
+        
+          <a href="/tags#Java" rel="tag">#Java</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

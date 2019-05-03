@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="React-Native,Navigator,阴影,">
+
+
+<meta name="description" content="前言众所周知，在 React Native 中，iOS 和 Android 中缘于 Native 层实现上的差别，导致在 Js 层的 API 以及所能控制的范围完全不同，而在某些情况下 Android 上的阴影又无法显示时，我们就需要手动去做一个像模像样的阴影 (或许你永远也碰不到这种情况)。 双平台上阴影的 API 使用简介iOS shadowColor colorSets the drop s">
+<meta name="keywords" content="React-Native,Navigator,阴影">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native 中如何给 Navigator 添加一条合格的阴影">
+<meta property="og:url" content="http://poberwong.com/2017/02/19/React-Native-中如何给-Navigator-添加一条合格的阴影/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="前言众所周知，在 React Native 中，iOS 和 Android 中缘于 Native 层实现上的差别，导致在 Js 层的 API 以及所能控制的范围完全不同，而在某些情况下 Android 上的阴影又无法显示时，我们就需要手动去做一个像模像样的阴影 (或许你永远也碰不到这种情况)。 双平台上阴影的 API 使用简介iOS shadowColor colorSets the drop s">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-882a9cec50bf07b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-f5b9bf99b4ea9fb1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-a6ccf1c75481cff3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-0849ace178b05dbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-11be65e59bd37828.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-34f43e4f61ecb208?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T08:55:02.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native 中如何给 Navigator 添加一条合格的阴影">
+<meta name="twitter:description" content="前言众所周知，在 React Native 中，iOS 和 Android 中缘于 Native 层实现上的差别，导致在 Js 层的 API 以及所能控制的范围完全不同，而在某些情况下 Android 上的阴影又无法显示时，我们就需要手动去做一个像模像样的阴影 (或许你永远也碰不到这种情况)。 双平台上阴影的 API 使用简介iOS shadowColor colorSets the drop s">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-882a9cec50bf07b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> React Native 中如何给 Navigator 添加一条合格的阴影 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="React Native 中如何给 Navigator 添加一条合格的阴影"> React Native 中如何给 Navigator 添加一条合格的阴影 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-02-19T01:27:27+08:00" content="2017-02-19">
+              2017-02-19
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>众所周知，在 React Native 中，iOS 和 Android 中缘于 Native 层实现上的差别，导致在 Js 层的 API 以及所能控制的范围完全不同，而在某些情况下 Android 上的阴影又无法显示时，我们就需要手动去做一个像模像样的阴影 (或许你永远也碰不到这种情况)。</p>
+<h2 id="双平台上阴影的-API-使用简介"><a href="#双平台上阴影的-API-使用简介" class="headerlink" title="双平台上阴影的 API 使用简介"></a>双平台上阴影的 API 使用简介</h2><h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h3><blockquote>
+<p><strong>shadowColor</strong> <a href="http://facebook.github.io/react-native/releases/0.41/docs/colors.html" target="_blank" rel="noopener">color</a><br><em>Sets the drop shadow color</em><br><strong>shadowOffset</strong> {width: number, height: number}<br><em>Sets the drop shadow offset</em><br><strong>shadowOpacity</strong> number<br><em>Sets the drop shadow opacity (multiplied by the color’s alpha component)</em><br><strong>shadowRadius</strong> number<br><em>Sets the drop shadow blur radius</em><br>——— react native official docs</p>
+</blockquote>
+<p>可以看到 react native 官方文档中给的阴影相关的四个属性基本和  CSS 标准中的 <code>box-shadow</code> 的 是一致的。然而都是 iOS 的 ……<br>别急，Android 也有方案！</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p>在 Android 原生开发中，Android SDK 为了给视图增加阴影而为我们提供了 <code>elevation</code> 属性，顾名思义就是 “仰角”。通过为视图增加 “仰角” 方式来提供阴影，仰角越大，阴影越大。(然而并不能控制阴影的 offset……)</p>
+<p>React Native 也沿袭了这个属性，在绝大多数情况下可以使用 elevation 为视图增加阴影。</p>
+<h3 id="双平台上的阴影实现效果预览"><a href="#双平台上的阴影实现效果预览" class="headerlink" title="双平台上的阴影实现效果预览"></a>双平台上的阴影实现效果预览</h3><p><strong>Code</strong><br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">        &lt;View style=&#123;styles.rec&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">  container: &#123;</span></span><br><span class="line"><span class="regexp">    flex: 1,</span></span><br><span class="line"><span class="regexp">    justifyContent: 'center',</span></span><br><span class="line"><span class="regexp">    alignItems: 'center',</span></span><br><span class="line"><span class="regexp">    backgroundColor: 'white',</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  rec: &#123;</span></span><br><span class="line"><span class="regexp">    height: 120,</span></span><br><span class="line"><span class="regexp">    width: 120,</span></span><br><span class="line"><span class="regexp">    backgroundColor: 'black',</span></span><br><span class="line"><span class="regexp">    elevation: 20,</span></span><br><span class="line"><span class="regexp">    shadowOffset: &#123;width: 0, height: 0&#125;,</span></span><br><span class="line"><span class="regexp">    shadowColor: 'black',</span></span><br><span class="line"><span class="regexp">    shadowOpacity: 1,</span></span><br><span class="line"><span class="regexp">    shadowRadius: 5</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Preview</strong><br><img src="http://upload-images.jianshu.io/upload_images/442688-882a9cec50bf07b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-f5b9bf99b4ea9fb1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android"></p>
+<p>可以看到，Android 中仅靠仰角 elevation 是远远不够的，而 iOS 中的阴影则和 css 标准是完全看齐的。为此，在 GitHub 上也有对应以svg (<a href="https://github.com/react-native-community/react-native-svg" target="_blank" rel="noopener">react-native-svg</a>) 为基库做成的 <a href="https://github.com/879479119/react-native-shadow" target="_blank" rel="noopener">react-native-shadow</a> 这个库。</p>
+<h2 id="双平台上对-Navigator-添加-border-shadow"><a href="#双平台上对-Navigator-添加-border-shadow" class="headerlink" title="双平台上对 Navigator 添加 border shadow"></a>双平台上对 Navigator 添加 border shadow</h2><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>社会需求是推动一切科学技术进步的根本源泉，这篇博文的源泉则是:</p>
+<blockquote>
+<p>在我们的应用上使用 Navigator 在双平台上实现侧滑阴影的效果(现在 Navigation Experimental 自带阴影，然而同更多优秀的组件一样，在英文官网上并没有进行描述。ps: 本人将会在后续的博客中根据 Example 和 SourceCode 对此类组件进行一一介绍)</p>
+</blockquote>
+<h3 id="使用-Navigator-无侧滑阴影的效果图"><a href="#使用-Navigator-无侧滑阴影的效果图" class="headerlink" title="使用 Navigator 无侧滑阴影的效果图"></a>使用 Navigator 无侧滑阴影的效果图</h3><p><img src="http://upload-images.jianshu.io/upload_images/442688-a6ccf1c75481cff3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="without border shadow"></p>
+<p>iOS 和 Android 默认的表现是相同的，为了方便起见，就只贴一张图就行了。</p>
+<h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>Navigator 作为路由管理者，对每个页面拥有着掌权者，其所在之处必是应用的顶层容器。而作为每个页面的管理者，想要在页面上屏幕以外的地方添加东西，必然就得在 Navigator 上做手脚。通过查询官方文档，我们找到了如下 Navigator 的如下 API：</p>
+<blockquote>
+<p><strong>sceneStyle</strong><br>Styles to apply to the container of each scene.<br> // 为每一个场景所在的容器添加样式</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-0849ace178b05dbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Navigator"><br><em>注：RouteStack 外的 component 会被 unmount，因此 scenes map 只是静态描述</em></p>
+<p>翻了翻 Navigator 的源码，发现一个 Navigator 视图层级还挺多的，具体结构如上图。可以看得出来本质上它就是一个单独的 View，而之所以不叫 style 而是 sceneStyle 是因为每个 container of component 就是 scene 这层的容器，为了遵循编程中墨守成规的语义化命名规则也为了避免不必要的麻烦 (最外层的容器的可注入样式才叫 style)。</p>
+<h3 id="动手操作"><a href="#动手操作" class="headerlink" title="动手操作"></a>动手操作</h3><p>原材料则是 View 的 shadow 这个样式。在开篇也介绍了，shadow 只适用于 iOS，而 Android 的仰角 elevation 则在 border shadow 上的表现几乎为零。</p>
+<p>####iOS<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">navigator</span>: &#123;</span><br><span class="line">  <span class="attribute">marginLeft</span>: -<span class="number">10</span>,</span><br><span class="line">  paddingLeft: <span class="number">10</span>,</span><br><span class="line">  shadowColor: <span class="string">'black'</span>,</span><br><span class="line">  shadowOffset: &#123;width: <span class="number">0</span>, height: <span class="number">0</span>&#125;,</span><br><span class="line">  <span class="selector-tag">shadowOpacity</span>: 0<span class="selector-class">.4</span>,</span><br><span class="line">  <span class="selector-tag">shadowRadius</span>: 5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只需要在 Navigator 的 sceneStyle 属性上加上这样是就可以啦～<br><strong><em>要点解析</em></strong></p>
+<ul>
+<li>我们使用 margin 来伸展 component 父容器到屏幕以外的位置并使用 padding 来修复同样的偏移量，这样我们的 scene 层容器变的更大了。</li>
+<li>在我们留出来的位置使用 shadow 来为整个 scene 的内容添加阴影。这里需要注意的是 shadowOffset 是用来控制阴影在横纵坐标上的偏移量的，而默认值在纵向上是负值，如果你需要在某些可伸缩的 configureScene 上使用的话，则需要在纵向上上对阴影做平衡处理，这里我们直接把两个值设为0</li>
+<li>shadowRadius 阴影半径不要大于你留出来的空间，否则你懂的</li>
+<li>shadowOpacity 默认值是 0，当你的阴影显示不出来的时候，看看这个值是否存在（坑爹啊）<br><strong><em>效果图</em></strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-11be65e59bd37828.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS"></p>
+<h4 id="Android-1"><a href="#Android-1" class="headerlink" title="Android"></a>Android</h4><p>Android 上因为使用 elevation 在侧面完全看不到阴影，我们采用了一个第三方库 —— <a href="https://github.com/react-native-community/react-native-linear-gradient" target="_blank" rel="noopener">react-native-linear-gradient</a>，一个专门用来做颜色渐变的库，iOS 和 Android 端都使用了 Native 的实现方式。</p>
+<blockquote>
+<p>iOS 上有两个坑</p>
+<ul>
+<li>颜色的渐变和 Sketch 的渐变规则不同，在视觉上大概有那么几十个像素的误差。在尝试修复多次无效后使用了 React Native 内置的 ART 通过 svg 路径自定义了视图解决了问题。</li>
+<li>使用数组作为输入值向 Native 传输值时会因为<code>CGPoint</code> 转换错误的原因导致 js 属性的更改并不会引起 Native 层的重新渲染。后来解决并被 react-native-community 合掉了 PR，这里是 <a href="https://github.com/react-native-community/react-native-linear-gradient/pull/129" target="_blank" rel="noopener">Issues</a> 地址</li>
+<li>本来打算在双端都使用 ART 来实现，但是在缺乏文档信息，啃了源码后发现 ………. Android 端的 Code 为空 (呵呵哒)</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> easeInCubic = <span class="function"><span class="params">t</span> =&gt;</span> t*t*t</span><br><span class="line"><span class="keyword">const</span> input = [<span class="number">0</span>, <span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>, <span class="number">0.4</span>, <span class="number">0.5</span>, <span class="number">0.6</span>, <span class="number">0.7</span>, <span class="number">0.8</span>, <span class="number">0.9</span>, <span class="number">1</span>]</span><br><span class="line"><span class="keyword">const</span> outPut = input.map(easeInCubic).map(<span class="function"><span class="params">alpha</span> =&gt;</span> <span class="string">`rgba(0, 0, 0, <span class="subst">$&#123;alpha&#125;</span>)`</span>)</span><br><span class="line">...javascript</span><br><span class="line">&lt;View style=&#123;&#123;<span class="attr">flex</span>: <span class="number">1</span>&#125;&#125;&gt;</span><br><span class="line">  &lt;LinearGradient</span><br><span class="line">    start=&#123;&#123;<span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">0</span>&#125;&#125;</span><br><span class="line">    end=&#123;&#123;<span class="attr">x</span>: <span class="number">1</span>, <span class="attr">y</span>: <span class="number">0</span>&#125;&#125;</span><br><span class="line">    locations=&#123;input&#125;</span><br><span class="line">    colors=&#123;outPut&#125;</span><br><span class="line">    style=&#123;&#123;<span class="attr">opacity</span>: <span class="number">0.3</span>, <span class="attr">width</span>: <span class="number">10</span>, <span class="attr">position</span>: <span class="string">'absolute'</span>, <span class="attr">left</span>: <span class="number">-10</span>, <span class="attr">top</span>: <span class="number">0</span>, <span class="attr">bottom</span>: <span class="number">0</span>&#125;&#125;</span><br><span class="line">  /&gt;</span><br><span class="line">  &lt;YourComponent /&gt;</span><br><span class="line">&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">...</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>要点解析</em></strong><br>整体思路就是我们在左侧留出来的部分通过绝对布局加上了<a href="https://github.com/react-native-community/react-native-linear-gradient" target="_blank" rel="noopener">react-native-linear-gradient</a> 这个胡汉三，直接在 Navigator 的 renderScene 这个 API 下重写即可。</p>
+<ul>
+<li>开始直接使用了简单默认的线性渐变，结果丑的不行，后来考虑到可能标准的阴影并不是线性渐变的</li>
+<li>很幸运，我们的 LinearGradient 组件支持 location 配合 colors 来进行多点的颜色定位，这样通过构建数组配合 map 函数生成了一组以指定渐变函数为基准的色值，也就是我们的 outPut。（这里完全使用透明度来作为渐变变量）在尝试了多个渐变函数后，发现三次曲线基本吻合 iOS 端的阴影效果，<a href="http://easings.net/zh-cn" target="_blank" rel="noopener">这里</a> 是所有的 Ease Function 查询表。<br><img src="http://upload-images.jianshu.io/upload_images/442688-34f43e4f61ecb208?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android"><br>效果并没有直接模仿 iOS，而是达到了 Android 原生的基本效果。</li>
+</ul>
+<blockquote>
+<p>未来的几天里，还有猛料写哦～<br>晚安，23 岁的自己，90 后的我们！！！</p>
+</blockquote>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双平台上阴影的-API-使用简介"><span class="nav-text">双平台上阴影的 API 使用简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS"><span class="nav-text">iOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android"><span class="nav-text">Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双平台上的阴影实现效果预览"><span class="nav-text">双平台上的阴影实现效果预览</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双平台上对-Navigator-添加-border-shadow"><span class="nav-text">双平台上对 Navigator 添加 border shadow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Navigator-无侧滑阴影的效果图"><span class="nav-text">使用 Navigator 无侧滑阴影的效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路分析"><span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动手操作"><span class="nav-text">动手操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-1"><span class="nav-text">Android</span></a></li></ol></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React-Native" rel="tag">#React-Native</a>
+        
+          <a href="/tags#Navigator" rel="tag">#Navigator</a>
+        
+          <a href="/tags#阴影" rel="tag">#阴影</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

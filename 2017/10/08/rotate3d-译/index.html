@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="翻译,CSS,">
+
+
+<meta name="description" content="原文  rotate3d() 方法是一个在三维空间上旋转元素的 3D 变换方法。 元素会被特定方法中传递的第四个参数   旋转。前三个参数确定了旋转的方向并且它们会构成一个用来旋转的方向矢量[x, y, z]. 一个正角度值将会以相关方向为轴进行顺时针的旋转，同时一个负角度值将会在对应轴上进行逆时针旋转。 顺时针方向取决于从向量终点（箭头所在的地方即是）到起点的方向。下图则是表示沿着三个轴的正角">
+<meta name="keywords" content="翻译,CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rotate3d() (译)">
+<meta property="og:url" content="http://poberwong.com/2017/10/08/rotate3d-译/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文  rotate3d() 方法是一个在三维空间上旋转元素的 3D 变换方法。 元素会被特定方法中传递的第四个参数   旋转。前三个参数确定了旋转的方向并且它们会构成一个用来旋转的方向矢量[x, y, z]. 一个正角度值将会以相关方向为轴进行顺时针的旋转，同时一个负角度值将会在对应轴上进行逆时针旋转。 顺时针方向取决于从向量终点（箭头所在的地方即是）到起点的方向。下图则是表示沿着三个轴的正角">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-f4480c98bc1758f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-0656308d3cfb113b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-25ce12b1f29f13ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-ad6a7472f0c43223.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T08:36:03.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rotate3d() (译)">
+<meta name="twitter:description" content="原文  rotate3d() 方法是一个在三维空间上旋转元素的 3D 变换方法。 元素会被特定方法中传递的第四个参数   旋转。前三个参数确定了旋转的方向并且它们会构成一个用来旋转的方向矢量[x, y, z]. 一个正角度值将会以相关方向为轴进行顺时针的旋转，同时一个负角度值将会在对应轴上进行逆时针旋转。 顺时针方向取决于从向量终点（箭头所在的地方即是）到起点的方向。下图则是表示沿着三个轴的正角">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-f4480c98bc1758f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> rotate3d() (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="rotate3d() (译)"> rotate3d() (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-10-08T21:54:23+08:00" content="2017-10-08">
+              2017-10-08
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#CSS" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><blockquote>
+<p><a href="https://tympanus.net/codrops/css_reference/rotate3d/" target="_blank" rel="noopener">原文</a></p>
+</blockquote>
+<p>rotate3d() 方法是一个在三维空间上旋转元素的 3D 变换方法。</p>
+<p>元素会被特定方法中传递的第四个参数 <a href="http://tympanus.net/codrops/css_reference/angle" target="_blank" rel="noopener"><angle>
+</angle></a> 旋转。前三个参数确定了旋转的方向并且它们会构成一个用来旋转的方向矢量<strong>[x, y, z]</strong>.</p>
+<p>一个正角度值将会以相关方向为轴进行顺时针的旋转，同时一个负角度值将会在对应轴上进行逆时针旋转。</p>
+<p>顺时针方向取决于从向量终点（箭头所在的地方即是）到起点的方向。下图则是表示沿着三个轴的正角度（顺时针）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-f4480c98bc1758f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>沿着三个轴的正角度。注意如果你站在每个向量的终点并且向起点望去，顺时针方向就是图中所示的方向。</p>
+<p>rotate3d() 方法的前三个参数将决定那几个方向上的矢量将会产生旋转， 并且角度将会决定方向：沿着矢量顺时针或者逆时针。</p>
+<p>例如：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>(1, 1, 2, 45<span class="selector-tag">deg</span>);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>(2, 1, 3, 33<span class="selector-tag">deg</span>);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>(1, 0, 0, 45<span class="selector-tag">deg</span>); <span class="comment">/* element is rotated clockwise along the x-axis by 45deg */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>(0, 1, 0, 45<span class="selector-tag">deg</span>); <span class="comment">/* element is rotated clockwise along the y-axis by 45deg */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>(0, 0, 1, 45<span class="selector-tag">deg</span>); <span class="comment">/* element is rotated clockwise along the z-axis by 45deg */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>(0, 0, 0, 50<span class="selector-tag">deg</span>); <span class="comment">/* NO ROTATION IS APPLIED */</span></span><br></pre></td></tr></table></figure>
+<p>一下图片展示了给图片应用了 <code>rotate3d(1, 1, 1, 50deg)</code> 样式的效果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-0656308d3cfb113b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>官方的语法是这样的：<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">rotate3d</span>( &lt;<span class="selector-tag">number</span>&gt; , &lt;<span class="selector-tag">number</span>&gt; , &lt;<span class="selector-tag">number</span>&gt; , &lt;<span class="selector-tag">angle</span>&gt; );</span><br></pre></td></tr></table></figure></p>
+<p>为了更好地理解变换函数，详情参考<a href="http://tympanus.net/codrops/css_reference/transform/" target="_blank" rel="noopener">这里</a></p>
+<h2 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h2><p>以下是对三维空间 CSS 变换支持的列表：</p>
+<h3 id="CSS3-3D-变换"><a href="#CSS3-3D-变换" class="headerlink" title="CSS3 3D 变换"></a>CSS3 3D 变换</h3><p>在三维空间上对元素的变换使用的是 <code>transform</code> 这个属性。还包含了是用 <code>perspective</code> 属性来对元素在 z 轴空间上设置透视以及是用 <code>backface-visibility</code> 属性来反转元素在 3D 上的变换。</p>
+<p>W3C 草案</p>
+<p>以下版本的浏览器提供了支持</p>
+<p><strong>桌面</strong><br><img src="http://upload-images.jianshu.io/upload_images/442688-25ce12b1f29f13ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>移动端 / 平板</strong><br><img src="http://upload-images.jianshu.io/upload_images/442688-ad6a7472f0c43223.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><em>需要相应的前缀进行标记</em></p>
+<p>引自 <a href="http://caniuse.com/#feat=transforms3d" target="_blank" rel="noopener">caniuse.com</a></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器支持"><span class="nav-text">浏览器支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3-3D-变换"><span class="nav-text">CSS3 3D 变换</span></a></li></ol></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#CSS" rel="tag">#CSS</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

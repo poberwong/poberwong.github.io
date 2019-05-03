@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="Sketch,">
+
+
+<meta name="description" content="译者前序 作为一名爱好绘画的软件工程师，最近在我的 Sketch 启蒙导师 昕霖 发布了掘金 的吉祥物 panfish 后，我在第一时间使用 Sketch 完成了 panfish 的翻版，效果如下：  原文链接 // 需自带梯子在数字图形中，计算机使用一点的集合来绘制矢量图形 —— 一种连接着的点——非常多的程序都在使用 “贝塞尔曲线” 围绕这些矢量点来创建曲线。你可能在设计和动态影像工具中在外观">
+<meta name="keywords" content="Sketch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="掌握 Sketch 中的贝塞尔曲线 (译)">
+<meta property="og:url" content="http://poberwong.com/2017/01/26/掌握-Sketch-中的贝塞尔曲线-译/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="译者前序 作为一名爱好绘画的软件工程师，最近在我的 Sketch 启蒙导师 昕霖 发布了掘金 的吉祥物 panfish 后，我在第一时间使用 Sketch 完成了 panfish 的翻版，效果如下：  原文链接 // 需自带梯子在数字图形中，计算机使用一点的集合来绘制矢量图形 —— 一种连接着的点——非常多的程序都在使用 “贝塞尔曲线” 围绕这些矢量点来创建曲线。你可能在设计和动态影像工具中在外观">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-598f6683a6125369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*dOT2zmx68qdtieIfdNEd3A@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*qSY4EpQ7gg0KYGugqHfwig@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*SbCk_c0uZLFC2q_ZJFMCGQ@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*7sVI1nd2-vm7HyaHreX-fw@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*ChndHxKVBwkUkf8xvexWKg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*H2PpGd7_4kn5Uhc1nENppA@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*JLzeGqpC4-v99sc7jdjweQ@2x.gif">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*jDoVIF-kR0tmrzTsVMoPQA@2x.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*eP3hlEzwp5TPsu8wnpzNJQ@2x.gif">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*3T8vRVHileAk1Ogl4c8jXA@2x.png">
+<meta property="og:updated_time" content="2019-05-03T08:58:26.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="掌握 Sketch 中的贝塞尔曲线 (译)">
+<meta name="twitter:description" content="译者前序 作为一名爱好绘画的软件工程师，最近在我的 Sketch 启蒙导师 昕霖 发布了掘金 的吉祥物 panfish 后，我在第一时间使用 Sketch 完成了 panfish 的翻版，效果如下：  原文链接 // 需自带梯子在数字图形中，计算机使用一点的集合来绘制矢量图形 —— 一种连接着的点——非常多的程序都在使用 “贝塞尔曲线” 围绕这些矢量点来创建曲线。你可能在设计和动态影像工具中在外观">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-598f6683a6125369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 掌握 Sketch 中的贝塞尔曲线 (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="掌握 Sketch 中的贝塞尔曲线 (译)"> 掌握 Sketch 中的贝塞尔曲线 (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-01-26T02:02:07+08:00" content="2017-01-26">
+              2017-01-26
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#设计" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="译者前序"><a href="#译者前序" class="headerlink" title="译者前序"></a>译者前序</h2><p> 作为一名爱好绘画的软件工程师，最近在我的 Sketch 启蒙导师 <a href="www.yangxinlin.com">昕霖</a> 发布了<a href="https://gold.xitu.io" target="_blank" rel="noopener">掘金</a> 的吉祥物 panfish 后，我在第一时间使用 Sketch 完成了 panfish 的翻版，效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/442688-598f6683a6125369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<blockquote>
+<p><a href="https://medium.com/sketch-app/mastering-the-bezier-curve-in-sketch-4da8fdf0dbbb#.dpjymselo" target="_blank" rel="noopener"><strong>原文链接</strong></a> // 需自带梯子<br>在数字图形中，计算机使用一点的集合来绘制矢量图形 —— 一种连接着的点——非常多的程序都在使用 “贝塞尔曲线” 围绕这些矢量点来创建曲线。你可能在设计和动态影像工具中在外观上对它们很熟悉，但在尝试创建一个特定的图形时想要理解它们是如何工作的则是一件非常令人痛苦和困扰的事情。现在来建立起我们对<a href="https://medium.com/sketch-app/harnessing-vector-awesomeness-in-sketch-3c9621408138#.2ukqcagls" target="_blank" rel="noopener">矢量图形的理解</a>，这篇文章将会得贝塞尔曲线的设计更加简明易懂。</p>
+</blockquote>
+<h2 id="曲线如何工作"><a href="#曲线如何工作" class="headerlink" title="曲线如何工作"></a>曲线如何工作</h2><p>虽然有很多种不同类型的<a href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve" target="_blank" rel="noopener">贝塞尔曲线</a> (区别于曲线的控制方式以及绘制的复杂程度)，“三次方贝塞尔” 在图形软件中是最为常用的一种 —— 在 Sketch 中也是一种使用方式。那么三次贝塞尔到底是怎么工作的呢？<br><img src="https://cdn-images-1.medium.com/max/800/1*dOT2zmx68qdtieIfdNEd3A@2x.png" alt><br>贝塞尔曲线是由一些矢量点延展出来的操作棒所创建的。在每一个操作棒末端是操作棒的控制点。这些操作棒看起来好像会将图形具有吸引力般的拉向它们。如果你想知道魔法般的引力是如何生效的，请观看如下视频( 由于 markdown 不支持视频的原因，可以去这里看看使用 css 画出来的 贝塞尔<a href="[http://codepen.io/pnowell/pen/gqLbc](http://codepen.io/pnowell/pen/gqLbc">示例动画</a>))</p>
+<p>如果你对知道计算机是怎么绘制贝塞尔曲线毫无兴趣，请直接跳过接下来为多级别提供一些使用技巧的部分内容。</p>
+<p><em>我强烈建议你使用 Sketch 3 版本号为 3.1 或者更高。</em></p>
+<h2 id="在实战中使用贝塞尔操作棒"><a href="#在实战中使用贝塞尔操作棒" class="headerlink" title="在实战中使用贝塞尔操作棒"></a>在实战中使用贝塞尔操作棒</h2><p>上面视频里的例子主要操作了一条线上的两个点，然而绝大多数的矢量图形都有相当多的点。例如，一个点上通常会延伸出两个贝塞尔操作棒——两边各一个。这里在 Sketch 中有几种围绕一个矢量点来创建一条曲线的方式：</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*qSY4EpQ7gg0KYGugqHfwig@2x.png" alt></p>
+<p>“<strong>Mirrored</strong>“ 是控制贝塞尔曲线中默认且最为常用的一种方法。这种方式会从一个矢量点上会延伸出两个距离相同、角度相同的操作棒。操作棒看起来构成了这条曲线的一条切线。Mirrored 选项原理是，如果两个操作棒是处于相同的角度，图形将会是完全平滑的曲线；换句话说，将不会产生只有在 Disconnected 模式下才会产生的拐角或者点。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*SbCk_c0uZLFC2q_ZJFMCGQ@2x.png" alt><br>“<strong>Asymmetric</strong>“ 模式和 对称模式相同，操作棒都具有相同的角度，然而操作棒距矢量点的距离却不同。当曲线需要在矢量点另一侧曲度减小更快时非常有用。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*7sVI1nd2-vm7HyaHreX-fw@2x.png" alt><br>“<strong>Disconnected</strong>” 允许你分别处理每一个操作棒而不受另一个影响。一下有两个例子：</p>
+<ol>
+<li>你想要一个在矢量点的位置具有明显角度或拐角而非通过一个点创建一个平滑的曲线。</li>
+<li>你可能只需要一个操作棒；控制矢量点一侧的曲线并且在另一边并不需要操作。如果第二个选项时你想要的，点击操作棒控制点并点击删除。<br><img src="https://cdn-images-1.medium.com/max/1600/1*ChndHxKVBwkUkf8xvexWKg.png" alt></li>
+</ol>
+<h2 id="直点和圆角"><a href="#直点和圆角" class="headerlink" title="直点和圆角"></a>直点和圆角</h2><p>当选中了 <strong>Straight</strong> 选项时，这个矢量点没有任何的操作棒或者说没有曲线穿过。如果有两个这样选项的矢量点彼此相邻，他们之间的路径将会是一条直线。Sketch 为你提供了将任意直点添加圆角(又称边界半径)的选项。虽然 Sketch 能够以一种难以置信的方式简单的为单个点提供圆角和半径值，但在软件底层实际上是通过计算贝塞尔曲线来实现的。太屌了！如果你想搞定这些贝塞尔曲线，扁平化你的图形吧(<a href="http://medium.com/sketch-app/harnessing-vector-awesomeness-in-sketch-3c9621408138#7b25" target="_blank" rel="noopener">此处是描述</a>)<br><img src="https://cdn-images-1.medium.com/max/1600/1*H2PpGd7_4kn5Uhc1nENppA@2x.png" alt></p>
+<h2 id="学会控制你的操作棒"><a href="#学会控制你的操作棒" class="headerlink" title="学会控制你的操作棒"></a>学会控制你的操作棒</h2><p>关于贝塞尔曲线最让人疑惑的一点就是怎么去放置操作棒和矢量点来达到你预期的目标。<a href="http://theagsc.com/" target="_blank" rel="noopener">the AGSC</a> 的设计师 <em>Dave Coleman</em> 最近写了篇关于这方面的一篇<a href="http://theagsc.com/community/tutorials/so-whats-the-big-deal-with-horizontal-vertical-bezier-handles-anyway" target="_blank" rel="noopener">很棒的文章</a>, 并且我将会对他主要的几点做出总结。</p>
+<ul>
+<li>如果你策略性的沿着曲线放一些矢量点，你可以很可观得减少图形中大量的点。更简便的是你的图形变得可构造化，更容易被改变，而且存储的文件也会更小。Dave 建议 <strong>在曲线上找到 “最边缘的点”</strong>，并且把你的矢量点放到那儿。</li>
+<li>对于该位置上的矢量点，是时候操作一下操作棒了。将贝塞尔操作棒纵向或是水平对齐，曲线通常会变得更平滑并且微调起来会更快。因为你只需要将操作棒移动到其中一个轴上，做曲线的整个过程将会变的更加容易。</li>
+<li>除非…，偶尔出现一些意外情况。有时候贝塞尔曲线在操作棒存在偏角或者矢量点没有被放置到最远点上的时候才会无法被完全复制。好，譬如很多的指导教程，学习它们，搞懂它们，并且在必要时可以打破他们的规则。</li>
+</ul>
+<p>你可能非常想知道将一条贝塞尔操作棒拉到 90 度角的快速方法：在控制点上拖拽操作棒时按住 “shift” 键。如果是像下图所示，那可能并非我们所期望的，看看 “rounding” 选项是否关闭。如果你用了 “Round to full pixel edges” 或者 “half pixel edge”，并且矢量点没有处于具体的某个像素活着半相处像素的位置，操作棒将不会被拉到 90 度。<br><img src="https://cdn-images-1.medium.com/max/1600/1*JLzeGqpC4-v99sc7jdjweQ@2x.gif" alt></p>
+<p>一个解决方案是至少在你调整这些特定的操作棒时关掉 rounding 选项。另一个方案就是手动去调整每一个操作棒的坐标，如下图描述的那样。<br><img src="https://cdn-images-1.medium.com/max/1600/1*jDoVIF-kR0tmrzTsVMoPQA@2x.png" alt></p>
+<h2 id="一个巨屌的隐藏特性"><a href="#一个巨屌的隐藏特性" class="headerlink" title="一个巨屌的隐藏特性"></a>一个巨屌的隐藏特性</h2><p>在做一个自定义商标项目的时候，我发现 sketch 中一个非常重要的隐藏的特性：<strong>不仅矢量点有它们的坐标，还有操作棒的每一点也有</strong>(“操作棒控制点”)。看起来似乎本来就是，因为那些操作棒的坐标对于计算机绘制曲线来讲是非常必要的。Sketch 允许你手动输入这些坐标就不够明显了。<br><img src="https://cdn-images-1.medium.com/max/1600/1*eP3hlEzwp5TPsu8wnpzNJQ@2x.gif" alt></p>
+<p>这个特性很容易被忽视，因为当操作棒被选中时外观并没有什么变化——只有工具栏里 “position” X 和 Y 值。能够给操作棒的坐标设置值解决了很多复杂的问题并且让我内心畅快很多，因为我的贝塞尔操作棒能够准确的按照我所预想的来放置。而且，非常微小的调整 (像素级) 变得非常容易。自己尝试做一下吧；通过拖拽操作棒来修改贝塞尔曲线，然后在工具栏里微调操作棒的位置。<br><img src="https://cdn-images-1.medium.com/max/1600/1*3T8vRVHileAk1Ogl4c8jXA@2x.png" alt></p>
+<h2 id="更多小技巧和捷径"><a href="#更多小技巧和捷径" class="headerlink" title="更多小技巧和捷径"></a>更多小技巧和捷径</h2><ul>
+<li><strong>双击矢量点</strong> 将会在垂直和对称模式之间切换。你可能在其他软件里对此很熟悉。</li>
+<li>在编辑图形时，你可以点击键盘上 “tab” 来<strong>选择路径上下一个矢量点</strong>。“Shift” + “tab” 将会选择路径上的前一个是亮点。下一个点在你的图形上是顺时针还是逆时针取决于你的图形的方向(<a href="http://medium.com/sketch-app/harnessing-vector-awesomeness-in-sketch-3c9621408138#fa86" target="_blank" rel="noopener">这里有更详细的描述</a>)</li>
+<li>当一个矢量点被选中时可以点击 <strong> 1, 2, 3, 4 数字键</strong> 来在 直线，对称，不连续，不对称模式之间切换。</li>
+<li>如果你在移动矢量点时按住 “Command”(⌘) 键，Sketch将会忽略掉可能会降你的点自动水平或是垂直得对齐其他点的 <strong>“智能辅助”</strong>。</li>
+<li>在拖动贝塞尔操作棒时按住 “Command”(⌘) 键将会允许你狠自由并独立得放置操作棒，就跟不连续模式一样。在使用对称或是不对称模式时要小心了，在不按住 command 键移动矢量操作棒时将不会保存不连续模式的结果。尝试一下看看是怎么工作的！</li>
+</ul>
+<p>最后一点。如果第一次贝塞尔曲线看起来不怎么理想时不要灰心，请记住<br><em>类似于任何技能，创建一条完美的矢量曲线图形都需要不断重复和练习。</em></p>
+<p><strong>练习这些技能最好的方式</strong>就是临摹字体。拍照或者画一个漂亮的字 (一些曲线的，类似于 “G”，“Q”，“R”，或者从其他的一些字母表)，把那些图画到 Sketch 中，并且使用矢量工具来临摹字体的轮廓。尝试将你的矢量点放到图形的最远点，使用垂直或事水平的操作棒，然后手动输入坐标来微调它们。</p>
+<p><strong>不要忘记分享一些你的作品！</strong> 在推特和 Instagram上使用 #<strong>sketchbezier</strong>。我也经常提交一些东西。这个世界需要更加漂亮的曲线！</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#译者前序"><span class="nav-text">译者前序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#曲线如何工作"><span class="nav-text">曲线如何工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在实战中使用贝塞尔操作棒"><span class="nav-text">在实战中使用贝塞尔操作棒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直点和圆角"><span class="nav-text">直点和圆角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学会控制你的操作棒"><span class="nav-text">学会控制你的操作棒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个巨屌的隐藏特性"><span class="nav-text">一个巨屌的隐藏特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多小技巧和捷径"><span class="nav-text">更多小技巧和捷径</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#Sketch" rel="tag">#Sketch</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="ES6,Promise,">
+
+
+<meta name="description" content="简介长话短说，promise 是 EcmaScript 6 提出的新特性，主要是用来解决异步调用中过度依赖回调的问题（或者说是以链式的调用的方式解决回调地狱的问题）。// 此处不对 promise 做介绍，有需要的可以去 阮一峰老师的 ES6 教程 看看或者这本 promise迷你书 (更加完善，而且可以在线运行测试代码，荐)。 起因做任何事都是要有起因的，不可能空穴来风，在被折腾了好几番之后，最">
+<meta name="keywords" content="ES6,Promise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise 几点实战应用">
+<meta property="og:url" content="http://poberwong.com/2017/06/11/Promise-几点实战应用/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="简介长话短说，promise 是 EcmaScript 6 提出的新特性，主要是用来解决异步调用中过度依赖回调的问题（或者说是以链式的调用的方式解决回调地狱的问题）。// 此处不对 promise 做介绍，有需要的可以去 阮一峰老师的 ES6 教程 看看或者这本 promise迷你书 (更加完善，而且可以在线运行测试代码，荐)。 起因做任何事都是要有起因的，不可能空穴来风，在被折腾了好几番之后，最">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-03T11:21:15.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Promise 几点实战应用">
+<meta name="twitter:description" content="简介长话短说，promise 是 EcmaScript 6 提出的新特性，主要是用来解决异步调用中过度依赖回调的问题（或者说是以链式的调用的方式解决回调地狱的问题）。// 此处不对 promise 做介绍，有需要的可以去 阮一峰老师的 ES6 教程 看看或者这本 promise迷你书 (更加完善，而且可以在线运行测试代码，荐)。 起因做任何事都是要有起因的，不可能空穴来风，在被折腾了好几番之后，最">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Promise 几点实战应用 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="Promise 几点实战应用"> Promise 几点实战应用 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-06-11T01:19:34+08:00" content="2017-06-11">
+              2017-06-11
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#JavaScript" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>长话短说，promise 是 EcmaScript 6 提出的新特性，主要是用来解决异步调用中过度依赖回调的问题（或者说是以链式的调用的方式解决回调地狱的问题）。<br>// <em>此处不对 promise 做介绍，有需要的可以去 <a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">阮一峰老师的 ES6 教程</a> 看看或者这本 <a href="http://liubin.org/promises-book/#what-is-promise" target="_blank" rel="noopener">promise迷你书</a> (更加完善，而且可以在线运行测试代码，荐)</em>。</p>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>做任何事都是要有起因的，不可能空穴来风，在被折腾了好几番之后，最终决定写下该文，毕竟趟完坑不能自己藏着掖着，把一点心得贡献出来也是非常值得的。</p>
+<p>具体细节则主要和三月份对公司项目的那次重构有关。当时自己也是刚入职，面对一个文件中上千行面向过程式、MVC 混为一谈、函数名 r、j、k 式命名的代码让人痛苦不已。为了清晰的了解业务逻辑，技术实现细节以及保证最小可执行单位的稳定性，我和同事花了大半天的时间做了给一千多行的 “劣质代码” 分模块，加注释的工作。因为自己以前还算是对 proimse 颇有心得，就果断使用 promise 处理工作流程了，没想到还是跌到坑里了，不过就目前来讲，都是非常值得的事情。</p>
+<h2 id="使用-promise-实现对数据的分层处理"><a href="#使用-promise-实现对数据的分层处理" class="headerlink" title="使用 promise 实现对数据的分层处理"></a>使用 promise 实现对数据的分层处理</h2><p>因为 promise 主要使用场景是异步任务，就不用同步任务抬杠了。此处我们主要以请求数据为例展开做介绍。（请求库可以是 request、 superagent、fetch、AJAX 亦或是 jQuery，都没关系）</p>
+<ul>
+<li><p>首先，我们需要在数据返回的地方将请求返回的结果按照 API 所给的回调参数（如 error 对象是否为空，body 是否存在、亦或是从 reponse 中利用 statusCode 来判断，不过这个一般请求库都做好了，除非你有对不同的异常需要特殊处理）分流，通过在对应的地方调用 resolve 或 reject 来构造 promise 对象。</p>
+</li>
+<li><p>那么 promise 对象有了，接下来该怎么办呢？有如下场景，想要把对应的状态 (resolve 或 reject) 想要传递下去，或者说想要把带有同样信息甚至是处理过的信息传递到下一层 then 中 (只要返回该 promise 即可)，就一件事，保留状态 + 传递被处理后的数据。<br>如下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 此处拿通过 promise 处理过的 superagent 举例(处理函数为写在原型上的 promisify)</span></span><br><span class="line">request.get(<span class="string">"your api"</span>)</span><br><span class="line">.promisefy()</span><br><span class="line">.then(</span><br><span class="line">    res =&gt; res.text,</span><br><span class="line">    error =&gt; <span class="built_in">Promise</span>.reject(error.text)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如上代码主要体现了</p>
+<ol>
+<li>传递处理后的数据，如这里我们向下级 then 的 resolve、reject 传递了 <code>res.text</code>，同样还有 <code>error.text</code> // 其实这两个都是被 superagent 处理后两种状态的 response。</li>
+<li>对于在 reject 中使用 <code>Promise.reject(error.text)</code> 则表现了对状态的保存，譬如当 reject 事件发生后，能够通过返回一个新的 promise (这里仅有 reject 的一个 promise 对象)来连接下一个 then. 其实准确来讲，第一个也应该是 <code>res =&gt; Promise.resolve(res.text)</code>, 不过鉴于在 promise 机制中，当前方 then 中被执行的回调返回了一个非 promise 对象时，当前 then 的 resolve 回调的参数则会是上一个被执行回调的返回值（不论是 resolve 还是 reject 被执行）。</li>
+</ol>
+<ul>
+<li>这里我提供一点测试代码  </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> promiseTest = <span class="function"><span class="params">input</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(resolve, reject) &#123;</span><br><span class="line">    <span class="keyword">if</span> (input) &#123;</span><br><span class="line">      resolve(<span class="string">"success"</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      reject(<span class="string">"failed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用-race-来给-fetch-实现一个伪超时机制"><a href="#使用-race-来给-fetch-实现一个伪超时机制" class="headerlink" title="使用 race 来给 fetch 实现一个伪超时机制"></a>使用 race 来给 fetch 实现一个伪超时机制</h2><p>众所周知，promise 拥有两个最实用的静态方法 —— <code>race</code> 和 <code>all</code>，二者都接受一个以 promise 数组的参数。</p>
+<ul>
+<li>race： 通过让多个 promise 以竞争的方式来让第一个完成 promise 的结果出现在 then 中。</li>
+<li>all：当多个异步任务只有在全部完成时才会进行下一步操作时，就需要它了，它表示让所有 promise 执行成功且完毕才会被 resolve，而其参数则是每一个 promise resolve 结果的数组集，而 reject 时则是对应发生错误 promise 的结果集。</li>
+</ul>
+<p>通过以上两个特性，我们就可以通过 race 结合 fetch 以及 setTimeout<br> 来做一个简单的超时机制。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 setTimeout 封装的 promise</span></span><br><span class="line"><span class="keyword">const</span> delay = <span class="function"><span class="params">ms</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(resolve, reject) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"timeout"</span>))</span><br><span class="line">  &#125;, ms)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fetchWithTimeout  = <span class="function">(<span class="params">ms, ...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.race([fetch(...args), delay(ms)])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样将正常的 fetch 请求和一个 timer 事件进行 race，最先完成的既是运行结果。不过需要注意的一点是：<br><strong><em>fetch 请求并不会因此而被终止掉，而是会继续请求</em></strong></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-promise-实现对数据的分层处理"><span class="nav-text">使用 promise 实现对数据的分层处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-race-来给-fetch-实现一个伪超时机制"><span class="nav-text">使用 race 来给 fetch 实现一个伪超时机制</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#ES6" rel="tag">#ES6</a>
+        
+          <a href="/tags#Promise" rel="tag">#Promise</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
