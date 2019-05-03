@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="React,翻译,">
+
+
+<meta name="description" content="原文链接  翻译这篇文章的初衷在于研究一个如何使用动画驱动一个元素的宽或高的变化，起初用过几次官方的 Animated ，但却对某些点一直没有 get 到，导致了这次学习的过程…… 具体详细信息可以看这份 Gist。 ——译者注   流式动画提升了很多应用的用户体验。React Native 注重于性能以此来构建和走出更好的产品。 在本次教程中，我们将学习一些基本的动画。我们将会创建一个 pane">
+<meta name="keywords" content="React,翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 React Native 中使用 Animation 对元素进行伸展折叠 (译)">
+<meta property="og:url" content="http://poberwong.com/2016/11/16/在-React-Native-中使用-Animation-对元素进行伸展折叠-译/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文链接  翻译这篇文章的初衷在于研究一个如何使用动画驱动一个元素的宽或高的变化，起初用过几次官方的 Animated ，但却对某些点一直没有 get 到，导致了这次学习的过程…… 具体详细信息可以看这份 Gist。 ——译者注   流式动画提升了很多应用的用户体验。React Native 注重于性能以此来构建和走出更好的产品。 在本次教程中，我们将学习一些基本的动画。我们将会创建一个 pane">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-a9800cc6eae4019e.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-a5ef17de4d8d8817.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-03f4a014955e6c23.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-237f4ec12aba29e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/442688-cb766a48d713b4fa.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2019-05-03T13:58:25.002Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 React Native 中使用 Animation 对元素进行伸展折叠 (译)">
+<meta name="twitter:description" content="原文链接  翻译这篇文章的初衷在于研究一个如何使用动画驱动一个元素的宽或高的变化，起初用过几次官方的 Animated ，但却对某些点一直没有 get 到，导致了这次学习的过程…… 具体详细信息可以看这份 Gist。 ——译者注   流式动画提升了很多应用的用户体验。React Native 注重于性能以此来构建和走出更好的产品。 在本次教程中，我们将学习一些基本的动画。我们将会创建一个 pane">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/442688-a9800cc6eae4019e.gif?imageMogr2/auto-orient/strip">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 在 React Native 中使用 Animation 对元素进行伸展折叠 (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="在 React Native 中使用 Animation 对元素进行伸展折叠 (译)"> 在 React Native 中使用 Animation 对元素进行伸展折叠 (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2016-11-16T15:16:10+08:00" content="2016-11-16">
+              2016-11-16
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><a href="http://moduscreate.com/expanding-and-collapsing-elements-using-animations-in-react-native/" target="_blank" rel="noopener"><em>原文链接</em></a></p>
+<blockquote>
+<p>翻译这篇文章的初衷在于研究一个如何使用动画驱动一个元素的宽或高的变化，起初用过几次官方的 <a href>Animated</a> ，但却对某些点一直没有 get 到，导致了这次学习的过程…… 具体详细信息可以看这份 <a href="https://gist.github.com/Bob1993/169896cce265da11af7abc581e450b19" target="_blank" rel="noopener">Gist</a>。 ——译者注</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-a9800cc6eae4019e.gif?imageMogr2/auto-orient/strip" alt></p>
+<p>流式动画提升了很多应用的用户体验。React Native 注重于性能以此来构建和走出更好的产品。</p>
+<p>在本次教程中，我们将学习一些基本的动画。我们将会创建一个 panel 组件。当组件的 body 伸展或是折叠时，我们将会使用一个很棒的动画在下一张图里进行展示。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/442688-a5ef17de4d8d8817.gif?imageMogr2/auto-orient/strip" alt></p>
+<p>让我们一起来创建一下我们的项目。如果这是你第一次使用 React Native，请先学习官方网站的<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">入门教程</a>，然后在你的终端里运行如下命令。<br><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">$ react-<span class="keyword">native</span> <span class="keyword">init</span> Panels</span><br></pre></td></tr></table></figure></p>
+<p>一旦前边的命令执行完毕，我们在 XCode 中打开 <code>ios/Panels.xcodeproj</code>。现在我们可以在 iOS 模拟器上运行应用了。我们看到的应该如下图。<br><img src="http://upload-images.jianshu.io/upload_images/442688-03f4a014955e6c23.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>我们已经正确的运行了应用，现在我们开始撸码吧！</p>
+<h2 id="创建-panel-组件"><a href="#创建-panel-组件" class="headerlink" title="创建 panel 组件"></a>创建 panel 组件</h2><p>我们一起来创建 panel 组件。现在我们只有标题和内容。在工程根目录创建 <code>components</code> 文件夹，我们将会在这里写上我们所有的 JavaScript 类。现在，我们来创建 <code>Panel.js</code> 文件并加入如下代码。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React,&#123;Component,StyleSheet,Text,View,Image,TouchableHighlight,Animated&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>; <span class="comment">//Step 1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Panel</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.icons = &#123; <span class="comment">//Step 2 </span></span><br><span class="line">      <span class="string">'up'</span> : <span class="built_in">require</span>(<span class="string">'./images/Arrowhead-01-128.png'</span>),</span><br><span class="line">      <span class="string">'down'</span> : <span class="built_in">require</span>(<span class="string">'./images/Arrowhead-Down-01-128.png'</span>) </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.state = &#123; <span class="comment">//Step 3 </span></span><br><span class="line">      title : props.title,</span><br><span class="line">      expanded : <span class="literal">true</span> </span><br><span class="line">    &#125;; </span><br><span class="line">  &#125; </span><br><span class="line"></span><br><span class="line">  toggle()&#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render()&#123;</span><br><span class="line">    <span class="keyword">let</span> icon = <span class="keyword">this</span>.icons[<span class="string">'down'</span>]  </span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.state.expanded)&#123; </span><br><span class="line">       icon = <span class="keyword">this</span>.icons[<span class="string">'up'</span>]; <span class="comment">//Step 4 </span></span><br><span class="line">      &#125; <span class="comment">//Step 5 </span></span><br><span class="line">      <span class="keyword">return</span> ( </span><br><span class="line">        &lt;View style=&#123;styles.container&#125; &gt; </span><br><span class="line">          &lt;View style=&#123;styles.titleContainer&#125;&gt; </span><br><span class="line">            &lt;Text style=&#123;styles.title&#125;&gt;&#123;<span class="keyword">this</span>.state.title&#125;&lt;<span class="regexp">/Text&gt; </span></span><br><span class="line"><span class="regexp">            &lt;TouchableHighlight </span></span><br><span class="line"><span class="regexp">              style=&#123;styles.button&#125; </span></span><br><span class="line"><span class="regexp">              onPress=&#123;this.toggle.bind(this)&#125; </span></span><br><span class="line"><span class="regexp">              underlayColor="#f1f1f1"&gt; </span></span><br><span class="line"><span class="regexp">              &lt;Image </span></span><br><span class="line"><span class="regexp">                style=&#123;styles.buttonImage&#125; </span></span><br><span class="line"><span class="regexp">                source=&#123;icon&#125; </span></span><br><span class="line"><span class="regexp">              &gt;&lt;/</span>Image&gt; </span><br><span class="line">            &lt;<span class="regexp">/TouchableHighlight&gt; </span></span><br><span class="line"><span class="regexp">          &lt;/</span>View&gt; </span><br><span class="line">        &lt;View style=&#123;styles.body&#125;&gt; </span><br><span class="line">          &#123;<span class="keyword">this</span>.props.children&#125; </span><br><span class="line">        &lt;<span class="regexp">/View&gt; </span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt; </span><br><span class="line">    ); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Panel;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>我们只需要在 Panel 类中倒入我们正在使用的所有依赖</li>
+<li>然后我们加载了两张图片。我们将会在标题条里添加的可折叠／伸展的按钮上使用它们</li>
+<li>我们给 app 设置了初始的 state 。在这里我们得到了 <strong>title</strong> 和设置了 <strong>expanded</strong> 属性为 <strong>true</strong>。</li>
+<li>基于 <strong>expanded</strong> 属性，我们将会得到正确的图片渲染到 button 上。</li>
+<li>最后，我们渲染了组件。主要是一个带有 title 和 content 的 <strong>View</strong>。在 body 上我们使用了 <strong>this.props.children</strong>, 这意味着我们可以在 body 上渲染任意组件。</li>
+</ol>
+<p>现在我们需要添加一些基本的样式。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> style = StyleSheet.create(&#123;</span><br><span class="line">  container : &#123; </span><br><span class="line">    backgroundColor: <span class="string">'#fff'</span>, </span><br><span class="line">    margin:<span class="number">10</span>, </span><br><span class="line">    overflow:<span class="string">'hidden'</span> </span><br><span class="line">  &#125;, </span><br><span class="line">  titleContainer : &#123; </span><br><span class="line">    flexDirection: <span class="string">'row'</span> </span><br><span class="line">  &#125;, </span><br><span class="line">  title : &#123; </span><br><span class="line">    flex : <span class="number">1</span>, </span><br><span class="line">    padding : <span class="number">10</span>, </span><br><span class="line">    color :<span class="string">'#2a2f43'</span>, </span><br><span class="line">    fontWeight:<span class="string">'bold'</span> </span><br><span class="line">    &#125;, </span><br><span class="line">    button : &#123; </span><br><span class="line">    &#125;, </span><br><span class="line">    buttonImage : &#123; </span><br><span class="line">      width : <span class="number">30</span>, </span><br><span class="line">      height : <span class="number">25</span> </span><br><span class="line">    &#125;, </span><br><span class="line">    body : &#123; </span><br><span class="line">      padding : <span class="number">10</span>, </span><br><span class="line">      paddingTop : <span class="number">0</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们只添加了一些简单的颜色，尺寸以及内间距。代码本身就可以解释其本身，因为所有属性和 CSS 时非常类似的。</p>
+<p>现在我们已经写好了 <code>Panel</code> 组件，现在让我们在应用中创建一些实例。打开 <code>index.ios.js</code> 文件并加入如下代码。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React,&#123;AppRegistry,StyleSheet,Text,ScrollView&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">import</span> Panel <span class="keyword">from</span> <span class="string">'./components/Panel'</span>; <span class="comment">// Step 1</span></span><br><span class="line"><span class="keyword">var</span> Panels = React.createClass(&#123; </span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">return</span> ( <span class="comment">//Step 2 </span></span><br><span class="line">      &lt;ScrollView style=&#123;styles.container&#125;&gt; </span><br><span class="line">        &lt;Panel title=<span class="string">"A Panel with short content text"</span>&gt; </span><br><span class="line">          &lt;Text&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Panel&gt;</span><br><span class="line">        &lt;Panel title=<span class="string">"A Panel with long content text"</span>&gt;</span><br><span class="line">          &lt;Text&gt;Lorem ipsum...&lt;<span class="regexp">/Text&gt; </span></span><br><span class="line"><span class="regexp">        &lt;/</span>Panel&gt; </span><br><span class="line">        &lt;Panel title=<span class="string">"Another Panel"</span>&gt; </span><br><span class="line">          &lt;Text&gt;Lorem ipsum dolor sit amet...&lt;<span class="regexp">/Text&gt; </span></span><br><span class="line"><span class="regexp">        &lt;/</span>Panel&gt; </span><br><span class="line">      &lt;<span class="regexp">/ScrollView&gt; </span></span><br><span class="line"><span class="regexp">    ); </span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var styles = StyleSheet.create(&#123; </span></span><br><span class="line"><span class="regexp">  container: &#123; </span></span><br><span class="line"><span class="regexp">    flex : 1, </span></span><br><span class="line"><span class="regexp">    backgroundColor : '#f4f7f9', </span></span><br><span class="line"><span class="regexp">    paddingTop : 30 </span></span><br><span class="line"><span class="regexp">  &#125;, </span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">AppRegistry.registerComponent('Panels', () =&gt; Panels);</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>首先我们导入了我们的新组件。</li>
+<li>然后我们使用一个标题和一些内容来渲染了三个我们的新组件。内容可以是任何东西，但我们将使用 text 来达到示范目的。</li>
+</ol>
+<p>牢记重启 packager 来让导入的新图片得以正常工作，否则你将会在加载图片是遇到错误。一旦 packager 重启了，我们看到的应该如下。<br><img src="http://upload-images.jianshu.io/upload_images/442688-237f4ec12aba29e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="运行动画"><a href="#运行动画" class="headerlink" title="运行动画"></a>运行动画</h2><p>现在我们的组件已经可以开始添加动画了。当我们的用户点击 伸展／折叠 按钮时，我们需要通过很棒的动画去修改主容器的高度。</p>
+<p>第一件需要做的事就是创建一个 <code>Animated.Value</code> 类的实例。这个类的值是用来驱动动画执行过程中的每一帧。在我们的案例中，它将会驱动 <code>height</code> 的值。让我们一起在 <code>Panel</code> 类的构造函数中添加如下代码吧。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.state = &#123; </span><br><span class="line">  title : props.title, </span><br><span class="line">  expanded : <span class="literal">true</span>, </span><br><span class="line">  animation : <span class="keyword">new</span> Animated.Value()</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>现在我们在这个组件的 state 中已经有了 <code>animation</code> 属性。我们可以在多个动画中使用同一个实例，例如去驱动透明度，宽度，缩放，甚至任意的样式属性。然而，这个实例一次只能被用于一个动画。</p>
+<p>现在我们需要得到我们的 panel 高度的最大值和最小值，我们需要动态去计算它，因为正如前面所提到的，内容里可以有任何东西。为了得到这些尺寸，我们使用 View 组件的 onLayout 事件。这个事件将会在组件被渲染并且所有的大小已经基于样式和内容计算好后被调用。</p>
+<p>让我们在组件的渲染方法里添加这些监听器吧。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">render()&#123;</span><br><span class="line">  <span class="comment">//... </span></span><br><span class="line">  <span class="keyword">return</span> ( </span><br><span class="line">    &lt;View style=&#123;styles.container&#125;&gt; </span><br><span class="line">      &lt;View style=&#123;styles.titleContainer&#125; </span><br><span class="line">        onLayout=&#123;<span class="keyword">this</span>._setMinHeight.bind(<span class="keyword">this</span>)&#125;&gt; <span class="comment">//Step 1 </span></span><br><span class="line">          <span class="comment">//... </span></span><br><span class="line">      &lt;<span class="regexp">/View&gt; </span></span><br><span class="line"><span class="regexp">      &lt;View style=&#123;styles.body&#125; </span></span><br><span class="line"><span class="regexp">        onLayout=&#123;this._setMaxHeight.bind(this)&#125;&gt; /</span><span class="regexp">/Step 2 </span></span><br><span class="line"><span class="regexp">          &#123;this.props.children&#125; </span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt; </span><br><span class="line">    &lt;<span class="regexp">/View&gt; </span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>首先我们给标题视图添加 <strong>onLayout</strong> 监听器。<strong>_setMinHeight</strong> 方法将会在标题被渲染后调用。</li>
+<li>然后给 body 视图添加 <strong>onLayout</strong> 监听器。<strong>_setMaxHeight</strong> 方法将会在 body 被渲染后调用。</li>
+</ol>
+<p>现在我们需要在 <code>Panel</code> 类中定义回调方法。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">_setMaxHeight(event)&#123; </span><br><span class="line">  <span class="keyword">this</span>.setState(&#123; </span><br><span class="line">    maxHeight : event.nativeEvent.layout.height </span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">_setMinHeight(event)&#123; </span><br><span class="line">  <span class="keyword">this</span>.setState(&#123; </span><br><span class="line">    minHeight : event.nativeEvent.layout.height </span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里所做的仅仅是为了获取高度以及创建新的 state 属性。我们可以在 <code>toggle</code> 方法里使用这些值。主要是用来给动画设置上下限。</p>
+<p>现在我们已经有了限制值了，我们可以计算动画的值了。让我们在 <code>toggle</code> 方法里添加如下代码。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">toggle()&#123; <span class="comment">//Step 1 </span></span><br><span class="line">  <span class="keyword">let</span> initialValue = <span class="keyword">this</span>.state.expanded? <span class="keyword">this</span>.state.maxHeight +   <span class="keyword">this</span>.state.minHeight : <span class="keyword">this</span>.state.minHeight, </span><br><span class="line">      finalValue = <span class="keyword">this</span>.state.expanded? <span class="keyword">this</span>.state.minHeight : <span class="keyword">this</span>.state.maxHeight + <span class="keyword">this</span>.state.minHeight; </span><br><span class="line">  <span class="keyword">this</span>.setState(&#123; </span><br><span class="line">    expanded : !<span class="keyword">this</span>.state.expanded <span class="comment">//Step 2 </span></span><br><span class="line">  &#125;); </span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.state.animation.setValue(initialValue); <span class="comment">//Step 3 </span></span><br><span class="line">  Animated.spring( <span class="comment">//Step 4 </span></span><br><span class="line">    <span class="keyword">this</span>.state.animation, </span><br><span class="line">    &#123; </span><br><span class="line">      toValue: finalValue </span><br><span class="line">    &#125; </span><br><span class="line">  ).start(); <span class="comment">//Step 5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>我们设置了起始值和终止值，这里我们需要根据以上步骤来使用这两个限制值。如果组件处于展开状态我们就设置高度为最小值，否则设置为最大值。</li>
+<li>我们需要触发 <strong>expanded</strong> 值。</li>
+<li>使用 <strong>Animated.Value</strong> 实例给动画设置初始值。</li>
+<li>我们使用 <strong>Animated.spring</strong> 方法来运行动画。这个方法负责了所有的计算并通过我们在构造器中声明的 <strong>Animated.Value</strong> 实例来给动画的每一帧设置值。我们也通过将对象作为第二个参数设置了动画的终止值。</li>
+<li>调用 <strong>start</strong> 方法来启动所有的计算。</li>
+</ol>
+<p>如果我们在模拟器中就这样运行了代码，我们只能看到图片的变化，其他什么都没发生。</p>
+<p>困惑的最后一点，就是将 <code>Animated.Value</code> 实例设置到我们想要做动画的组件上。现在万事已经具备，但我们还没有将这些值分配到对应组件的 <code>height</code> 样式上。</p>
+<p>让我们按照如下修改 render 方法:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">render()&#123; </span><br><span class="line">  <span class="comment">//... </span></span><br><span class="line">  <span class="keyword">return</span> ( </span><br><span class="line">    &lt;Animated.View </span><br><span class="line">      style=&#123;[styles.container,&#123;<span class="attr">height</span>: <span class="keyword">this</span>.state.animation&#125;]&#125;&gt; </span><br><span class="line">      <span class="comment">//... </span></span><br><span class="line">    &lt;<span class="regexp">/Animated.View&gt; </span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>第一件事就是我们使用 <code>Animated.View</code> 来替代简单的 <code>View</code> 作为主容器。<br>现在我们需要选择样式属性来驱动，在这个例子中我们需要驱动的是高度，但我们也可以驱动透明度，或者宽度，甚至其他属性。</p>
+<p>高度属性接收了 <code>Animated.Value</code> 实例，这和我们在 <code>Animated.spring</code> 方法中使用的是同一个实例。它将会负责 <code>height</code> 值的所有计算，而且我们在展开或是收缩时都可以看到非常棒的动画。<br><img src="http://upload-images.jianshu.io/upload_images/442688-cb766a48d713b4fa.gif?imageMogr2/auto-orient/strip" alt></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>在处理动画时，我们需要了解的只有三方面。第一，我们需要使用 <code>Animated.Value</code> 来驱动动画执行中的每一帧动画。第二，我们需要使用 <code>Animated.spring</code> 方法来给每一个动画计算值(这里有其他两个方法，我将会在未来的教程中提及)。第三，我们需要使用 <code>Animated.View</code> 组件来替代常规的 <code>View</code> 并将我们所计算出来的值分配给我们需要驱动动画的样式属性上。</p>
+<p>精简的动画可以为你的应用提升用户体验。我们可以创建更多复杂的动画，但是理念都是一样的。你可以在 Github 上下载<a href="https://github.com/crysfel/Panels" target="_blank" rel="noopener">这篇教程的代码</a> 。如果你有问题可以在 <a href="https://twitter.com/crysfel" target="_blank" rel="noopener">Twitter</a> 上给我留言。</p>
+<blockquote>
+<p>也可以使用在本文下面留言和我讨论哦～<br>译者已经将其封装为库，<a href="https://github.com/Bob1993/react-native-collapsable-view" target="_blank" rel="noopener">传送门</a><br>——译者注</p>
+</blockquote>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-panel-组件"><span class="nav-text">创建 panel 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行动画"><span class="nav-text">运行动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-text">结论</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#React" rel="tag">#React</a>
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
