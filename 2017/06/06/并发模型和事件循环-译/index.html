@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="翻译,JavaScript,">
+
+
+<meta name="description" content="原文链接   译者序:Js 主要是通过 Event Looper 在 Js 在单线程的环境下实现其异步机制，怀着求真的动机阅读了不少 AlloyTeam 关于 setTimeout 以及阮一峰老师异步机制相关文章，结果还是疑惑重重，最终来到了 比较官方的 MDN。  JavaScript有一个基于 “event loop” 的并发模型。它完全不同于其他语言的模型，如 C 和 Java 。 运行时概">
+<meta name="keywords" content="翻译,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发模型和事件循环 (译)">
+<meta property="og:url" content="http://poberwong.com/2017/06/06/并发模型和事件循环-译/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="原文链接   译者序:Js 主要是通过 Event Looper 在 Js 在单线程的环境下实现其异步机制，怀着求真的动机阅读了不少 AlloyTeam 关于 setTimeout 以及阮一峰老师异步机制相关文章，结果还是疑惑重重，最终来到了 比较官方的 MDN。  JavaScript有一个基于 “event loop” 的并发模型。它完全不同于其他语言的模型，如 C 和 Java 。 运行时概">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/442688-619693c6fab32a80.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-03T13:55:21.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发模型和事件循环 (译)">
+<meta name="twitter:description" content="原文链接   译者序:Js 主要是通过 Event Looper 在 Js 在单线程的环境下实现其异步机制，怀着求真的动机阅读了不少 AlloyTeam 关于 setTimeout 以及阮一峰老师异步机制相关文章，结果还是疑惑重重，最终来到了 比较官方的 MDN。  JavaScript有一个基于 “event loop” 的并发模型。它完全不同于其他语言的模型，如 C 和 Java 。 运行时概">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/442688-619693c6fab32a80.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 并发模型和事件循环 (译) </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="并发模型和事件循环 (译)"> 并发模型和事件循环 (译) </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2017-06-06T23:42:54+08:00" content="2017-06-06">
+              2017-06-06
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#JavaScript" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><p><em><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop" target="_blank" rel="noopener">原文链接</a></em> </p>
+<blockquote>
+<p>译者序:<br>Js 主要是通过 Event Looper 在 Js 在单线程的环境下实现其异步机制，怀着求真的动机阅读了不少 AlloyTeam 关于 setTimeout 以及阮一峰老师异步机制<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="noopener">相关文章</a>，结果还是疑惑重重，最终来到了 比较官方的 MDN。</p>
+</blockquote>
+<p>JavaScript有一个基于 “event loop” 的并发模型。它完全不同于其他语言的模型，如 C 和 Java 。</p>
+<h2 id="运行时概念"><a href="#运行时概念" class="headerlink" title="运行时概念"></a>运行时概念</h2><p>接下来这部分主要解释一个理论模型。如今的 JavaScript 引擎已经在很大程度在描述语义化上实现并优化。</p>
+<h3 id="可视化表示"><a href="#可视化表示" class="headerlink" title="可视化表示"></a>可视化表示</h3><p><img src="https://upload-images.jianshu.io/upload_images/442688-619693c6fab32a80.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>从<a href="http://eleveneat.com/2015/07/11/Stack-Frame/" target="_blank" rel="noopener">帧栈</a>中调用函数<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + <span class="number">11</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> y = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> foo(x * y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bar(<span class="number">7</span>));</span><br></pre></td></tr></table></figure></p>
+<p>在调用 bar 函数时，第一帧被创建并包含了 bar 函数的参数和一个局部变量。当 bar 调用 foo 时，第二个帧被创建并且被压到包含了 bar 函数的参数和局部变量的帧顶。当 foo 调用被返回时，顶部的帧元素会被弹出栈 (仅离开 bar 函数的帧)。 当 bar 结束调用，栈则会变空。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>对象将会被分配到堆内存(堆内存仅仅表示内存中大片的不规则的部分)</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个 JavaScript 运行时包含一个将会被执行的一系列消息的消息队列。一个函数与每一个消息都有关。当栈内存拥有足够空间时，一个消息将会出队并被执行。执行流主要由调用相关函数 (这样就创建了一个初始状态的栈帧) 组成。当栈变空后消息的执行也就终止了。</p>
+<h2 id="事件循环机制"><a href="#事件循环机制" class="headerlink" title="事件循环机制"></a>事件循环机制</h2><p>事件循环的命名源自它的实现，类似于如下代码：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (queue.waitForMessage()) &#123;</span><br><span class="line">  queue.processNextMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>queue.waitForMessage 方法会在当前没有消息时以同步的方式来等待消息的到来。</p>
+<h2 id="“运行直到完成”"><a href="#“运行直到完成”" class="headerlink" title="“运行直到完成”"></a>“运行直到完成”</h2><p>每一个消息在其他消息被执行之前都会执行到结束。这为你在推导程序上提供了一些不错的特性，如一个函数的执行时机，它无法在其他代码运行前被提前调用并被完整执行（但可以修改该函数所控制的数据）。这不同于 C、譬如，当一个函数在一个线程中运行时，它可以在任何点被中止并且去其他线程执行其他代码。</p>
+<p>这种模型的缺点就是如果一个消息占用太长时间才能完成时，web 应用就无法执行用户的类似于点击、滚动等交互。浏览器可以通过显示有 “脚本所占用太长时间而不能被运行” 的对话框来缓解。一个不错的方案就是在能够将一个大消息切为多个小消息的情况下尽量减小单位消息的大小。</p>
+<h3 id="添加消息"><a href="#添加消息" class="headerlink" title="添加消息"></a>添加消息</h3><p>在 web 浏览器中，只要事件发生并且有事件监听器与之绑定时消息都会被添加。如果没有监听器，这个事件将会被丢失。因此点击一个带有事件句柄的节点时，将会添加一个消息到消息队列中，任意其他事件也是一样的。</p>
+<p>调用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers.setTimeout" target="_blank" rel="noopener">setTimeout</a> 将会在倒计时时间达标后添加一个消息到队列中。当队列中没有其他消息时，这个消息则会被立即执行；然而，如果有很多消息时，setTimeout 消息则会等待其他消息执行完毕。于是乎 setTiemout 的第二个参数仅表示一个最小时间且不能被保证。</p>
+<h3 id="0-延时"><a href="#0-延时" class="headerlink" title="0 延时"></a>0 延时</h3><p>0 延时并不是真正意味着回调会在 0 毫秒后立即执行。使用 0 延迟参数来调用 setTimtout 并不会在给定的时间间隔后立即执行回调函数。它的执行取决于队列中等待的任务的数量。在以下例子中 “this is just a message” 将会在回调执行之前被打印到控制台中，因为 “延时” 参数表示的运行时去执行请求的最小时间，并不是一个被保证的事件。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'this is the start'</span>);</span><br><span class="line"></span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">cb</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this is a msg from call back'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'this is just a message'</span>);</span><br><span class="line"></span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">cb1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this is a msg from call back1'</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'this is the end'</span>);</span><br><span class="line"></span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// "this is the start"</span></span><br><span class="line"><span class="comment">// "this is just a message"</span></span><br><span class="line"><span class="comment">// "this is the end"</span></span><br><span class="line"><span class="comment">// "this is a msg from call back"</span></span><br><span class="line"><span class="comment">// "this is a msg from call back1"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="多个运行时之间的通信"><a href="#多个运行时之间的通信" class="headerlink" title="多个运行时之间的通信"></a>多个运行时之间的通信</h3><p>一个工作线程或一个跨域的 iframe 会拥有自己的栈、堆和消息队列。两个不同的运行时只能通过 <a href="https://developer.mozilla.org/en-US/docs/DOM/window.postMessage" target="_blank" rel="noopener">postMessage</a> 方法发送消息来通信。这个方法可以在其他运行时监听消息事件时给它们发送消息。</p>
+<h2 id="永不中断"><a href="#永不中断" class="headerlink" title="永不中断"></a>永不中断</h2><p>事件循环模型的一个特别有趣的特性就是：JavaScript 不像其他很多语言那样，永远不会被中断。通过事件和回调处理 I/O 就比较典型，因此当一个应用在等待 <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API" target="_blank" rel="noopener">IndexedDB</a> 查询并返回 XHR 请求来结束运行时，它仍然可以执行类似于用户输入这样的其他事件。</p>
+<p>像警告或同步 XHR 请求这样遗留下来的异常依然存在，但它依旧是一个避免它们的好的实践。注意，<a href="http://stackoverflow.com/questions/2734025/is-javascript-guaranteed-to-be-single-threaded/2734311#2734311" target="_blank" rel="noopener">异常永远都会存在</a>（但一般 都是实现上的 bug 而非其他）</p>
+<p><em>待校对</em></p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时概念"><span class="nav-text">运行时概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化表示"><span class="nav-text">可视化表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈"><span class="nav-text">栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列"><span class="nav-text">队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件循环机制"><span class="nav-text">事件循环机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“运行直到完成”"><span class="nav-text">“运行直到完成”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加消息"><span class="nav-text">添加消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-延时"><span class="nav-text">0 延时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个运行时之间的通信"><span class="nav-text">多个运行时之间的通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#永不中断"><span class="nav-text">永不中断</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#翻译" rel="tag">#翻译</a>
+        
+          <a href="/tags#JavaScript" rel="tag">#JavaScript</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
