@@ -47,18 +47,18 @@
 <meta name="keywords" content="Redux,源码,">
 
 
-<meta name="description" content="createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subscriberList 用来存放所有的订阅者回调函数  最终的 store 返回的内容是这样的： &amp;#123;	subscribe,	clea">
+<meta name="description" content="这是第二次读 Redux 源码了，上一次还是 16 年后半年，整个流程下来要比第一次在收获和理解上有了长足的进步。废话不多说，进入正题 … createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subs">
 <meta name="keywords" content="Redux,源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重访 Redux">
 <meta property="og:url" content="http://poberwong.com/2019/05/06/重访-Redux/index.html">
 <meta property="og:site_name" content="波波的小窝">
-<meta property="og:description" content="createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subscriberList 用来存放所有的订阅者回调函数  最终的 store 返回的内容是这样的： &amp;#123;	subscribe,	clea">
+<meta property="og:description" content="这是第二次读 Redux 源码了，上一次还是 16 年后半年，整个流程下来要比第一次在收获和理解上有了长足的进步。废话不多说，进入正题 … createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subs">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-06T05:46:18.095Z">
+<meta property="og:updated_time" content="2019-05-06T05:58:01.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重访 Redux">
-<meta name="twitter:description" content="createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subscriberList 用来存放所有的订阅者回调函数  最终的 store 返回的内容是这样的： &amp;#123;	subscribe,	clea">
+<meta name="twitter:description" content="这是第二次读 Redux 源码了，上一次还是 16 年后半年，整个流程下来要比第一次在收获和理解上有了长足的进步。废话不多说，进入正题 … createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subs">
 
 
 
@@ -186,7 +186,8 @@
 
   <div class="post-body">
 
-    <div class="content markdown-body"><h2 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h2><p>包含订阅函数、清除订阅、dispatch 函数。<br>在 window 全局上定义了三个变量：</p>
+    <div class="content markdown-body"><p><em>这是第二次读 Redux 源码了，上一次还是 16 年后半年，整个流程下来要比第一次在收获和理解上有了长足的进步。废话不多说，进入正题 …</em></p>
+<h2 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h2><p>包含订阅函数、清除订阅、dispatch 函数。<br>在 window 全局上定义了三个变量：</p>
 <ol>
 <li>globalReducer（用来承接单个或者合并后的 reducer）  </li>
 <li>globalState 用来承接产生的新的 store 集合</li>

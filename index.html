@@ -175,14 +175,12 @@
     <div class="text">
       <a href="/2019/05/06/重访-Redux/">
         
-        createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：
+        这是第二次读 Redux 源码了，上一次还是 16 年后半年，整个流程下来要比第一次在收获和理解上有了长足的进步。废话不多说，进入正题 …
+createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：
 
 globalReducer（用来承接单个或者合并后的 reducer）  
 globalState 用来承接产生的新的 store 集合
-subscriberList 用来存放所有的订阅者回调函数
-
-最终的 store 返回的内容是这样的：
-&#123;	subscribe,	clea
+subs
         ...
       </a>
     </div>
