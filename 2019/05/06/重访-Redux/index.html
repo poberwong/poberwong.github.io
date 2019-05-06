@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="Redux,源码,">
+
+
+<meta name="description" content="createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subscriberList 用来存放所有的订阅者回调函数  最终的 store 返回的内容是这样的： &amp;#123;	subscribe,	clea">
+<meta name="keywords" content="Redux,源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重访 Redux">
+<meta property="og:url" content="http://poberwong.com/2019/05/06/重访-Redux/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subscriberList 用来存放所有的订阅者回调函数  最终的 store 返回的内容是这样的： &amp;#123;	subscribe,	clea">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-06T05:46:18.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重访 Redux">
+<meta name="twitter:description" content="createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：  globalReducer（用来承接单个或者合并后的 reducer）   globalState 用来承接产生的新的 store 集合 subscriberList 用来存放所有的订阅者回调函数  最终的 store 返回的内容是这样的： &amp;#123;	subscribe,	clea">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> 重访 Redux </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="重访 Redux"> 重访 Redux </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2019-05-06T12:43:15+08:00" content="2019-05-06">
+              2019-05-06
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#ReactX" itemprop="url" rel="index">
+                    <span itemprop="name">ReactX</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="createStore"><a href="#createStore" class="headerlink" title="createStore"></a>createStore</h2><p>包含订阅函数、清除订阅、dispatch 函数。<br>在 window 全局上定义了三个变量：</p>
+<ol>
+<li>globalReducer（用来承接单个或者合并后的 reducer）  </li>
+<li>globalState 用来承接产生的新的 store 集合</li>
+<li>subscriberList 用来存放所有的订阅者回调函数</li>
+</ol>
+<p>最终的 store 返回的内容是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	subscribe,</span><br><span class="line">	clearSubscribe,</span><br><span class="line">	dispatch,</span><br><span class="line">	getState</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>dispatch 函数</strong><br>调用 reducer 的 API(其实是 combineReducers 接口，它将多个 reducers 合并为一个 reducers)，将 state 和 action 传入，更新 globalState，然后再依次调用每一个观察者函数。</p>
+<h2 id="combineReducers"><a href="#combineReducers" class="headerlink" title="combineReducers"></a>combineReducers</h2><ol>
+<li>reducers 使用 object 的方式来输入，输出则是一个新的 reducer（也就是所谓的 globalReducer）</li>
+<li>筛选出 function 类型的 reducer 作为新的 object</li>
+<li>nextState 维护一个 object，{reducerName: reducerState}, 这里的 reducer 其实对应着每一个的子 state，所以有必要给每一个 reducer 都分别维护一份自己的 store</li>
+<li>执行的时候每一个 reducer 的 state 也都是之前 preState[key] 的内容</li>
+</ol>
+<h2 id="applyMiddleware"><a href="#applyMiddleware" class="headerlink" title="applyMiddleware"></a>applyMiddleware</h2><p>applyMiddleware 是怎么实现对 createStore 和 reducer 改造的呢？</p>
+<p><strong>API</strong>：  </p>
+<ol>
+<li>middleware 本身的 API：<br> 其实是一个函数：<br> store =&gt; next =&gt; action =&gt; {}<br>（这里前两层函数在创建链的过程中已经被执行，最终返回的是 dispatch 链）</li>
+<li>applyMiddleware(middlewares)(createStore)(reducers), 最终返回的是具备一系列中间件功能的 store, 包含 {…store, dispatch}</li>
+</ol>
+<p><strong>applyMiddleware 实现细节</strong>  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params">...functionList</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (functionList.length === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (functionList.length === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> functionList[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//箭头函数要注意return, reduceRight是为了让中间件按从左到右的方式执行</span></span><br><span class="line">  <span class="comment">//一层层封装dispatch, 链式调用</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> functionList.reduceRight(<span class="function">(<span class="params">composed, f</span>) =&gt;</span> f(composed), ...args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">createStore</span> =&gt;</span> (reducer, initState) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> store = createStore(reducer, initState);</span><br><span class="line">    <span class="keyword">let</span> dispatch = store.dispatch;</span><br><span class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      <span class="comment">//为了让最后各个middleware拿到的dispatch是最新的,</span></span><br><span class="line">      <span class="comment">//这里必须用匿名函数 action =&gt; dispatch(action), 而不能直接用store.dispatch</span></span><br><span class="line">      dispatch: <span class="function"><span class="params">action</span> =&gt;</span> dispatch(action)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI));</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch);<span class="comment">//包装dispatch</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>先生成最基础的 store</li>
+<li>取出 dispatch 函数</li>
+<li>创建 middleware 的第一层参数 middlewareAPI = {getState， dispatch} // 这里需要注意的是 dispatch 的值为 action =&gt; dispatch(action)</li>
+<li>为每一个 middleware 执行第一层，那么应该就是 next =&gt; action =&gt; {} 这样的一个数组</li>
+<li>对 next =&gt; action =&gt; {} 进行 compose 组合，让若干个函数能够链式调用，然后再传入 store.dispatch 做初始函数，这时候 next =&gt; {} 已经被执行，最终就剩一连串的 action =&gt; {}。<ul>
+<li>分析 compose 函数，使用 store.dispatch 作为初始函数，每一层返回的是 action =&gt; {} 函数，恰好符合 dispatch 的函数签名</li>
+<li>具体执行则是从左向右依次执行，最终执行 store.dispatch</li>
+</ul>
+</li>
+<li><p>如何让每一个 middleware 拿到的 dispatch 都是最新的呢 ？<br>action =&gt; dispatch(action)。这里其实利用了闭包对变量作用域的影响，每一个中间件在被执行了第一层后，next =&gt; action =&gt; {} 依然持有 middlewareAPI 的引用，在连成链以及在 applyMiddleware 执行完毕之后，每一个dispatch 依然持有 applyMiddleware 作用域中 middlewareAPI 的引用。这时候 其中的 dispatch: action =&gt; dispatch(action) 已经是 dispatch 链了。</p>
+</li>
+<li><p>关于返回值</p>
+<ol>
+<li>由于是链式调用，如果严格 return next() 的话，整个 dispatch 链将返回原装 dispatch 返回的内容，即 action。否则从某个节点开始，那么它返回的则是当前中间件的返回值。</li>
+<li>另一方面，在每一个中间件中一定要执行 next，否则执行链断开最终无法发出真实的 dispatch。</li>
+</ol>
+</li>
+</ol>
+<h2 id="thunk"><a href="#thunk" class="headerlink" title="thunk"></a>thunk</h2><p><strong>源码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">store =&gt; <span class="function"><span class="params">next</span> =&gt;</span> action =&gt; &#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> action === <span class="function"><span class="keyword">function</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> action(store.dispatch, store.getState)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> next(action)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>使用 thunk 实现异步</strong>  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">dispatch(<span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">	dispatch(开始了)</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Promise</span>（）</span><br><span class="line">	.then(<span class="function">(<span class="params">res</span>) =&gt;</span> dispatch(接收到数据了))</span><br><span class="line"><span class="comment">// 因为 thunk 中的源码是 return action(), 所以中间件也会返回它的返回值，promise，因而 dispatch 会接收到 Promise。</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="利用-middleware-实现"><a href="#利用-middleware-实现" class="headerlink" title="利用 middleware 实现"></a>利用 middleware 实现</h2><p>这里与 dispatch 实现异步不同，我们在这里使用 next 不断得去执行。<br>参考：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store =&gt; <span class="function"><span class="params">next</span> =&gt;</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;promise, types, ...rest&#125; = action</span><br><span class="line">  <span class="keyword">if</span> (!promise) &#123;</span><br><span class="line">    <span class="keyword">return</span> next(action)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [REQUEST, SUCCESS, FAILED] = types</span><br><span class="line">  next(&#123;...rest, <span class="attr">type</span>: REQUEST&#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> promise.then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())</span><br><span class="line">  .then(<span class="function"><span class="params">responseData</span> =&gt;</span> &#123;</span><br><span class="line">    next(&#123;</span><br><span class="line">      ...rest,</span><br><span class="line">      type: SUCCESS,</span><br><span class="line">      updateTime: responseData.data.last_update,</span><br><span class="line">      days: genData(&#123;</span><br><span class="line">        data: responseData.data.list,</span><br><span class="line">        ok: responseData.ok</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="params">error</span> =&gt;</span> next(&#123;</span><br><span class="line">    ...rest,</span><br><span class="line">    type: FAILED,</span><br><span class="line">    error</span><br><span class="line">  &#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果发现是普通 action，那么直接 next 传递到下一个中间件上即可，否则返回 Promise，这里和 thunk 的 return action 类似。</p>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#createStore"><span class="nav-text">createStore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#combineReducers"><span class="nav-text">combineReducers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#applyMiddleware"><span class="nav-text">applyMiddleware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thunk"><span class="nav-text">thunk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用-middleware-实现"><span class="nav-text">利用 middleware 实现</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#Redux" rel="tag">#Redux</a>
+        
+          <a href="/tags#源码" rel="tag">#源码</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>

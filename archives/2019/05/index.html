@@ -50,7 +50,7 @@
 <meta name="description" content="Pober Wong">
 <meta property="og:type" content="website">
 <meta property="og:title" content="波波的小窝">
-<meta property="og:url" content="http://poberwong.com/archives/2017/05/index.html">
+<meta property="og:url" content="http://poberwong.com/archives/2019/05/index.html">
 <meta property="og:site_name" content="波波的小窝">
 <meta property="og:description" content="Pober Wong">
 <meta property="og:locale" content="zh-Hans">
@@ -162,30 +162,27 @@
 
 
   <div class="title-wrap" style="background: url() center / cover">
-    <h2 class="title"><a href="/2017/05/19/如何提升每日工作效率/">如何提升每日工作效率</a></h2>
+    <h2 class="title"><a href="/2019/05/06/重访-Redux/">重访 Redux</a></h2>
   </div>
 
   <div class="post-cont">
     <span class="post-time">
       发表于
-      <time datetime="2017-05-19T10:31:41+08:00" content="2017-05-19">
-        2017-05-19
+      <time datetime="2019-05-06T12:43:15+08:00" content="2019-05-06">
+        2019-05-06
       </time>
     </span>
     <div class="text">
-      <a href="/2017/05/19/如何提升每日工作效率/">
+      <a href="/2019/05/06/重访-Redux/">
         
-        一个工作日的时间块分析
-早班：10: 00 —— 11: 45 
-午餐 + 午休：11: 45 —— 2: 00
-午班：2: 00 —— 6: 40
+        createStore包含订阅函数、清除订阅、dispatch 函数。在 window 全局上定义了三个变量：
 
-一个好的工作规划
-因为早晨时间比较短暂，加之是记忆接纳能力最强的时间段，因此在这个时间段比较适合一些技术、社区、文档类型的阅读。
-午休时间注重休息
-下午集中注意力进行开发，提升个人单位时间的工作产出
+globalReducer（用来承接单个或者合并后的 reducer）  
+globalState 用来承接产生的新的 store 集合
+subscriberList 用来存放所有的订阅者回调函数
 
-Ago个人时间管理比较混乱，效率低下导致总产生
+最终的 store 返回的内容是这样的：
+&#123;	subscribe,	clea
         ...
       </a>
     </div>
@@ -198,8 +195,8 @@ Ago个人时间管理比较混乱，效率低下导致总产生
         &nbsp; 分类于
         
           <span itemprop="about" itemscope>
-            <a href="/categories#随笔" itemprop="url" rel="index">
-              <span itemprop="name">随笔</span>
+            <a href="/categories#ReactX" itemprop="url" rel="index">
+              <span itemprop="name">ReactX</span>
             </a>
           </span>
 
@@ -210,113 +207,7 @@ Ago个人时间管理比较混乱，效率低下导致总产生
       </span>
     
 
-    <a class="read-more-btn" target="_blank" href="/2017/05/19/如何提升每日工作效率/" itemprop="url">
-      more...
-    </a>
-  </div>
-</div>
-
-      
-        
-
-
-<div class="post-item without-bgimage">
-
-
-  <div class="title-wrap" style="background: url() center / cover">
-    <h2 class="title"><a href="/2017/05/17/去做你应该做的事/">去做你应该做的事</a></h2>
-  </div>
-
-  <div class="post-cont">
-    <span class="post-time">
-      发表于
-      <time datetime="2017-05-17T09:13:24+08:00" content="2017-05-17">
-        2017-05-17
-      </time>
-    </span>
-    <div class="text">
-      <a href="/2017/05/17/去做你应该做的事/">
-        
-        人生中有很多事情，抓住就是抓住了，错过就是错过了。抓住了可能会使你受益终生，也可能仅仅让你心里好受点。但在犹豫中错过了自己想要做的事，会不会让你蒙受损失不得而知，但因为勇气而放弃做这么一件事会让你心有不安是一定的。
-前阵子看过一节 70 分钟的哈佛心里公开课，印象比较深的一句话大致意思是 “在努力奋斗、忙于工作的过程中，停下来冥想、反思、总结在任何时候都意义非凡”。我也会经常反思，由于自己的勇气究
-        ...
-      </a>
-    </div>
-  </div>
-
-  <div class="bottom-bar">
-
-    
-      <span class="post-category">
-        &nbsp; 分类于
-        
-          <span itemprop="about" itemscope>
-            <a href="/categories#随笔" itemprop="url" rel="index">
-              <span itemprop="name">随笔</span>
-            </a>
-          </span>
-
-          
-          
-
-        
-      </span>
-    
-
-    <a class="read-more-btn" target="_blank" href="/2017/05/17/去做你应该做的事/" itemprop="url">
-      more...
-    </a>
-  </div>
-</div>
-
-      
-        
-
-
-<div class="post-item without-bgimage">
-
-
-  <div class="title-wrap" style="background: url() center / cover">
-    <h2 class="title"><a href="/2017/05/16/请不要轻易说出-“对不起”/">请不要轻易说出 “对不起”</a></h2>
-  </div>
-
-  <div class="post-cont">
-    <span class="post-time">
-      发表于
-      <time datetime="2017-05-16T09:47:34+08:00" content="2017-05-16">
-        2017-05-16
-      </time>
-    </span>
-    <div class="text">
-      <a href="/2017/05/16/请不要轻易说出-“对不起”/">
-        
-        曾经听过这么两句话：“在任何场合多说 ‘谢谢’ 总是没问题的”。“在犯错时，说 ‘谢谢你的帮助，我会做的更好’ 会比 ‘对不起’ 更让人感到舒服’”。这也是自己在很多陌生人眼里树立了一名彬彬有礼的学生形象。但与之相较，“对不起” 就显得在很多场合里格格不入了…
-「对不起」一般是一种对对方致歉的最直接的表达方式。当两人在针对一个问题进行讨论时，如果出现因为一方的失误而出现一些不好的结果时，就需要这两
-        ...
-      </a>
-    </div>
-  </div>
-
-  <div class="bottom-bar">
-
-    
-      <span class="post-category">
-        &nbsp; 分类于
-        
-          <span itemprop="about" itemscope>
-            <a href="/categories#随笔" itemprop="url" rel="index">
-              <span itemprop="name">随笔</span>
-            </a>
-          </span>
-
-          
-          
-
-        
-      </span>
-    
-
-    <a class="read-more-btn" target="_blank" href="/2017/05/16/请不要轻易说出-“对不起”/" itemprop="url">
+    <a class="read-more-btn" target="_blank" href="/2019/05/06/重访-Redux/" itemprop="url">
       more...
     </a>
   </div>
