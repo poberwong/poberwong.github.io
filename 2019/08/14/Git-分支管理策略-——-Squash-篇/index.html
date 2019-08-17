@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- content-Type -->
+<meta charset="utf-8">
+
+
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="language" content="en">
+<meta name="robots" content="all">
+
+
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+<meta name="author" content="theme.author, theme.email">
+<meta name="reply-to" content="theme.email">
+<meta name="owner" content="theme.author">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Pober Wong">
+
+
+
+
+<meta name="keywords" content="Git,Squash,分支管理,">
+
+
+<meta name="description" content="使用场景1. 合并同分支中提交无意义的 commit： 1. git rebase -i $&amp;#123;targetSHA&amp;#125;. // 进入 rebase 的交互模式, target 也可以使用 HEAD + 若干^.  2. 在 vim 中将需要合并进其上一个 commit 的 commit 前列的 pick 修改为 squash, 保存退出 vim。  3. 删除 commit 信息中">
+<meta name="keywords" content="Git,Squash,分支管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 分支管理策略 —— Squash 篇">
+<meta property="og:url" content="http://poberwong.com/2019/08/14/Git-分支管理策略-——-Squash-篇/index.html">
+<meta property="og:site_name" content="波波的小窝">
+<meta property="og:description" content="使用场景1. 合并同分支中提交无意义的 commit： 1. git rebase -i $&amp;#123;targetSHA&amp;#125;. // 进入 rebase 的交互模式, target 也可以使用 HEAD + 若干^.  2. 在 vim 中将需要合并进其上一个 commit 的 commit 前列的 pick 修改为 squash, 保存退出 vim。  3. 删除 commit 信息中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-17T11:19:24.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git 分支管理策略 —— Squash 篇">
+<meta name="twitter:description" content="使用场景1. 合并同分支中提交无意义的 commit： 1. git rebase -i $&amp;#123;targetSHA&amp;#125;. // 进入 rebase 的交互模式, target 也可以使用 HEAD + 若干^.  2. 在 vim 中将需要合并进其上一个 commit 的 commit 前列的 pick 修改为 squash, 保存退出 vim。  3. 删除 commit 信息中">
+
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.0.1">
+
+
+
+
+
+
+<link href="http://cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.0.1">
+
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  bp.src = '//push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Git 分支管理策略 —— Squash 篇 </title>
+  
+
+
+
+
+</head>
+<body lang="zh-Hans">
+
+  <!--[if lte IE 9]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <div class="another-theme layout">
+
+    
+<header class="header" id="header">
+
+  <div class="header-cont">
+    <div class="text-area">
+      
+        <h1 class="title" data-text="Git 分支管理策略 —— Squash 篇"> Git 分支管理策略 —— Squash 篇 </h1>
+
+        
+        <div class="post-meta">
+          <div class="post-time">
+            发表于
+            <time datetime="2019-08-14T01:44:21+08:00" content="2019-08-14">
+              2019-08-14
+            </time>
+          </div>
+
+          
+            <div class="post-category">
+              
+                <span>
+                  <a href="/categories#开发" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </div>
+          
+
+          
+            
+          
+        </div>
+        
+      
+    </div>
+    <!-- Navigation -->
+    
+    <nav class="navigation clearfix" id="navigation">
+      
+        
+        <a class="nav-link" href="/" rel="section">
+          首页
+        </a>
+      
+        
+        <a class="nav-link" href="/categories" rel="section">
+          分类
+        </a>
+      
+        
+        <a class="nav-link" href="/tags" rel="section">
+          标签
+        </a>
+      
+        
+        <a class="nav-link" href="/about" rel="section">
+          关于
+        </a>
+      
+    </nav>
+    
+  </div>
+  <div class="mask"></div>
+</header>
+
+
+    <main class="container">
+
+      
+
+  <article class="post-article post-type-normal post" itemscope>
+
+  <div class="post-body">
+
+    <div class="content markdown-body"><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p><strong>1.</strong> 合并同分支中提交无意义的 commit：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. git rebase -i <span class="variable">$&#123;targetSHA&#125;</span>. // 进入 rebase 的交互模式, target 也可以使用 HEAD + 若干^.  </span><br><span class="line">2. 在 vim 中将需要合并进其上一个 commit 的 commit 前列的 pick 修改为 squash, 保存退出 vim。  </span><br><span class="line">3. 删除 commit 信息中无用的部分，保存退出 vim。</span><br></pre></td></tr></table></figure>
+<p>rebase 的含义是变基，寻找所处分支和目标分支二者的分叉处，将所处分支从分叉处到当前节点的所有 commit 通过 cherry-pick (在 rebase 的交互模式中为 pick) 批量生成 commit 并提交到目标分支上。</p>
+<p>交互模式中，我们可以通过将 pick 修改为 squash 来达到合并 commit 的目的。但是建议仅在两个 commit 的范围内操作，避免过度破坏提交历史。  </p>
+<p><strong>2.</strong> 开源项目中让 “pull request” (GitLab 为 “merge request”) 变得更优雅  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git merge --squash newFeatureBranch</span><br></pre></td></tr></table></figure>
+<p>作为开源库库主，我们时常需要 –squash 这么一个选项来将贡献者的 commits 合并为一个 commit 再 merge。这样会让主分支的提交记录看起来更加好看些，同时也可以以 “pull request” 为单位进行责任追踪(git blame)，这对源码的阅读者是非常友好的，但缺点就是丢失了最原始的提交信息，所以同样是把双刃剑。在 GitHub 的一些大型开源库如 react-native、react、react-navigation 等都没有使用这个选项。</p>
+<h2 id="什么时候会产生冲突呢？"><a href="#什么时候会产生冲突呢？" class="headerlink" title="什么时候会产生冲突呢？"></a>什么时候会产生冲突呢？</h2><p>简而言之就是在 rebase 或者 merge 的时候，两个分支以同源的点开始都发生了开发内容，二者对同一文件的同一位置进行了不一致的修改（一致的部分遵从先来后到的原则）。</p>
+<h2 id="为什么要慎用-–squash-呢？"><a href="#为什么要慎用-–squash-呢？" class="headerlink" title="为什么要慎用 –squash 呢？"></a>为什么要慎用 –squash 呢？</h2><p>其实我们在本地操作中使用该选项的场景很少见。只是在由我们日常开发的 feature、bugfix 等分支向 develop 发起 “merge request” 的时候才会在 GitLab 上勾选该选项，这里的利弊和我们在场景二中一致。那么为何要慎用呢？</p>
+<h3 id="无伤大雅的操作"><a href="#无伤大雅的操作" class="headerlink" title="无伤大雅的操作"></a>无伤大雅的操作</h3><p>不难发现，不论是维护开源项目还是我们日常开发，在 “merge request” 最终在被合并之后，主分支是不会在乎访客分支的。这里具体表现为我们通常在合并时会勾选 “Remove source branch when merge request is accepted.” 选项，而开源库的作者自然也不会去关心访客分支的后续情况。这种情况通常是没有致命问题的。</p>
+<h3 id="致命的操作"><a href="#致命的操作" class="headerlink" title="致命的操作"></a>致命的操作</h3><p>政治老师教给我们，了解一个东西一定要遵循三 W一H what where why how。</p>
+<p>这里就不得不谨慎而行了。当我们对于一个选项没能够全方位了解其利弊时，对其肆意使用，总有翻车的一天，这里 squash 就是。无伤大雅的操作过后，风平浪静，坐在阳台上看着夕阳，一口清茶下肚，感叹到一天的工作总算结束了。然而到达发版之日，东窗事发，为了功能的稳定，不得不一步步解决数以半百计的 conflicts，怎么回事呢？</p>
+<p>原来，因为我们在所有提交 “merge request” 规范中，把 –squash 当作了必选项。当我们按照流程，从 prod 生产分支 checkout 出封板分支，并开始在本地 merge develop 分支上所有新开发内容时，都很顺利。同样封板分支测试完毕，环境修改完毕在 GitLab 中从封板分支向 prod 分支发起 “merge request” 时，很常规的勾选了 squash 选项，从此埋下了祸根。在这一步其实还没什么问题，对于 prod 分支而言，无非就是来了一个大的 commit 而已。这时候使用 SourceTree 的同学会发现 develop 本应和 prod 仅差一个修改环境的 commit，但是实际上分支结构已经开始分道扬镳。</p>
+<p>接下来事故要开始了。又过了两周，我们要开始发下一个 Sprint 版本了，轻车熟路，然而在尝试将 develop 合入封板分支时却出现了让人费解的一幕，居然出现了多达好几十个文件的冲突。有经验的开发同学就会联想到，正常写作开发最多也就有个别文件存在冲突，如果在一次 merge 中存在大量的冲突，只有一种可能性，那就是自己所开发的内容，大范围地被同事重复开发了。Git 作为分支管理者它也不知道孰优孰劣，更不知取舍，它只知道从同一个节点开始，checkout 出的协作开发的两个分支，不可以对同一份文件的同一行进行修改。否则就需要把两个开发同事叫过来切磋一番，用周恩来总理的话讲，这叫求同存异（当然功能完全相同那就是优胜劣汰了）。</p>
+<p>然而这里 develop 分支的特性可以看做是开发同事一，那二呢？别忘了，咱们第一次使用 “merge request” 的时候，prod 和 develop 还是一家人（如第一次从 develop 分支 checkout 出 prod 分支），因为带上了 –squash 选项，它们被迫分了家。系统把 develop 的功劳全部偷拿过来，做了一个大大的 commit 提交给了 prod，这时候 develop 分支并没有像 “无伤大雅” 的操作中那样被人们遗忘。此时 develop 分支和 prod 分支的共源处依旧停留在第一次发版之前。而本次发版呢？develop 分支将会带着第一版的内容和第二版的内容来向封板分支提亲，封板分支一看，这家伙在我们同源的地方开始居然有两个版本的更改量，我这儿已经有第三者 “系统” 生成的第一版更改 commit 了。万一 develop 带着最终的更改和我已经合入的内容更改同一行，那怎么办？取谁留谁呢？让 develop 跟”系统” 去解决冲突吧~</p>
+<p>至此事情已经非常明朗了，现在就变成这个版本时间点的 “我” 和 上个版本时间点的 “我” 进行冲突辩论了。</p>
+<h3 id="造成的后果可能有哪些："><a href="#造成的后果可能有哪些：" class="headerlink" title="造成的后果可能有哪些："></a>造成的后果可能有哪些：</h3><ol>
+<li>第二版对于第一版的更改进行二次开发的内容会产生冲突。</li>
+<li>Git 的 diff 系统出现紊乱，如 “系统” 所开发的内容虽然和 develop 完全一样，但由于行数不同，可能会造成 “add” 而非 “change” 的效果。</li>
+<li>整个文件出现无法 diff 的情况。</li>
+</ol>
+<h2 id="关于-–squash-新的使用规范"><a href="#关于-–squash-新的使用规范" class="headerlink" title="关于 –squash 新的使用规范"></a>关于 –squash 新的使用规范</h2><ol>
+<li>在发版流程的最后一步 —— 在 GitLab 中向生产分支发起 “merge request” 时，禁止勾选 –squash 选项。  </li>
+<li>本地需要 push 到远程端的分支，在本地合并分支时禁止使用 –squash 选项。  </li>
+<li>其他情况欢迎使用</li>
+</ol>
+</div>
+
+    <div class="post-sidebar">
+  <div class="toggle-btn" id="toggle-btn">
+    <i class="fa fa-reorder"></i>
+  </div>
+  <section class="post-toc-wrap" id="post-sidebar">
+    <h2 class="toc-title">内容目录</h2>
+    <div class="post-toc">
+      
+      
+        <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候会产生冲突呢？"><span class="nav-text">什么时候会产生冲突呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要慎用-–squash-呢？"><span class="nav-text">为什么要慎用 –squash 呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无伤大雅的操作"><span class="nav-text">无伤大雅的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致命的操作"><span class="nav-text">致命的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#造成的后果可能有哪些："><span class="nav-text">造成的后果可能有哪些：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-–squash-新的使用规范"><span class="nav-text">关于 –squash 新的使用规范</span></a></li></ol></div>
+      
+    </div>
+  </section>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    
+      <div class="post-tags">
+        
+          <a href="/tags#Git" rel="tag">#Git</a>
+        
+          <a href="/tags#Squash" rel="tag">#Squash</a>
+        
+          <a href="/tags#分支管理" rel="tag">#分支管理</a>
+        
+      </div>
+    
+    
+  <style>
+    .donation {
+      width: 100%;
+      margin-top: 2rem;
+    }
+    .donation .text {
+      color: #333;
+      font-size: .8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .donation .text:hover {
+      color: rgb(63,134,181);
+    }
+    .donation .img-box {
+      transition: all .3s;
+      width: 0;
+      height: 0;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+    .donation .img-box img {
+      width: 100%;
+      height: 100%;
+    }
+    .donation #donation {
+      display: none;
+    }
+    .donation #donation:checked + .img-box {
+      width: 16rem;
+      height: 16rem;
+    }
+  </style>
+  <div class="donation">
+    <label class="text" for="donation">
+      如果你觉得文章对你有帮助，并且想为我买一杯咖啡，点这里～
+    </label>
+    <input type="checkbox" name="donation" id="donation">
+    <div class="img-box">
+      <img src="/images/pay.ali.png" alt="donation">
+    </div>
+    
+  </div>
+
+
+  </footer>
+
+</article>
+
+
+
+
+      
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+
+
+    </main>
+
+    <footer class="footer clearfix">
+  <div class="copyright">
+    <span>Copyright</span>
+    
+    &copy;  2015-
+    <span itemprop="copyrightYear">2019</span>
+    <span class="author" itemprop="copyrightHolder">Pober Wong</span>
+  </div>
+
+  <div class="info">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+      <span id="showDays" class="show-days"></span>
+      <script>
+      var birthDay = new Date('7/20/2015');
+      var now = new Date();
+      var duration = now.getTime() - birthDay.getTime();
+      var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+      document.getElementById("showDays").innerHTML = "本站已运行 "+total+" 天";
+      </script>
+      ---
+    
+    <span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+  </div>
+
+  <div class="my-theme">
+    Theme by <a href="//qiutc.me">qiutc</a> | <iframe style="margin-left: 5px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=TongchengQiu&amp;repo=hexo-theme-another&amp;type=star&amp;count=true"></iframe>
+  </div>
+
+</footer>
+
+
+  </div>
+
+  <div class="back-top-btn" id="back-top-btn"><i class="fa fa-chevron-up"></i></div>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="text/javascript" src="/js/motto.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="/js/main.js?v=0.0.1"></script>
+
+
+</body>
+</html>
