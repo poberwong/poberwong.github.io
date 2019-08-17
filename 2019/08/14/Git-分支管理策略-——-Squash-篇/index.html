@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="波波的小窝">
 <meta property="og:description" content="使用场景1. 合并同分支中提交无意义的 commit： 1. git rebase -i $&amp;#123;targetSHA&amp;#125;. // 进入 rebase 的交互模式, target 也可以使用 HEAD + 若干^.  2. 在 vim 中将需要合并进其上一个 commit 的 commit 前列的 pick 修改为 squash, 保存退出 vim。  3. 删除 commit 信息中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-17T11:19:24.670Z">
+<meta property="og:updated_time" content="2019-08-17T11:31:55.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 分支管理策略 —— Squash 篇">
 <meta name="twitter:description" content="使用场景1. 合并同分支中提交无意义的 commit： 1. git rebase -i $&amp;#123;targetSHA&amp;#125;. // 进入 rebase 的交互模式, target 也可以使用 HEAD + 若干^.  2. 在 vim 中将需要合并进其上一个 commit 的 commit 前列的 pick 修改为 squash, 保存退出 vim。  3. 删除 commit 信息中">
@@ -199,7 +199,7 @@
 <h3 id="致命的操作"><a href="#致命的操作" class="headerlink" title="致命的操作"></a>致命的操作</h3><p>政治老师教给我们，了解一个东西一定要遵循三 W一H what where why how。</p>
 <p>这里就不得不谨慎而行了。当我们对于一个选项没能够全方位了解其利弊时，对其肆意使用，总有翻车的一天，这里 squash 就是。无伤大雅的操作过后，风平浪静，坐在阳台上看着夕阳，一口清茶下肚，感叹到一天的工作总算结束了。然而到达发版之日，东窗事发，为了功能的稳定，不得不一步步解决数以半百计的 conflicts，怎么回事呢？</p>
 <p>原来，因为我们在所有提交 “merge request” 规范中，把 –squash 当作了必选项。当我们按照流程，从 prod 生产分支 checkout 出封板分支，并开始在本地 merge develop 分支上所有新开发内容时，都很顺利。同样封板分支测试完毕，环境修改完毕在 GitLab 中从封板分支向 prod 分支发起 “merge request” 时，很常规的勾选了 squash 选项，从此埋下了祸根。在这一步其实还没什么问题，对于 prod 分支而言，无非就是来了一个大的 commit 而已。这时候使用 SourceTree 的同学会发现 develop 本应和 prod 仅差一个修改环境的 commit，但是实际上分支结构已经开始分道扬镳。</p>
-<p>接下来事故要开始了。又过了两周，我们要开始发下一个 Sprint 版本了，轻车熟路，然而在尝试将 develop 合入封板分支时却出现了让人费解的一幕，居然出现了多达好几十个文件的冲突。有经验的开发同学就会联想到，正常写作开发最多也就有个别文件存在冲突，如果在一次 merge 中存在大量的冲突，只有一种可能性，那就是自己所开发的内容，大范围地被同事重复开发了。Git 作为分支管理者它也不知道孰优孰劣，更不知取舍，它只知道从同一个节点开始，checkout 出的协作开发的两个分支，不可以对同一份文件的同一行进行修改。否则就需要把两个开发同事叫过来切磋一番，用周恩来总理的话讲，这叫求同存异（当然功能完全相同那就是优胜劣汰了）。</p>
+<p>接下来事故要开始了。又过了两周，我们要开始发下一个 Sprint 版本了，轻车熟路，然而在尝试将 develop 合入封板分支时却出现了让人费解的一幕，居然出现了多达好几十个文件的冲突。有经验的开发同学就会联想到，正常协作开发最多也就有个别文件存在冲突，如果在一次 merge 中存在大量的冲突，只有一种可能性，那就是自己所开发的内容，大范围地被同事重复开发了。Git 作为分支管理者它也不知道孰优孰劣，更不知取舍，它只知道从同一个节点开始，checkout 出的协作开发的两个分支，不可以对同一份文件的同一行进行修改。否则就需要把两个开发同事叫过来切磋一番，用周恩来总理的话讲，这叫求同存异（当然功能完全相同那就是优胜劣汰了）。</p>
 <p>然而这里 develop 分支的特性可以看做是开发同事一，那二呢？别忘了，咱们第一次使用 “merge request” 的时候，prod 和 develop 还是一家人（如第一次从 develop 分支 checkout 出 prod 分支），因为带上了 –squash 选项，它们被迫分了家。系统把 develop 的功劳全部偷拿过来，做了一个大大的 commit 提交给了 prod，这时候 develop 分支并没有像 “无伤大雅” 的操作中那样被人们遗忘。此时 develop 分支和 prod 分支的共源处依旧停留在第一次发版之前。而本次发版呢？develop 分支将会带着第一版的内容和第二版的内容来向封板分支提亲，封板分支一看，这家伙在我们同源的地方开始居然有两个版本的更改量，我这儿已经有第三者 “系统” 生成的第一版更改 commit 了。万一 develop 带着最终的更改和我已经合入的内容更改同一行，那怎么办？取谁留谁呢？让 develop 跟”系统” 去解决冲突吧~</p>
 <p>至此事情已经非常明朗了，现在就变成这个版本时间点的 “我” 和 上个版本时间点的 “我” 进行冲突辩论了。</p>
 <h3 id="造成的后果可能有哪些："><a href="#造成的后果可能有哪些：" class="headerlink" title="造成的后果可能有哪些："></a>造成的后果可能有哪些：</h3><ol>
