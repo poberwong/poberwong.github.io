@@ -56,7 +56,7 @@
 <meta property="og:description" content="装饰器介绍初识装饰器，还是在 babel-preset-stage-0 提案法则中被支持，学过 Java 的想必能联想到注解。正如大家所知，装饰器修饰类是最简单的写法，直接按照高阶函数的方式来书写处理函数即可，关于对类体内部字段和方法的修饰，就没有那么简单了。关于装饰器的更多介绍和使用方式，见阮老师的 ES6 文档。 问题起始这篇文章的启发源自对防抖函数的封装探索，防抖函数的实现原理（deboun">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/442688-36b7e7eb61f0cc09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-03T06:41:31.636Z">
+<meta property="og:updated_time" content="2020-08-11T10:42:43.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="装饰器-探索箭头函数">
 <meta name="twitter:description" content="装饰器介绍初识装饰器，还是在 babel-preset-stage-0 提案法则中被支持，学过 Java 的想必能联想到注解。正如大家所知，装饰器修饰类是最简单的写法，直接按照高阶函数的方式来书写处理函数即可，关于对类体内部字段和方法的修饰，就没有那么简单了。关于装饰器的更多介绍和使用方式，见阮老师的 ES6 文档。 问题起始这篇文章的启发源自对防抖函数的封装探索，防抖函数的实现原理（deboun">
@@ -245,6 +245,7 @@
 <p><strong>进一步思考问题</strong><br>我们在上面介绍箭头函数的时候发现，返回的 debounce 函数内部根本不需要重新给 fn 绑定 this。而这里却不可以，返回的 debounce 严重依赖调用它的 this，而此时我们讨论的是类内函数，它需要正确的运行时上下文呀！<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 修饰类内函数</span></span><br><span class="line"><span class="keyword">if</span>(descriptor.value) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> createDebounce(descriptor.value.bind(<span class="keyword">this</span>)(...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>为了能让 debounce 中的 fn 执行时拥有正确的 this，我们只好在 value 的定义上，利用函数主动创造运行时环境，但由于 value 的值本身就应该是 debounce 函数，因此我们在这里重写为 function，相当于是用该 function 去替换 debounce 函数。为了保持一致性，应该被要求 value 方法的运行结果和改动之前完全一致（也就是 debounce 的执行结果），所以我们在返回值里创建好 debounce 后一定不要忘记执行。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一路下来，对装饰器、箭头函数、普通函数的 this 的使用和定义有了更加全面的理解，『门儿清』不易啊 …</p>
+<p><strong><a href="https://github.com/poberwong/debounce-decorator-pro" target="_blank" rel="noopener">源代码</a></strong></p>
 </div>
 
     <div class="post-sidebar">
